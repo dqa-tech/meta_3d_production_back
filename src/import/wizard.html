@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    
+    .wizard-container {
+      max-width: 100%;
+      margin: 0 auto;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+    
+    .wizard-header {
+      background: #4285f4;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    
+    .wizard-header h2 {
+      margin: 0;
+      font-weight: 300;
+      font-size: 24px;
+    }
+    
+    .wizard-content {
+      padding: 20px;
+    }
+    
+    .step {
+      display: none;
+    }
+    
+    .step.active {
+      display: block;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #333;
+    }
+    
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+    
+    .folder-picker {
+      padding: 12px 20px;
+      background: #f8f9fa;
+      border: 2px dashed #dadce0;
+      border-radius: 4px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .folder-picker:hover {
+      background: #e8f0fe;
+      border-color: #4285f4;
+    }
+    
+    .folder-picker.selected {
+      background: #e8f0fe;
+      border: 2px solid #4285f4;
+    }
+    
+    .folder-info {
+      margin-top: 10px;
+      padding: 10px;
+      background: #f8f9fa;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    
+    .scan-results {
+      margin-top: 20px;
+      padding: 15px;
+      background: #f8f9fa;
+      border-radius: 4px;
+    }
+    
+    .scan-results h4 {
+      margin-top: 0;
+      color: #333;
+    }
+    
+    .result-item {
+      padding: 8px 0;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    
+    .result-item:last-child {
+      border-bottom: none;
+    }
+    
+    .valid-task {
+      color: #1a73e8;
+    }
+    
+    .invalid-task {
+      color: #d93025;
+    }
+    
+    .duplicate-task {
+      color: #f9ab00;
+    }
+    
+    .progress-container {
+      margin: 20px 0;
+    }
+    
+    .progress-bar {
+      width: 100%;
+      height: 20px;
+      background: #e0e0e0;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    
+    .progress-fill {
+      height: 100%;
+      background: #4285f4;
+      transition: width 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 12px;
+    }
+    
+    .wizard-footer {
+      padding: 20px;
+      background: #f8f9fa;
+      border-top: 1px solid #e0e0e0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .btn-primary {
+      background: #4285f4;
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background: #3367d6;
+    }
+    
+    .btn-secondary {
+      background: #fff;
+      color: #5f6368;
+      border: 1px solid #dadce0;
+    }
+    
+    .btn-secondary:hover {
+      background: #f8f9fa;
+    }
+    
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    
+    .alert {
+      padding: 12px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+    }
+    
+    .alert-info {
+      background: #e8f0fe;
+      color: #1967d2;
+      border: 1px solid #aecbfa;
+    }
+    
+    .alert-success {
+      background: #e6f4ea;
+      color: #137333;
+      border: 1px solid #a8dab5;
+    }
+    
+    .alert-error {
+      background: #fce8e6;
+      color: #c5221f;
+      border: 1px solid #f5c6cb;
+    }
+    
+    .spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #4285f4;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .summary-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    
+    .summary-table th,
+    .summary-table td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    
+    .summary-table th {
+      font-weight: 500;
+      color: #5f6368;
+    }
+  </style>
+</head>
+<body>
+  <div class="wizard-container">
+    <div class="wizard-header">
+      <h2>Import Tasks Wizard</h2>
+    </div>
+    
+    <div class="wizard-content">
+      <!-- Step 1: Select Folder -->
+      <div class="step active" id="step1">
+        <h3>Step 1: Select Import Folder</h3>
+        <p>Choose the Google Drive folder containing task folders to import.</p>
+        
+        <div class="folder-picker" onclick="selectImportFolder()">
+          <span id="folderPickerText">Click to select import folder</span>
+        </div>
+        
+        <div id="folderInfo" class="folder-info" style="display: none;">
+          <strong>Selected Folder:</strong> <span id="selectedFolderName"></span><br>
+          <strong>Folder ID:</strong> <span id="selectedFolderId"></span>
+        </div>
+        
+        <div class="form-group" style="margin-top: 20px;">
+          <label for="batchName">Batch Name (optional)</label>
+          <input type="text" id="batchName" placeholder="Enter batch name or leave empty for auto-generated">
+        </div>
+      </div>
+      
+      <!-- Step 2: Scan Results -->
+      <div class="step" id="step2">
+        <h3>Step 2: Review Scan Results</h3>
+        
+        <div id="scanProgress" style="display: none;">
+          <p>Scanning folder for valid tasks...</p>
+          <div class="spinner"></div>
+        </div>
+        
+        <div id="scanResults" class="scan-results" style="display: none;">
+          <h4>Scan Summary</h4>
+          <table class="summary-table">
+            <tr>
+              <th>Total Folders</th>
+              <td id="totalFolders">0</td>
+            </tr>
+            <tr>
+              <th>Valid Tasks</th>
+              <td id="validTasks" class="valid-task">0</td>
+            </tr>
+            <tr>
+              <th>Duplicates</th>
+              <td id="duplicateTasks" class="duplicate-task">0</td>
+            </tr>
+            <tr>
+              <th>Invalid</th>
+              <td id="invalidTasks" class="invalid-task">0</td>
+            </tr>
+            <tr>
+              <th>To Import</th>
+              <td id="toImport" style="font-weight: bold;">0</td>
+            </tr>
+          </table>
+          
+          <div id="taskList" style="margin-top: 20px; max-height: 200px; overflow-y: auto;"></div>
+          
+          <div class="form-group" style="margin-top: 20px;">
+            <label for="batchGroup">Batch Group</label>
+            <select id="batchGroup" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;">
+              <option value="A">Group A</option>
+              <option value="B">Group B</option>
+              <option value="C">Group C</option>
+              <option value="D">Group D</option>
+            </select>
+            <small style="color: #5f6368; display: block; margin-top: 4px;">
+              Select the group level for all tasks in this batch
+            </small>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Step 3: Import Progress -->
+      <div class="step" id="step3">
+        <h3>Step 3: Importing Tasks</h3>
+        
+        <div class="progress-container">
+          <div class="progress-bar">
+            <div class="progress-fill" id="progressFill" style="width: 0%">0%</div>
+          </div>
+          <p id="progressText" style="text-align: center; margin-top: 10px;">Preparing import...</p>
+        </div>
+        
+        <div id="importLog" style="max-height: 200px; overflow-y: auto; font-size: 14px; color: #5f6368;"></div>
+      </div>
+      
+      <!-- Step 4: Complete -->
+      <div class="step" id="step4">
+        <h3>Import Complete!</h3>
+        
+        <div id="importSummary" class="alert alert-success">
+          <!-- Summary will be inserted here -->
+        </div>
+        
+        <div id="errorSummary" class="alert alert-error" style="display: none;">
+          <!-- Errors will be shown here -->
+        </div>
+      </div>
+    </div>
+    
+    <div class="wizard-footer">
+      <button class="btn btn-secondary" onclick="previousStep()" id="prevBtn" style="display: none;">Previous</button>
+      <div>
+        <button class="btn btn-secondary" onclick="google.script.host.close()">Cancel</button>
+        <button class="btn btn-primary" onclick="nextStep()" id="nextBtn">Next</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentStep = 1;
+    let selectedFolder = null;
+    let scanData = null;
+    let productionFolderId = null;
+    
+    // Initialize
+    google.script.run
+      .withSuccessHandler(function(id) {
+        productionFolderId = id;
+      })
+      .getProductionFolderId();
+    
+    function selectImportFolder() {
+      google.script.run
+        .withSuccessHandler(function(folder) {
+          if (folder) {
+            selectedFolder = folder;
+            document.getElementById('folderPickerText').textContent = folder.name;
+            document.getElementById('selectedFolderName').textContent = folder.name;
+            document.getElementById('selectedFolderId').textContent = folder.id;
+            document.getElementById('folderInfo').style.display = 'block';
+            document.querySelector('.folder-picker').classList.add('selected');
+            document.getElementById('nextBtn').disabled = false;
+          }
+        })
+        .showFolderPicker();
+    }
+    
+    function previousStep() {
+      if (currentStep > 1) {
+        document.getElementById('step' + currentStep).classList.remove('active');
+        currentStep--;
+        document.getElementById('step' + currentStep).classList.add('active');
+        updateButtons();
+      }
+    }
+    
+    function nextStep() {
+      if (currentStep === 1 && selectedFolder) {
+        scanFolder();
+      } else if (currentStep === 2 && scanData && scanData.canImport) {
+        startImport();
+      } else if (currentStep < 4) {
+        document.getElementById('step' + currentStep).classList.remove('active');
+        currentStep++;
+        document.getElementById('step' + currentStep).classList.add('active');
+        updateButtons();
+      } else if (currentStep === 4) {
+        google.script.host.close();
+      }
+    }
+    
+    function updateButtons() {
+      document.getElementById('prevBtn').style.display = currentStep > 1 ? 'inline-block' : 'none';
+      
+      if (currentStep === 1) {
+        document.getElementById('nextBtn').textContent = 'Next';
+        document.getElementById('nextBtn').disabled = !selectedFolder;
+      } else if (currentStep === 2) {
+        document.getElementById('nextBtn').textContent = 'Import';
+        document.getElementById('nextBtn').disabled = !scanData || !scanData.canImport;
+      } else if (currentStep === 3) {
+        document.getElementById('nextBtn').style.display = 'none';
+      } else if (currentStep === 4) {
+        document.getElementById('nextBtn').textContent = 'Close';
+        document.getElementById('nextBtn').style.display = 'inline-block';
+        document.getElementById('prevBtn').style.display = 'none';
+      }
+    }
+    
+    function scanFolder() {
+      document.getElementById('step1').classList.remove('active');
+      currentStep = 2;
+      document.getElementById('step2').classList.add('active');
+      document.getElementById('scanProgress').style.display = 'block';
+      document.getElementById('scanResults').style.display = 'none';
+      updateButtons();
+      
+      google.script.run
+        .withSuccessHandler(function(result) {
+          scanData = result;
+          displayScanResults(result);
+        })
+        .withFailureHandler(function(error) {
+          alert('Scan failed: ' + error.message);
+          previousStep();
+        })
+        .scanImportFolder(selectedFolder.id, productionFolderId);
+    }
+    
+    function displayScanResults(result) {
+      document.getElementById('scanProgress').style.display = 'none';
+      document.getElementById('scanResults').style.display = 'block';
+      
+      document.getElementById('totalFolders').textContent = result.totalValid + result.invalid;
+      document.getElementById('validTasks').textContent = result.totalValid;
+      document.getElementById('duplicateTasks').textContent = result.duplicates;
+      document.getElementById('invalidTasks').textContent = result.invalid;
+      document.getElementById('toImport').textContent = result.newTasks;
+      
+      // Show task list
+      const taskList = document.getElementById('taskList');
+      taskList.innerHTML = '<h5>Task Details:</h5>';
+      
+      if (result.tasks) {
+        result.tasks.forEach(task => {
+          const div = document.createElement('div');
+          div.className = 'result-item';
+          
+          let statusClass = 'valid-task';
+          let status = 'Ready to import';
+          
+          if (task.isDuplicate) {
+            statusClass = 'duplicate-task';
+            status = 'Duplicate (will skip)';
+          }
+          
+          div.innerHTML = `<span class="${statusClass}">${task.name}</span> - ${status}`;
+          taskList.appendChild(div);
+        });
+      }
+      
+      updateButtons();
+    }
+    
+    function startImport() {
+      document.getElementById('step2').classList.remove('active');
+      currentStep = 3;
+      document.getElementById('step3').classList.add('active');
+      updateButtons();
+      
+      const batchName = document.getElementById('batchName').value || null;
+      const batchGroup = document.getElementById('batchGroup').value;
+      
+      google.script.run
+        .withSuccessHandler(function(result) {
+          displayImportComplete(result);
+        })
+        .withFailureHandler(function(error) {
+          displayImportError(error);
+        })
+        .executeImport(selectedFolder.id, productionFolderId, batchName, batchGroup);
+    }
+    
+    function updateProgress(progress) {
+      const percentage = progress.percentage || 0;
+      document.getElementById('progressFill').style.width = percentage + '%';
+      document.getElementById('progressFill').textContent = percentage + '%';
+      document.getElementById('progressText').textContent = 
+        `Imported ${progress.completed} of ${progress.total} tasks`;
+      
+      // Add to log
+      const log = document.getElementById('importLog');
+      const entry = document.createElement('div');
+      entry.textContent = `Task ${progress.completed}: ${progress.taskName || 'Processing...'}`;
+      log.appendChild(entry);
+      log.scrollTop = log.scrollHeight;
+    }
+    
+    function displayImportComplete(result) {
+      document.getElementById('step3').classList.remove('active');
+      currentStep = 4;
+      document.getElementById('step4').classList.add('active');
+      updateButtons();
+      
+      const summary = document.getElementById('importSummary');
+      summary.innerHTML = `
+        <h4>Import Successful!</h4>
+        <p><strong>Batch ID:</strong> ${result.batch.id}</p>
+        <p><strong>Tasks Imported:</strong> ${result.import.successful}</p>
+        <p><strong>Total Time:</strong> ${Math.round(result.batch.duration / 1000)} seconds</p>
+        <p><strong>Sheet Updated:</strong> ${result.sheet.created} rows added</p>
+      `;
+      
+      if (result.import.failed > 0) {
+        const errorDiv = document.getElementById('errorSummary');
+        errorDiv.style.display = 'block';
+        errorDiv.innerHTML = `
+          <h4>Some tasks failed to import:</h4>
+          ${result.import.failedTasks.map(t => 
+            `<p>${t.folderName}: ${t.error}</p>`
+          ).join('')}
+        `;
+      }
+    }
+    
+    function displayImportError(error) {
+      document.getElementById('step3').classList.remove('active');
+      currentStep = 4;
+      document.getElementById('step4').classList.add('active');
+      updateButtons();
+      
+      document.getElementById('importSummary').style.display = 'none';
+      const errorDiv = document.getElementById('errorSummary');
+      errorDiv.style.display = 'block';
+      errorDiv.innerHTML = `
+        <h4>Import Failed</h4>
+        <p>${error.message}</p>
+      `;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    
+    .wizard-container {
+      max-width: 100%;
+      margin: 0 auto;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+    
+    .wizard-header {
+      background: #34a853;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    
+    .wizard-header h2 {
+      margin: 0;
+      font-weight: 300;
+      font-size: 24px;
+    }
+    
+    .wizard-content {
+      padding: 20px;
+    }
+    
+    .step {
+      display: none;
+    }
+    
+    .step.active {
+      display: block;
+    }
+    
+    .filters-container {
+      display: grid;
+      gap: 20px;
+    }
+    
+    .filter-group {
+      padding: 15px;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+      background: #f8f9fa;
+    }
+    
+    .filter-group h4 {
+      margin: 0 0 10px 0;
+      color: #333;
+      font-weight: 500;
+    }
+    
+    .checkbox-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 150px;
+      overflow-y: auto;
+    }
+    
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      padding: 5px;
+    }
+    
+    .checkbox-item:hover {
+      background: #e8f0fe;
+      border-radius: 4px;
+    }
+    
+    .checkbox-item input {
+      margin-right: 8px;
+    }
+    
+    .date-range {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    
+    .date-input {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .date-input label {
+      font-size: 12px;
+      color: #5f6368;
+      margin-bottom: 4px;
+    }
+    
+    .date-input input {
+      padding: 8px;
+      border: 1px solid #dadce0;
+      border-radius: 4px;
+    }
+    
+    .file-types {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    
+    .preview-container {
+      margin-top: 20px;
+      padding: 15px;
+      background: #f8f9fa;
+      border-radius: 4px;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+    
+    .preview-summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    
+    .summary-card {
+      background: white;
+      padding: 15px;
+      border-radius: 4px;
+      text-align: center;
+      border: 1px solid #e0e0e0;
+    }
+    
+    .summary-card h5 {
+      margin: 0 0 5px 0;
+      color: #5f6368;
+      font-weight: 400;
+      font-size: 14px;
+    }
+    
+    .summary-card .value {
+      font-size: 24px;
+      font-weight: 500;
+      color: #1a73e8;
+    }
+    
+    .task-preview {
+      margin-top: 10px;
+    }
+    
+    .task-item {
+      padding: 8px;
+      border-bottom: 1px solid #e0e0e0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .task-item:hover {
+      background: #f5f5f5;
+    }
+    
+    .progress-container {
+      margin: 20px 0;
+    }
+    
+    .progress-bar {
+      width: 100%;
+      height: 20px;
+      background: #e0e0e0;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    
+    .progress-fill {
+      height: 100%;
+      background: #34a853;
+      transition: width 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 12px;
+    }
+    
+    .wizard-footer {
+      padding: 20px;
+      background: #f8f9fa;
+      border-top: 1px solid #e0e0e0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .btn-primary {
+      background: #34a853;
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background: #2e8b48;
+    }
+    
+    .btn-secondary {
+      background: #fff;
+      color: #5f6368;
+      border: 1px solid #dadce0;
+    }
+    
+    .btn-secondary:hover {
+      background: #f8f9fa;
+    }
+    
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    
+    .alert {
+      padding: 12px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+    }
+    
+    .alert-info {
+      background: #e8f0fe;
+      color: #1967d2;
+      border: 1px solid #aecbfa;
+    }
+    
+    .alert-success {
+      background: #e6f4ea;
+      color: #137333;
+      border: 1px solid #a8dab5;
+    }
+    
+    .alert-error {
+      background: #fce8e6;
+      color: #c5221f;
+      border: 1px solid #f5c6cb;
+    }
+    
+    .spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #34a853;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .folder-picker {
+      padding: 12px 20px;
+      background: #f8f9fa;
+      border: 2px dashed #dadce0;
+      border-radius: 4px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-bottom: 20px;
+    }
+    
+    .folder-picker:hover {
+      background: #e8f0fe;
+      border-color: #34a853;
+    }
+    
+    .folder-picker.selected {
+      background: #e6f4ea;
+      border: 2px solid #34a853;
+    }
+  </style>
+</head>
+<body>
+  <div class="wizard-container">
+    <div class="wizard-header">
+      <h2>Export Tasks Wizard</h2>
+    </div>
+    
+    <div class="wizard-content">
+      <!-- Step 1: Configure Filters -->
+      <div class="step active" id="step1">
+        <h3>Step 1: Configure Export Filters</h3>
+        
+        <div class="folder-picker" onclick="selectExportFolder()">
+          <span id="folderPickerText">Click to select destination folder</span>
+        </div>
+        
+        <div class="filters-container">
+          <!-- Batch Filter -->
+          <div class="filter-group">
+            <h4>Select Batches</h4>
+            <div class="checkbox-group" id="batchFilters">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+          
+          <!-- Agent Filter -->
+          <div class="filter-group">
+            <h4>Select Agents</h4>
+            <div class="checkbox-group" id="agentFilters">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+          
+          <!-- Date Range Filter -->
+          <div class="filter-group">
+            <h4>Completion Date Range</h4>
+            <div class="date-range">
+              <div class="date-input">
+                <label>From</label>
+                <input type="date" id="dateFrom">
+              </div>
+              <div class="date-input">
+                <label>To</label>
+                <input type="date" id="dateTo">
+              </div>
+            </div>
+          </div>
+          
+          <!-- File Type Filter -->
+          <div class="filter-group">
+            <h4>Files to Export</h4>
+            <div class="file-types">
+              <div class="checkbox-item">
+                <input type="checkbox" id="includeImages" checked>
+                <label for="includeImages">Original Images</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="includeObj" checked>
+                <label for="includeObj">3D Objects (.obj)</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="includeAlignment" checked>
+                <label for="includeAlignment">Alignment Images</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="includeVideo" checked>
+                <label for="includeVideo">Task Videos</label>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Additional Options -->
+          <div class="filter-group">
+            <h4>Additional Options</h4>
+            <div class="checkbox-item">
+              <input type="checkbox" id="includeExported">
+              <label for="includeExported">Include previously exported tasks</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Step 2: Preview Selection -->
+      <div class="step" id="step2">
+        <h3>Step 2: Review Selection</h3>
+        
+        <div id="previewLoading" style="text-align: center; padding: 20px;">
+          <div class="spinner"></div>
+          <p>Applying filters...</p>
+        </div>
+        
+        <div id="previewContent" style="display: none;">
+          <div class="preview-summary">
+            <div class="summary-card">
+              <h5>Tasks Selected</h5>
+              <div class="value" id="selectedTasks">0</div>
+            </div>
+            <div class="summary-card">
+              <h5>Total Files</h5>
+              <div class="value" id="totalFiles">0</div>
+            </div>
+            <div class="summary-card">
+              <h5>Estimated Size</h5>
+              <div class="value" id="estimatedSize">0 MB</div>
+            </div>
+          </div>
+          
+          <div class="preview-container">
+            <h4>Tasks to Export:</h4>
+            <div id="taskPreviewList"></div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Step 3: Export Progress -->
+      <div class="step" id="step3">
+        <h3>Step 3: Exporting Tasks</h3>
+        
+        <div class="progress-container">
+          <div class="progress-bar">
+            <div class="progress-fill" id="progressFill" style="width: 0%">0%</div>
+          </div>
+          <p id="progressText" style="text-align: center; margin-top: 10px;">Preparing export...</p>
+        </div>
+        
+        <div id="exportLog" style="max-height: 200px; overflow-y: auto; font-size: 14px; color: #5f6368;"></div>
+      </div>
+      
+      <!-- Step 4: Complete -->
+      <div class="step" id="step4">
+        <h3>Export Complete!</h3>
+        
+        <div id="exportSummary" class="alert alert-success">
+          <!-- Summary will be inserted here -->
+        </div>
+        
+        <div id="errorSummary" class="alert alert-error" style="display: none;">
+          <!-- Errors will be shown here -->
+        </div>
+      </div>
+    </div>
+    
+    <div class="wizard-footer">
+      <button class="btn btn-secondary" onclick="previousStep()" id="prevBtn" style="display: none;">Previous</button>
+      <div>
+        <button class="btn btn-secondary" onclick="google.script.host.close()">Cancel</button>
+        <button class="btn btn-primary" onclick="nextStep()" id="nextBtn" disabled>Next</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentStep = 1;
+    let targetFolder = null;
+    let filterOptions = null;
+    let selection = null;
+    
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+      loadFilterOptions();
+    });
+    
+    function loadFilterOptions() {
+      google.script.run
+        .withSuccessHandler(function(options) {
+          filterOptions = options;
+          populateFilters(options);
+        })
+        .withFailureHandler(function(error) {
+          alert('Failed to load filter options: ' + error.message);
+        })
+        .getExportFilterOptions();
+    }
+    
+    function populateFilters(options) {
+      // Populate batches
+      const batchContainer = document.getElementById('batchFilters');
+      batchContainer.innerHTML = '';
+      
+      options.batches.forEach(batch => {
+        const div = document.createElement('div');
+        div.className = 'checkbox-item';
+        div.innerHTML = `
+          <input type="checkbox" id="batch_${batch}" value="${batch}">
+          <label for="batch_${batch}">${batch}</label>
+        `;
+        batchContainer.appendChild(div);
+      });
+      
+      // Populate agents
+      const agentContainer = document.getElementById('agentFilters');
+      agentContainer.innerHTML = '';
+      
+      options.agents.forEach(agent => {
+        const div = document.createElement('div');
+        div.className = 'checkbox-item';
+        div.innerHTML = `
+          <input type="checkbox" id="agent_${agent}" value="${agent}">
+          <label for="agent_${agent}">${agent}</label>
+        `;
+        agentContainer.appendChild(div);
+      });
+      
+      // Set date range limits
+      if (options.dateRange.earliest) {
+        document.getElementById('dateFrom').min = options.dateRange.earliest.split('T')[0];
+      }
+      if (options.dateRange.latest) {
+        document.getElementById('dateTo').max = options.dateRange.latest.split('T')[0];
+      }
+    }
+    
+    function selectExportFolder() {
+      google.script.run
+        .withSuccessHandler(function(folder) {
+          if (folder) {
+            targetFolder = folder;
+            document.getElementById('folderPickerText').textContent = 
+              `Selected: ${folder.name}`;
+            document.querySelector('.folder-picker').classList.add('selected');
+            updateNextButton();
+          }
+        })
+        .showFolderPicker();
+    }
+    
+    function getSelectedFilters() {
+      const filters = {
+        batchIds: [],
+        agentEmails: [],
+        completedAfter: document.getElementById('dateFrom').value || null,
+        completedBefore: document.getElementById('dateTo').value || null,
+        includeImages: document.getElementById('includeImages').checked,
+        includeObj: document.getElementById('includeObj').checked,
+        includeAlignment: document.getElementById('includeAlignment').checked,
+        includeVideo: document.getElementById('includeVideo').checked,
+        includeExported: document.getElementById('includeExported').checked
+      };
+      
+      // Get selected batches
+      document.querySelectorAll('#batchFilters input:checked').forEach(input => {
+        filters.batchIds.push(input.value);
+      });
+      
+      // Get selected agents
+      document.querySelectorAll('#agentFilters input:checked').forEach(input => {
+        filters.agentEmails.push(input.value);
+      });
+      
+      return filters;
+    }
+    
+    function updateNextButton() {
+      const hasFolder = targetFolder !== null;
+      const hasFileType = document.querySelector('.file-types input:checked') !== null;
+      
+      document.getElementById('nextBtn').disabled = !(hasFolder && hasFileType);
+    }
+    
+    // Add event listeners for file type checkboxes
+    document.querySelectorAll('.file-types input').forEach(input => {
+      input.addEventListener('change', updateNextButton);
+    });
+    
+    function previousStep() {
+      if (currentStep > 1) {
+        document.getElementById('step' + currentStep).classList.remove('active');
+        currentStep--;
+        document.getElementById('step' + currentStep).classList.add('active');
+        updateButtons();
+      }
+    }
+    
+    function nextStep() {
+      if (currentStep === 1) {
+        previewExport();
+      } else if (currentStep === 2 && selection && selection.totalTasks > 0) {
+        startExport();
+      } else if (currentStep < 4) {
+        document.getElementById('step' + currentStep).classList.remove('active');
+        currentStep++;
+        document.getElementById('step' + currentStep).classList.add('active');
+        updateButtons();
+      } else if (currentStep === 4) {
+        google.script.host.close();
+      }
+    }
+    
+    function updateButtons() {
+      document.getElementById('prevBtn').style.display = currentStep > 1 ? 'inline-block' : 'none';
+      
+      if (currentStep === 1) {
+        document.getElementById('nextBtn').textContent = 'Preview';
+        updateNextButton();
+      } else if (currentStep === 2) {
+        document.getElementById('nextBtn').textContent = 'Export';
+        document.getElementById('nextBtn').disabled = !selection || selection.totalTasks === 0;
+      } else if (currentStep === 3) {
+        document.getElementById('nextBtn').style.display = 'none';
+      } else if (currentStep === 4) {
+        document.getElementById('nextBtn').textContent = 'Close';
+        document.getElementById('nextBtn').style.display = 'inline-block';
+        document.getElementById('prevBtn').style.display = 'none';
+      }
+    }
+    
+    function previewExport() {
+      document.getElementById('step1').classList.remove('active');
+      currentStep = 2;
+      document.getElementById('step2').classList.add('active');
+      document.getElementById('previewLoading').style.display = 'block';
+      document.getElementById('previewContent').style.display = 'none';
+      updateButtons();
+      
+      const filters = getSelectedFilters();
+      
+      google.script.run
+        .withSuccessHandler(function(result) {
+          selection = result;
+          displayPreview(result);
+        })
+        .withFailureHandler(function(error) {
+          alert('Preview failed: ' + error.message);
+          previousStep();
+        })
+        .selectTasksForExport(filters);
+    }
+    
+    function displayPreview(result) {
+      document.getElementById('previewLoading').style.display = 'none';
+      document.getElementById('previewContent').style.display = 'block';
+      
+      document.getElementById('selectedTasks').textContent = result.totalTasks;
+      document.getElementById('totalFiles').textContent = result.sizeEstimate.totalFiles;
+      document.getElementById('estimatedSize').textContent = result.sizeEstimate.formattedSize;
+      
+      // Display task list
+      const taskList = document.getElementById('taskPreviewList');
+      taskList.innerHTML = '';
+      
+      if (result.tasks.length === 0) {
+        taskList.innerHTML = '<p style="text-align: center; color: #5f6368;">No tasks match the selected filters</p>';
+      } else {
+        result.tasks.forEach(task => {
+          const div = document.createElement('div');
+          div.className = 'task-item';
+          div.innerHTML = `
+            <span>${task.folderName}</span>
+            <span style="color: #5f6368;">${task.batchId}</span>
+          `;
+          taskList.appendChild(div);
+        });
+      }
+      
+      updateButtons();
+    }
+    
+    function startExport() {
+      document.getElementById('step2').classList.remove('active');
+      currentStep = 3;
+      document.getElementById('step3').classList.add('active');
+      updateButtons();
+      
+      google.script.run
+        .withSuccessHandler(function(result) {
+          displayExportComplete(result);
+        })
+        .withFailureHandler(function(error) {
+          displayExportError(error);
+        })
+        .executeExportTasks(selection, targetFolder.id);
+    }
+    
+    function updateProgress(progress) {
+      const percentage = progress.percentage || 0;
+      document.getElementById('progressFill').style.width = percentage + '%';
+      document.getElementById('progressFill').textContent = percentage + '%';
+      document.getElementById('progressText').textContent = 
+        `Exported ${progress.completed} of ${progress.total} tasks`;
+      
+      // Add to log
+      const log = document.getElementById('exportLog');
+      const entry = document.createElement('div');
+      entry.textContent = `Task ${progress.completed}: ${progress.taskName || 'Processing...'}`;
+      log.appendChild(entry);
+      log.scrollTop = log.scrollHeight;
+    }
+    
+    function displayExportComplete(result) {
+      document.getElementById('step3').classList.remove('active');
+      currentStep = 4;
+      document.getElementById('step4').classList.add('active');
+      updateButtons();
+      
+      const summary = document.getElementById('exportSummary');
+      summary.innerHTML = `
+        <h4>Export Successful!</h4>
+        <p><strong>Export Batch:</strong> ${result.exportBatchId}</p>
+        <p><strong>Tasks Exported:</strong> ${result.stats.successfulTasks}</p>
+        <p><strong>Files Copied:</strong> ${result.stats.totalFiles}</p>
+        <p><strong>Destination:</strong> <a href="${result.batchFolder.url}" target="_blank">${result.batchFolder.name}</a></p>
+        <p><strong>Duration:</strong> ${Math.round(result.duration / 1000)} seconds</p>
+      `;
+      
+      if (result.stats.failedTasks > 0) {
+        const errorDiv = document.getElementById('errorSummary');
+        errorDiv.style.display = 'block';
+        errorDiv.innerHTML = `
+          <h4>Some tasks failed to export:</h4>
+          ${result.failedExports.map(t => 
+            `<p>${t.folderName}: ${t.error}</p>`
+          ).join('')}
+        `;
+      }
+    }
+    
+    function displayExportError(error) {
+      document.getElementById('step3').classList.remove('active');
+      currentStep = 4;
+      document.getElementById('step4').classList.add('active');
+      updateButtons();
+      
+      document.getElementById('exportSummary').style.display = 'none';
+      const errorDiv = document.getElementById('errorSummary');
+      errorDiv.style.display = 'block';
+      errorDiv.innerHTML = `
+        <h4>Export Failed</h4>
+        <p>${error.message}</p>
+      `;
+    }
+  </script>
+</body>
+</html>
