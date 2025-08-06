@@ -11,16 +11,14 @@ const MAX_PARALLEL = 5;
  * @param {Array} items - Items to process
  * @param {Function} processor - Function to process each item
  * @param {number} batchSize - Items per batch
- * @returns {Promise<Array>} Results
+ * @returns {Array} Results
  */
-async function processBatch(items, processor, batchSize = BATCH_SIZE) {
+function processBatch(items, processor, batchSize = BATCH_SIZE) {
   const results = [];
   
   for (let i = 0; i < items.length; i += batchSize) {
     const batch = items.slice(i, i + batchSize);
-    const batchResults = await Promise.all(
-      batch.map(item => processor(item))
-    );
+    const batchResults = batch.map(item => processor(item));
     results.push(...batchResults);
     
     // Yield to prevent timeout
@@ -31,31 +29,28 @@ async function processBatch(items, processor, batchSize = BATCH_SIZE) {
 }
 
 /**
- * Process items in parallel with concurrency limit
+ * Process items with concurrency limit (simplified for Apps Script)
  * @param {Array} items - Items to process
- * @param {Function} processor - Async function to process each item
+ * @param {Function} processor - Function to process each item
  * @param {number} concurrency - Max parallel operations
- * @returns {Promise<Array>} Results
+ * @returns {Array} Results
  */
-async function processParallel(items, processor, concurrency = MAX_PARALLEL) {
+function processWithLimit(items, processor, concurrency = MAX_PARALLEL) {
   const results = [];
-  const executing = [];
   
-  for (const item of items) {
-    const promise = processor(item).then(result => {
-      executing.splice(executing.indexOf(promise), 1);
-      return result;
-    });
+  // Process in chunks of concurrency size
+  for (let i = 0; i < items.length; i += concurrency) {
+    const batch = items.slice(i, i + concurrency);
+    const batchResults = batch.map(item => processor(item));
+    results.push(...batchResults);
     
-    results.push(promise);
-    executing.push(promise);
-    
-    if (executing.length >= concurrency) {
-      await Promise.race(executing);
+    // Brief pause between batches
+    if (i + concurrency < items.length) {
+      Utilities.sleep(100);
     }
   }
   
-  return Promise.all(results);
+  return results;
 }
 
 /**
@@ -77,14 +72,14 @@ function chunk(array, size = BATCH_SIZE) {
  * @param {Function} operation - Operation to retry
  * @param {number} maxRetries - Maximum retry attempts
  * @param {number} baseDelay - Base delay in ms
- * @returns {Promise} Operation result
+ * @returns {*} Operation result
  */
-async function retryWithBackoff(operation, maxRetries = 3, baseDelay = 1000) {
+function retryWithBackoff(operation, maxRetries = 3, baseDelay = 1000) {
   let lastError;
   
   for (let attempt = 0; attempt < maxRetries; attempt++) {
     try {
-      return await operation();
+      return operation();
     } catch (error) {
       lastError = error;
       
