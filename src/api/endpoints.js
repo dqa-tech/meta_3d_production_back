@@ -208,6 +208,32 @@ function assignTask(request) {
   
   validateRequired(data, ['taskId', 'agentEmail']);
   
+  // Fetch current task state to check if it's already assigned
+  const currentTask = getTaskById(data.taskId);
+  
+  if (!currentTask) {
+    throw new ApiError(`Task not found: ${data.taskId}`, 404);
+  }
+  
+  // Check if task is already in progress
+  if (currentTask.status === STATUS_VALUES.IN_PROGRESS) {
+    throw new ApiError(
+      `Task already assigned to ${currentTask.agentEmail}`,
+      409  // HTTP Conflict status
+    );
+  }
+  
+  // Check if task is already complete
+  if (currentTask.status === STATUS_VALUES.COMPLETE) {
+    throw new ApiError('Cannot assign completed task', 400);
+  }
+  
+  // Check if task is flagged
+  if (currentTask.status === STATUS_VALUES.FLAGGED) {
+    throw new ApiError('Cannot assign flagged task - requires review first', 400);
+  }
+  
+  // Proceed with assignment for OPEN tasks
   const updates = {
     agentEmail: data.agentEmail,
     status: STATUS_VALUES.IN_PROGRESS,

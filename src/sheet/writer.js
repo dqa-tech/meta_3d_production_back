@@ -1,6 +1,6 @@
 /**
- * Sheet write operations
- * Handles writing and updating data in the tasks sheet
+ * Sheet write operations - Optimized
+ * Handles writing and updating data with bulk operations
  */
 
 /**
@@ -258,4 +258,145 @@ function completeTask(taskId, artifacts) {
   }
   
   return updateTaskRecord(taskId, updates);
+}
+
+/**
+ * Bulk create task records - Optimized for speed
+ * @param {Array} tasksData - Array of task data objects
+ * @returns {Object} Creation results
+ */
+function bulkCreateTaskRecords(tasksData) {
+  if (!tasksData || tasksData.length === 0) {
+    return { created: 0, failed: 0 };
+  }
+  
+  const sheet = getTasksSheet();
+  const timestamp = new Date().toISOString();
+  const rows = [];
+  
+  // Build all rows at once
+  tasksData.forEach(taskData => {
+    const row = new Array(COLUMN_ORDER.length).fill('');
+    
+    // Set defaults
+    if (!taskData.taskId) {
+      taskData.taskId = generateUUID();
+    }
+    if (!taskData.importTime) {
+      taskData.importTime = timestamp;
+    }
+    if (!taskData.status) {
+      taskData.status = STATUS_VALUES.OPEN;
+    }
+    
+    // Map data to row
+    Object.entries(taskData).forEach(([field, value]) => {
+      const columnKey = field.replace(/([A-Z])/g, '_$1').toUpperCase();
+      const columnIndex = getColumnIndex(columnKey);
+      
+      if (columnIndex > 0) {
+        row[columnIndex - 1] = value;
+      }
+    });
+    
+    rows.push(row);
+  });
+  
+  // Single batch write
+  try {
+    if (rows.length > 0) {
+      const lastRow = sheet.getLastRow();
+      sheet.getRange(lastRow + 1, 1, rows.length, COLUMN_ORDER.length)
+        .setValues(rows);
+    }
+    
+    info('Bulk task creation complete', {
+      created: rows.length
+    });
+    
+    return {
+      created: rows.length,
+      failed: 0
+    };
+  } catch (error) {
+    error('Bulk creation failed', {
+      error: error.message,
+      attempted: rows.length
+    });
+    
+    return {
+      created: 0,
+      failed: rows.length
+    };
+  }
+}
+
+/**
+ * Optimized batch update - Single write operation
+ * @param {Array} updates - Array of {taskId, updates} objects
+ * @returns {Array} Results
+ */
+function batchUpdateTasksOptimized(updates) {
+  const sheet = getTasksSheet();
+  const range = sheet.getDataRange();
+  const data = range.getValues();
+  
+  if (data.length <= 1) {
+    throw new ApiError('No tasks found', 404);
+  }
+  
+  const results = [];
+  const taskIdColumn = getColumnIndex('TASK_ID') - 1;
+  
+  // Create task ID to row index map
+  const taskRowMap = {};
+  for (let i = 1; i < data.length; i++) {
+    taskRowMap[data[i][taskIdColumn]] = i;
+  }
+  
+  // Apply all updates to data array
+  updates.forEach(update => {
+    const rowIndex = taskRowMap[update.taskId];
+    
+    if (!rowIndex) {
+      results.push({
+        taskId: update.taskId,
+        success: false,
+        error: 'Task not found'
+      });
+      return;
+    }
+    
+    try {
+      Object.entries(update.updates).forEach(([field, value]) => {
+        const columnKey = field.replace(/([A-Z])/g, '_$1').toUpperCase();
+        const columnIndex = getColumnIndex(columnKey) - 1;
+        
+        if (columnIndex >= 0) {
+          data[rowIndex][columnIndex] = value;
+        }
+      });
+      
+      results.push({
+        taskId: update.taskId,
+        success: true
+      });
+    } catch (err) {
+      results.push({
+        taskId: update.taskId,
+        success: false,
+        error: err.message
+      });
+    }
+  });
+  
+  // Single write for all updates
+  range.setValues(data);
+  
+  info('Optimized batch update complete', {
+    total: updates.length,
+    successful: results.filter(r => r.success).length
+  });
+  
+  return results;
 }

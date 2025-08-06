@@ -1,138 +1,184 @@
 /**
- * Import batch management
- * Handles batch creation and tracking
+ * Import batch management - Optimized for speed
+ * Uses Drive API v3 batch operations for maximum performance
  */
 
 /**
- * Simple reliable import - minimal complexity, maximum reliability
+ * High-performance batch import using Drive API v3
  * @param {string} importFolderId - Source folder ID
  * @param {string} productionFolderId - Target folder ID  
  * @param {string} batchName - Batch name
- * @param {string} batchGroup - Group assignment
+ * @param {string} batchGroup - Group assignment (A, B, C, D)
  * @returns {Object} Import results
  */
-function simpleReliableImport(importFolderId, productionFolderId, batchName, batchGroup) {
+function performBatchImport(importFolderId, productionFolderId, batchName, batchGroup) {
   const startTime = new Date();
+  const batchId = generateBatchId(batchName || 'IMP');
+  const timestamp = new Date().toISOString();
   
-  // Log to verify this function is being called
-  info('SIMPLE RELIABLE IMPORT STARTED', {
+  console.log('performBatchImport called with:', {
+    importFolderId: importFolderId,
+    productionFolderId: productionFolderId,
+    batchName: batchName,
+    batchGroup: batchGroup
+  });
+  
+  info('Starting optimized batch import', {
     importFolder: importFolderId,
+    productionFolder: productionFolderId,
     batchGroup: batchGroup
   });
   
   try {
-    // Generate simple batch ID
-    const timestamp = new Date();
-    const batchId = 'IMP_' + timestamp.getTime();
-    const isoTime = timestamp.toISOString();
+    // Initialize cache for this import
+    const cache = createDriveCache();
     
-    // Get folders
-    const importFolder = DriveApp.getFolderById(importFolderId);
-    const productionFolder = DriveApp.getFolderById(productionFolderId);
+    // Phase 1: Bulk load all metadata in one API call
+    const allItems = cache.bulkLoadFolder(importFolderId);
+    const folders = allItems.filter(item => 
+      item.mimeType === 'application/vnd.google-apps.folder'
+    );
     
-    // Get all task folders
-    const folders = importFolder.getFolders();
-    const tasks = [];
+    info('Folders discovered', { count: folders.length });
     
-    while (folders.hasNext()) {
-      const folder = folders.next();
-      tasks.push({
-        folder: folder,
-        name: folder.getName()
-      });
-    }
+    // Phase 2: Quick validation using cached data
+    const validTasks = [];
+    const requiredFiles = ['image.jpg', 'img_mask.jpg', 'mask.jpg'];
     
-    // Get sheet reference
-    const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Tasks');
-    if (!sheet) {
-      throw new Error('Tasks sheet not found');
-    }
-    
-    // Process each task and collect data
-    const sheetData = [];
-    let successCount = 0;
-    
-    for (let i = 0; i < tasks.length; i++) {
-      try {
-        const task = tasks[i];
-        
-        // Create production folder
-        const newFolder = productionFolder.createFolder(task.name);
-        
-        // Copy files
-        const files = task.folder.getFiles();
-        const fileUrls = {};
-        
-        while (files.hasNext()) {
-          const file = files.next();
-          const fileName = file.getName();
-          
-          if (fileName === 'image.jpg' || fileName === 'img_mask.jpg' || fileName === 'mask.jpg') {
-            const copy = file.makeCopy(fileName, newFolder);
-            fileUrls[fileName] = copy.getUrl();
-          }
-        }
-        
-        // Only add to sheet if all 3 files exist
-        if (fileUrls['image.jpg'] && fileUrls['img_mask.jpg'] && fileUrls['mask.jpg']) {
-          // Build row matching COLUMN_ORDER (from schema.js)
-          const row = [];
-          row[0] = Utilities.getUuid();        // TASK_ID
-          row[1] = batchId;                    // BATCH_ID
-          row[2] = batchGroup;                 // GROUP
-          row[3] = task.name;                  // FOLDER_NAME
-          row[4] = isoTime;                    // IMPORT_TIME
-          row[5] = newFolder.getUrl();         // PRODUCTION_FOLDER_LINK
-          row[6] = 'open';                     // STATUS
-          row[7] = '';                         // AGENT_EMAIL
-          row[8] = '';                         // START_TIME
-          row[9] = '';                         // END_TIME
-          row[10] = fileUrls['image.jpg'];    // IMAGE_LINK
-          row[11] = fileUrls['img_mask.jpg']; // IMG_MASK_LINK
-          row[12] = fileUrls['mask.jpg'];     // MASK_LINK
-          row[13] = '';                        // OBJ_LINK
-          row[14] = '';                        // ALIGNMENT_LINK
-          row[15] = '';                        // VIDEO_LINK
-          row[16] = '';                        // EXPORT_TIME
-          row[17] = '';                        // EXPORT_BATCH_ID
-          
-          sheetData.push(row);
-          successCount++;
-        }
-        
-      } catch (e) {
-        // Log the error but continue
-        error('Failed to process task', {
-          taskName: task.name,
-          error: e.toString()
+    folders.forEach(folder => {
+      // Load folder contents into cache
+      const folderFiles = bulkListFiles(folder.id);
+      folderFiles.forEach(file => cache.addFile(file));
+      
+      // Check if has required files
+      const fileNames = new Set(folderFiles.map(f => f.name));
+      const hasAllFiles = requiredFiles.every(name => fileNames.has(name));
+      
+      if (hasAllFiles) {
+        validTasks.push({
+          folder: folder,
+          files: folderFiles.filter(f => requiredFiles.includes(f.name))
         });
-        continue;
       }
+    });
+    
+    info('Valid tasks identified', { count: validTasks.length });
+    
+    if (validTasks.length === 0) {
+      return {
+        batch: { id: batchId, duration: 0, group: batchGroup },
+        import: { total: 0, successful: 0, failed: 0 },
+        sheet: { created: 0 },
+        error: 'No valid task folders found'
+      };
     }
     
-    // Write all data to sheet at once
-    if (sheetData.length > 0) {
-      info('Writing to sheet', {
-        rowCount: sheetData.length,
-        columnCount: sheetData[0].length,
-        firstTaskName: tasks[0]?.name
-      });
+    // Phase 3: Batch create all folders in production
+    const folderNames = validTasks.map(task => task.folder.name);
+    console.log('Creating folders with batchCreateFolders:', folderNames);
+    const createdFolders = batchCreateFolders(productionFolderId, folderNames);
+    console.log('Created folders response:', createdFolders);
+    
+    info('Production folders created', { 
+      count: createdFolders.length,
+      firstFolder: createdFolders[0],
+      hasErrors: createdFolders.some(f => f && f.error)
+    });
+    
+    // Phase 4: Batch copy all files
+    const copyMappings = [];
+    validTasks.forEach((task, index) => {
+      const targetFolder = createdFolders[index];
+      if (targetFolder && !targetFolder.error) {
+        task.files.forEach(file => {
+          copyMappings.push({
+            fileId: file.id,
+            targetFolderId: targetFolder.id,
+            newName: file.name
+          });
+        });
+      }
+    });
+    
+    const copiedFiles = batchCopyFiles(copyMappings);
+    info('Files copied', { count: copiedFiles.length });
+    
+    // Phase 5: Build sheet data
+    const sheetRows = [];
+    let fileIndex = 0;
+    
+    validTasks.forEach((task, taskIndex) => {
+      const targetFolder = createdFolders[taskIndex];
       
+      // Debug logging
+      if (taskIndex === 0) {
+        console.log('First folder response:', targetFolder);
+        info('First folder response structure', {
+          targetFolder: targetFolder,
+          hasError: targetFolder ? targetFolder.error : 'folder is null'
+        });
+      }
+      
+      if (targetFolder && !targetFolder.error) {
+        const row = new Array(COLUMN_ORDER.length).fill('');
+        
+        // Core fields
+        row[getColumnIndex('TASK_ID') - 1] = generateUUID();
+        row[getColumnIndex('BATCH_ID') - 1] = batchId;
+        row[getColumnIndex('GROUP') - 1] = batchGroup;
+        row[getColumnIndex('FOLDER_NAME') - 1] = task.folder.name;
+        row[getColumnIndex('STATUS') - 1] = STATUS_VALUES.OPEN;
+        row[getColumnIndex('IMPORT_TIME') - 1] = timestamp;
+        row[getColumnIndex('PRODUCTION_FOLDER_LINK') - 1] = 
+          `https://drive.google.com/drive/folders/${targetFolder.id}`;
+        
+        // File links
+        task.files.forEach(() => {
+          const copiedFile = copiedFiles[fileIndex++];
+          if (copiedFile && !copiedFile.error) {
+            const fileName = copiedFile.name;
+            const fileUrl = copiedFile.webViewLink || 
+              `https://drive.google.com/file/d/${copiedFile.id}/view`;
+            
+            if (fileName === 'image.jpg') {
+              row[getColumnIndex('IMAGE_LINK') - 1] = fileUrl;
+            } else if (fileName === 'img_mask.jpg') {
+              row[getColumnIndex('IMG_MASK_LINK') - 1] = fileUrl;
+            } else if (fileName === 'mask.jpg') {
+              row[getColumnIndex('MASK_LINK') - 1] = fileUrl;
+            }
+          }
+        });
+        
+        sheetRows.push(row);
+      } else {
+        warn('Skipping task due to folder creation issue', {
+          taskIndex: taskIndex,
+          folderName: task.folder.name,
+          targetFolder: targetFolder
+        });
+      }
+    });
+    
+    // Phase 6: Single batch write to sheet
+    console.log('Sheet rows to write:', sheetRows.length, 'from', validTasks.length, 'valid tasks');
+    info('Sheet rows prepared', {
+      rowCount: sheetRows.length,
+      validTaskCount: validTasks.length,
+      foldersCreated: createdFolders.filter(f => f && !f.error).length
+    });
+    
+    if (sheetRows.length > 0) {
+      const sheet = getTasksSheet();
       const lastRow = sheet.getLastRow();
-      sheet.getRange(lastRow + 1, 1, sheetData.length, sheetData[0].length).setValues(sheetData);
+      sheet.getRange(lastRow + 1, 1, sheetRows.length, COLUMN_ORDER.length)
+        .setValues(sheetRows);
       
-      info('Sheet write completed', {
-        rowsWritten: sheetData.length
-      });
-    } else {
-      warn('No data to write to sheet', {
-        taskCount: tasks.length,
-        successCount: successCount
-      });
+      info('Sheet records created', { count: sheetRows.length });
     }
     
-    // Return simple serializable object
-    const duration = new Date().getTime() - startTime.getTime();
+    // Calculate duration
+    const duration = new Date() - startTime;
     
     return {
       batch: {
@@ -141,22 +187,28 @@ function simpleReliableImport(importFolderId, productionFolderId, batchName, bat
         group: batchGroup
       },
       import: {
-        total: tasks.length,
-        successful: successCount,
-        failed: tasks.length - successCount
+        total: validTasks.length,
+        successful: sheetRows.length,
+        failed: validTasks.length - sheetRows.length,
+        failedTasks: [] // No failed tasks to report in success case
       },
       sheet: {
-        created: successCount
+        created: sheetRows.length
       }
     };
     
-  } catch (error) {
-    // Return error in serializable format
+  } catch (err) {
+    warn('Batch import failed', {
+      error: err.toString(),
+      importFolder: importFolderId,
+      productionFolder: productionFolderId
+    });
+    
     return {
       batch: {
-        id: 'ERROR',
-        duration: 0,
-        group: batchGroup || 'A'
+        id: batchId,
+        duration: new Date() - startTime,
+        group: batchGroup
       },
       import: {
         total: 0,
@@ -166,126 +218,9 @@ function simpleReliableImport(importFolderId, productionFolderId, batchName, bat
       sheet: {
         created: 0
       },
-      error: error.toString()
+      error: err.toString()
     };
   }
-}
-
-/**
- * Blazing fast import - minimal operations for maximum speed
- * @param {string} importFolderId - Source folder ID
- * @param {string} productionFolderId - Target folder ID  
- * @param {string} batchName - Batch name
- * @param {string} batchGroup - Group assignment
- * @returns {Object} Import results
- */
-function blazingFastImport(importFolderId, productionFolderId, batchName, batchGroup) {
-  const startTime = new Date();
-  const batchId = generateBatchId(batchName || 'IMP');
-  const timestamp = new Date().toISOString();
-  
-  // Get all folders at once
-  const importFolder = DriveApp.getFolderById(importFolderId);
-  const productionFolder = DriveApp.getFolderById(productionFolderId);
-  const folders = importFolder.getFolders();
-  
-  // Collect all data first
-  const tasksToProcess = [];
-  while (folders.hasNext()) {
-    const folder = folders.next();
-    tasksToProcess.push({
-      folder: folder,
-      name: folder.getName(),
-      id: folder.getId()
-    });
-  }
-  
-  // Process all at once
-  const sheetRows = [];
-  
-  tasksToProcess.forEach(task => {
-    // Create folder
-    const newFolder = productionFolder.createFolder(task.name);
-    const newFolderUrl = newFolder.getUrl();
-    
-    // Get file URLs
-    const files = task.folder.getFiles();
-    const fileMap = {};
-    
-    while (files.hasNext()) {
-      const file = files.next();
-      const fileName = file.getName();
-      if (['image.jpg', 'img_mask.jpg', 'mask.jpg'].includes(fileName)) {
-        const copy = file.makeCopy(fileName, newFolder);
-        fileMap[fileName] = copy.getUrl();
-      }
-    }
-    
-    // Only add if has all 3 files
-    if (fileMap['image.jpg'] && fileMap['img_mask.jpg'] && fileMap['mask.jpg']) {
-      // Build row array directly
-      const row = new Array(COLUMN_ORDER.length).fill('');
-      
-      // Use column indices directly for speed
-      row[getColumnIndex('TASK_ID') - 1] = generateUUID();
-      row[getColumnIndex('BATCH_ID') - 1] = batchId;
-      row[getColumnIndex('GROUP') - 1] = batchGroup;
-      row[getColumnIndex('FOLDER_NAME') - 1] = task.name;
-      row[getColumnIndex('STATUS') - 1] = STATUS_VALUES.OPEN;
-      row[getColumnIndex('IMPORT_TIME') - 1] = timestamp;
-      row[getColumnIndex('PRODUCTION_FOLDER_LINK') - 1] = newFolderUrl;
-      row[getColumnIndex('IMAGE_LINK') - 1] = fileMap['image.jpg'];
-      row[getColumnIndex('IMG_MASK_LINK') - 1] = fileMap['img_mask.jpg'];
-      row[getColumnIndex('MASK_LINK') - 1] = fileMap['mask.jpg'];
-      
-      sheetRows.push(row);
-    }
-  });
-  
-  // Single sheet write
-  if (sheetRows.length > 0) {
-    const sheet = getTasksSheet();
-    sheet.getRange(sheet.getLastRow() + 1, 1, sheetRows.length, COLUMN_ORDER.length).setValues(sheetRows);
-  }
-  
-  return {
-    batch: {
-      id: batchId,
-      duration: (new Date() - startTime),  // Ensure it's a number
-      group: batchGroup
-    },
-    import: {
-      total: tasksToProcess.length,
-      successful: sheetRows.length,
-      failed: 0
-    },
-    sheet: {
-      created: sheetRows.length
-    }
-  };
-}
-
-/**
- * Create import batch
- * @param {Object} options - Batch options
- * @returns {Object} Batch information
- */
-function createImportBatch(options = {}) {
-  const batchId = generateBatchId(options.name || 'IMP');
-  const timestamp = new Date().toISOString();
-  
-  const batch = {
-    id: batchId,
-    name: options.name || batchId,
-    group: options.group || 'A',
-    createdAt: timestamp,
-    taskCount: 0,
-    status: 'created'
-  };
-  
-  info('Import batch created', batch);
-  
-  return batch;
 }
 
 /**
@@ -299,139 +234,7 @@ function generateBatchId(prefix = 'IMP') {
     .replace(/[-T:]/g, '')
     .replace(/\.\d{3}Z$/, '');
   
-  // Add random suffix for uniqueness
   const random = Math.random().toString(36).substring(2, 6).toUpperCase();
   
   return `${prefix}_${timestamp}_${random}`;
-}
-
-/**
- * Execute import batch
- * @param {string} importFolderId - Import folder ID
- * @param {string} productionFolderId - Production folder ID
- * @param {Object} options - Import options
- * @returns {Object} Import results
- */
-function executeImportBatch(importFolderId, productionFolderId, options = {}) {
-  const startTime = new Date();
-  
-  try {
-    // Create batch
-    const batch = createImportBatch({
-      name: options.batchName,
-      group: options.group
-    });
-    
-    // Scan import folder
-    const scanResult = scanImportFolder(importFolderId);
-    
-    if (scanResult.valid.length === 0) {
-      throw new Error('No valid task folders found to import');
-    }
-    
-    // Check for duplicates
-    const duplicateCheck = checkForDuplicates(scanResult.valid, productionFolderId);
-    const tasksToImport = options.skipDuplicates 
-      ? duplicateCheck.tasks.filter(t => !t.isDuplicate)
-      : duplicateCheck.tasks;
-    
-    if (tasksToImport.length === 0) {
-      throw new Error('All tasks already exist in production folder');
-    }
-    
-    // Copy tasks
-    const copyResults = copyTasksToProduction(
-      tasksToImport, 
-      productionFolderId, 
-      batch.id,
-      options.onProgress
-    );
-    
-    // Create sheet records
-    const sheetResults = createSheetRecords(copyResults, batch);
-    
-    // Update batch status
-    batch.taskCount = sheetResults.created;
-    batch.status = 'completed';
-    batch.duration = new Date() - startTime;
-    
-    // Create summary
-    const summary = createImportSummary(copyResults);
-    
-    return {
-      batch: batch,
-      import: summary,
-      sheet: sheetResults,
-      scan: scanResult.summary,
-      duplicates: duplicateCheck
-    };
-    
-  } catch (error) {
-    error('Import batch failed', {
-      importFolder: importFolderId,
-      productionFolder: productionFolderId,
-      options: options,
-      error: error.message
-    });
-    throw error;
-  }
-}
-
-/**
- * Create sheet records from copy results
- * @param {Array} copyResults - Copy operation results
- * @param {Object} batch - Batch information
- * @returns {Object} Sheet operation results
- */
-function createSheetRecords(copyResults, batch) {
-  const sheet = getTasksSheet();
-  const timestamp = new Date().toISOString();
-  
-  let created = 0;
-  let failed = 0;
-  
-  copyResults.forEach(result => {
-    if (result.success) {
-      try {
-        const taskData = {
-          taskId: result.taskId,
-          batchId: batch.id,
-          group: batch.group,
-          folderName: result.originalFolder.name,
-          status: STATUS_VALUES.OPEN,
-          importTime: timestamp,
-          productionFolderLink: result.productionFolder.url
-        };
-        
-        // Add file links
-        if (result.files && result.files.length > 0) {
-          result.files.forEach(file => {
-            if (file.copy.name === 'image.jpg') {
-              taskData.imageLink = file.copy.url;
-            } else if (file.copy.name === 'img_mask.jpg') {
-              taskData.imgMaskLink = file.copy.url;
-            } else if (file.copy.name === 'mask.jpg') {
-              taskData.maskLink = file.copy.url;
-            }
-          });
-        }
-        
-        createTaskRecord(taskData);
-        created++;
-      } catch (err) {
-        failed++;
-        error('Failed to create sheet record', {
-          taskId: result.taskId,
-          error: err.message
-        });
-      }
-    } else {
-      failed++;
-    }
-  });
-  
-  return {
-    created: created,
-    failed: failed
-  };
 }

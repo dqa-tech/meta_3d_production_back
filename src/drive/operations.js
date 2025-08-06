@@ -1,6 +1,6 @@
 /**
  * Drive API operations
- * Core file and folder operations
+ * Core file and folder operations with batch support
  */
 
 /**
@@ -249,4 +249,57 @@ function getFileMetadata(fileId) {
   } catch (error) {
     throw new DriveError(`Failed to get file metadata: ${error.message}`, 'getFileMetadata', fileId);
   }
+}
+
+/**
+ * Batch create folders using Drive API v3
+ * @param {string} parentId - Parent folder ID
+ * @param {Array<string>} folderNames - Folder names to create
+ * @returns {Array} Created folder objects
+ */
+function batchCreateFoldersOptimized(parentId, folderNames) {
+  if (!folderNames || folderNames.length === 0) {
+    return [];
+  }
+  
+  // Use the batch operations from batch.js
+  return batchCreateFolders(parentId, folderNames);
+}
+
+/**
+ * Batch copy files with parallel processing
+ * @param {Array} mappings - Array of {fileId, targetFolderId, newName}
+ * @returns {Array} Copied file objects
+ */
+function batchCopyFilesOptimized(mappings) {
+  if (!mappings || mappings.length === 0) {
+    return [];
+  }
+  
+  // Use the batch operations from batch.js
+  return batchCopyFiles(mappings);
+}
+
+/**
+ * Bulk get metadata for multiple files
+ * @param {Array<string>} fileIds - File IDs
+ * @returns {Array} File metadata objects
+ */
+function bulkGetMetadata(fileIds) {
+  if (!fileIds || fileIds.length === 0) {
+    return [];
+  }
+  
+  // Use the batch operations from batch.js
+  return batchGetMetadata(fileIds);
+}
+
+/**
+ * Fast list all children in folder
+ * @param {string} parentId - Parent folder ID
+ * @param {string} mimeType - Optional MIME type filter
+ * @returns {Array} All matching items
+ */
+function bulkListChildren(parentId, mimeType = null) {
+  return bulkListFiles(parentId, { mimeType: mimeType });
 }

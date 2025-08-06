@@ -335,6 +335,64 @@ function testApiEndpoints() {
         assert(key.startsWith('tm_'), 'API key prefix');
         assertEquals(key.length, 35, 'API key length');
       }
+    },
+    {
+      name: 'Task assignment conflict detection',
+      func: () => {
+        // Create a test task
+        const testTaskId = generateUUID();
+        const testTask = {
+          taskId: testTaskId,
+          batchId: 'TEST_BATCH_001',
+          status: STATUS_VALUES.OPEN,
+          folderName: 'test_folder',
+          group: 'A',
+          importTime: new Date().toISOString()
+        };
+        
+        // Create the test task
+        createTaskRecord(testTask);
+        
+        // First assignment should succeed
+        const request1 = {
+          body: {
+            taskId: testTaskId,
+            agentEmail: 'agent1@example.com'
+          }
+        };
+        
+        const result1 = assignTask(request1);
+        assert(result1.success === true, 'First assignment should succeed');
+        assertEquals(result1.task.agentEmail, 'agent1@example.com', 'Agent email should be set');
+        assertEquals(result1.task.status, STATUS_VALUES.IN_PROGRESS, 'Status should be in_progress');
+        
+        // Second assignment attempt should fail
+        const request2 = {
+          body: {
+            taskId: testTaskId,
+            agentEmail: 'agent2@example.com'
+          }
+        };
+        
+        let errorCaught = false;
+        let errorMessage = '';
+        let errorCode = 0;
+        
+        try {
+          assignTask(request2);
+        } catch (error) {
+          errorCaught = true;
+          errorMessage = error.message;
+          errorCode = error.statusCode || 0;
+        }
+        
+        assert(errorCaught, 'Second assignment should throw error');
+        assert(errorMessage.includes('already assigned'), 'Error message should indicate conflict');
+        assertEquals(errorCode, 409, 'Error code should be 409 (Conflict)');
+        
+        // Clean up test task
+        deleteTaskRecord(testTaskId);
+      }
     }
   ];
   

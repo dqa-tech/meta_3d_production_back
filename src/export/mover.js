@@ -10,7 +10,7 @@
  * @param {Function} onProgress - Progress callback
  * @returns {Object} Export results
  */
-async function executeExport(manifest, targetFolderId, onProgress) {
+function executeExport(manifest, targetFolderId, onProgress) {
   const startTime = new Date();
   
   info('Starting export operation', {
@@ -29,7 +29,7 @@ async function executeExport(manifest, targetFolderId, onProgress) {
     const batchFolder = createExportBatchFolder(targetFolderId, manifest.exportBatchId);
     
     // Export tasks
-    const results = await exportTasksToFolder(
+    const results = exportTasksToFolder(
       manifest.tasks,
       batchFolder.id,
       manifest.filters.includeFiles,
@@ -75,7 +75,7 @@ function createExportBatchFolder(parentFolderId, batchId) {
  * @param {Function} onProgress - Progress callback
  * @returns {Array} Export results
  */
-async function exportTasksToFolder(tasks, targetFolderId, includeFiles, onProgress) {
+function exportTasksToFolder(tasks, targetFolderId, includeFiles, onProgress) {
   const results = [];
   const progress = createProgressTracker(tasks.length, onProgress || (() => {}));
   
@@ -83,8 +83,8 @@ async function exportTasksToFolder(tasks, targetFolderId, includeFiles, onProgre
   const chunks = chunk(tasks, 5);
   
   for (const chunk of chunks) {
-    const chunkResults = await Promise.all(
-      chunk.map(task => exportSingleTask(task, targetFolderId, includeFiles))
+    const chunkResults = chunk.map(task => 
+      exportSingleTask(task, targetFolderId, includeFiles)
     );
     
     results.push(...chunkResults);
@@ -104,7 +104,7 @@ async function exportTasksToFolder(tasks, targetFolderId, includeFiles, onProgre
  * @param {Object} includeFiles - Which files to include
  * @returns {Object} Export result
  */
-async function exportSingleTask(task, targetFolderId, includeFiles) {
+function exportSingleTask(task, targetFolderId, includeFiles) {
   const startTime = new Date();
   
   try {

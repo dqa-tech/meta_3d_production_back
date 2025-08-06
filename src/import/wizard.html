@@ -543,11 +543,15 @@
       if (result.import.failed > 0) {
         const errorDiv = document.getElementById('errorSummary');
         errorDiv.style.display = 'block';
+        const failedTasks = result.import.failedTasks || [];
         errorDiv.innerHTML = `
           <h4>Some tasks failed to import:</h4>
-          ${result.import.failedTasks.map(t => 
-            `<p>${t.folderName}: ${t.error}</p>`
-          ).join('')}
+          ${failedTasks.length > 0 ? 
+            failedTasks.map(t => 
+              `<p>${t.folderName}: ${t.error}</p>`
+            ).join('') : 
+            `<p>${result.import.failed} task(s) failed to import</p>`
+          }
         `;
       }
     }

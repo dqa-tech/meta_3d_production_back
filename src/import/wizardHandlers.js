@@ -82,17 +82,17 @@ function scanImportFolder(importFolderId, productionFolderId) {
 }
 
 /**
- * Execute import (wrapper for UI)
+ * Execute import (wrapper for UI) - Using optimized batch import
  * @param {string} importFolderId - Import folder ID
  * @param {string} productionFolderId - Production folder ID
  * @param {string} batchName - Optional batch name
- * @param {Object} options - Import options
+ * @param {string} group - Group assignment
  * @returns {Object} Import results
  */
 function executeImport(importFolderId, productionFolderId, batchName, group) {
-  // Try simple import first to ensure it works
   try {
-    const result = simpleReliableImport(importFolderId, productionFolderId, batchName, group || 'A');
+    // Use the new optimized batch import
+    const result = performBatchImport(importFolderId, productionFolderId, batchName, group || 'A');
     
     if (result.error) {
       throw new Error(result.error);

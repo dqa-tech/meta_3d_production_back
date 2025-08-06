@@ -1,36 +1,44 @@
 /**
- * Import folder scanner
- * Scans folders to find valid task folders
+ * Import folder scanner - Optimized
+ * Fast bulk scanning using Drive API v3 and caching
  */
 
 const REQUIRED_FILES = ['image.jpg', 'img_mask.jpg', 'mask.jpg'];
 
 /**
- * Scan import folder for task folders
+ * Fast scan import folder using bulk operations
  * @param {string} importFolderId - Import folder ID
- * @returns {Array} Array of valid task folders
+ * @returns {Object} Scan results with validation
  */
 function scanImportFolder(importFolderId) {
-  info('Starting import folder scan', { folderId: importFolderId });
+  info('Starting bulk folder scan', { folderId: importFolderId });
   
   try {
-    const importFolder = DriveApp.getFolderById(importFolderId);
-    const folders = importFolder.getFolders();
+    const cache = createDriveCache();
+    
+    // Single API call to get all items
+    const allItems = cache.bulkLoadFolder(importFolderId);
+    
+    // Separate folders and files
+    const folders = allItems.filter(item => 
+      item.mimeType === 'application/vnd.google-apps.folder'
+    );
+    
+    // Process each folder
     const validTasks = [];
     const invalidTasks = [];
     
-    while (folders.hasNext()) {
-      const folder = folders.next();
-      const folderInfo = validateTaskFolder(folder);
+    folders.forEach(folder => {
+      const validation = quickValidateFolder(folder, cache);
       
-      if (folderInfo.isValid) {
-        validTasks.push(folderInfo);
+      if (validation.isValid) {
+        validTasks.push(validation);
       } else {
-        invalidTasks.push(folderInfo);
+        invalidTasks.push(validation);
       }
-    }
+    });
     
-    info('Import scan complete', {
+    info('Scan complete', {
       valid: validTasks.length,
       invalid: invalidTasks.length
     });
@@ -39,7 +47,7 @@ function scanImportFolder(importFolderId) {
       valid: validTasks,
       invalid: invalidTasks,
       summary: {
-        totalFolders: validTasks.length + invalidTasks.length,
+        totalFolders: folders.length,
         validCount: validTasks.length,
         invalidCount: invalidTasks.length
       }
@@ -50,167 +58,105 @@ function scanImportFolder(importFolderId) {
 }
 
 /**
- * Validate a task folder
- * @param {Folder} folder - Drive folder object
+ * Quick validate folder using cache
+ * @param {Object} folder - Folder object
+ * @param {Object} cache - Drive cache instance
  * @returns {Object} Validation result
  */
-function validateTaskFolder(folder) {
-  const folderName = folder.getName();
-  const folderId = folder.getId();
+function quickValidateFolder(folder, cache) {
+  // Get folder files from Drive API
+  const files = bulkListFiles(folder.id);
+  
+  // Cache the files
+  files.forEach(file => cache.addFile(file));
   
   const result = {
-    id: folderId,
-    name: folderName,
-    url: folder.getUrl(),
+    id: folder.id,
+    name: folder.name,
+    url: folder.webViewLink || `https://drive.google.com/drive/folders/${folder.id}`,
     isValid: false,
     errors: [],
     files: {}
   };
   
-  // No folder name validation needed - just check files
-  
-  // Check for required files
-  const files = folder.getFiles();
-  const foundFiles = {};
-  
-  while (files.hasNext()) {
-    const file = files.next();
-    const fileName = file.getName();
-    
-    if (REQUIRED_FILES.includes(fileName)) {
-      foundFiles[fileName] = {
-        id: file.getId(),
-        name: fileName,
-        size: file.getSize(),
-        mimeType: file.getMimeType()
+  // Build file map
+  const fileMap = {};
+  files.forEach(file => {
+    if (REQUIRED_FILES.includes(file.name)) {
+      fileMap[file.name] = {
+        id: file.id,
+        name: file.name,
+        size: file.size || 0,
+        mimeType: file.mimeType
       };
     }
-  }
+  });
   
-  // Verify all required files are present
+  // Check for required files
   for (const requiredFile of REQUIRED_FILES) {
-    if (!foundFiles[requiredFile]) {
+    if (!fileMap[requiredFile]) {
       result.errors.push(`Missing required file: ${requiredFile}`);
     }
   }
   
   // Verify file types
-  Object.entries(foundFiles).forEach(([fileName, fileInfo]) => {
-    if (!fileInfo.mimeType.startsWith('image/')) {
+  Object.entries(fileMap).forEach(([fileName, fileInfo]) => {
+    if (fileInfo.mimeType && !fileInfo.mimeType.startsWith('image/')) {
       result.errors.push(`${fileName} is not an image file`);
     }
   });
   
-  result.files = foundFiles;
+  result.files = fileMap;
   result.isValid = result.errors.length === 0;
   
   return result;
 }
 
 /**
- * Get task metadata from folder name
- * @param {string} folderName - Task folder name
- * @returns {Object} Task metadata
- */
-function parseTaskFolderName(folderName) {
-  // Example: mc_0_1300_e795115eba5c1504dba7ff4c_saucer_0
-  const parts = folderName.split('_');
-  
-  if (parts.length < 6) {
-    return null;
-  }
-  
-  return {
-    prefix: parts[0],
-    index1: parts[1],
-    index2: parts[2],
-    hash: parts[3],
-    objectType: parts[4],
-    index3: parts[5]
-  };
-}
-
-/**
- * Scan for duplicate tasks
- * @param {Array} taskFolders - Array of task folders
- * @param {string} productionFolderId - Production folder ID
- * @returns {Object} Duplicate check results
- */
-function checkForDuplicates(taskFolders, productionFolderId) {
-  try {
-    const productionFolder = DriveApp.getFolderById(productionFolderId);
-    const existingFolders = new Set();
-    
-    // Get all existing folder names in production
-    const folders = productionFolder.getFolders();
-    while (folders.hasNext()) {
-      existingFolders.add(folders.next().getName());
-    }
-    
-    // Check each task folder
-    const results = taskFolders.map(task => ({
-      ...task,
-      isDuplicate: existingFolders.has(task.name)
-    }));
-    
-    const duplicates = results.filter(task => task.isDuplicate);
-    
-    return {
-      tasks: results,
-      duplicateCount: duplicates.length,
-      duplicates: duplicates.map(d => d.name)
-    };
-  } catch (error) {
-    throw new DriveError(`Failed to check duplicates: ${error.message}`, 'checkForDuplicates');
-  }
-}
-
-/**
- * Preview import operation
+ * Fast preview import operation
  * @param {string} importFolderId - Import folder ID
  * @param {string} productionFolderId - Production folder ID
  * @returns {Object} Import preview
  */
 function previewImport(importFolderId, productionFolderId) {
-  // Blazing fast preview - combines scan and duplicate check
   const startTime = new Date();
   
   try {
-    // Get all folders in import
-    const importFolder = DriveApp.getFolderById(importFolderId);
-    const productionFolder = DriveApp.getFolderById(productionFolderId);
+    // Use bulk operations for speed
+    const importItems = Drive.Files.list({
+      q: `'${importFolderId}' in parents and mimeType='application/vnd.google-apps.folder' and trashed=false`,
+      fields: 'files(id,name)',
+      pageSize: 1000,
+      supportsAllDrives: true
+    }).files || [];
     
-    // Collect folder names
-    const importFolders = [];
-    const folders = importFolder.getFolders();
-    while (folders.hasNext()) {
-      const folder = folders.next();
-      importFolders.push({
-        id: folder.getId(),
-        name: folder.getName(),
-        url: folder.getUrl()
-      });
-    }
+    const productionItems = Drive.Files.list({
+      q: `'${productionFolderId}' in parents and mimeType='application/vnd.google-apps.folder' and trashed=false`,
+      fields: 'files(name)',
+      pageSize: 1000,
+      supportsAllDrives: true
+    }).files || [];
     
-    // Get existing production folder names
-    const existingNames = new Set();
-    const prodFolders = productionFolder.getFolders();
-    while (prodFolders.hasNext()) {
-      existingNames.add(prodFolders.next().getName());
-    }
+    // Create set of existing names for O(1) lookup
+    const existingNames = new Set(productionItems.map(item => item.name));
     
-    // Quick filter
+    // Categorize tasks
     const newTasks = [];
     const duplicates = [];
     
-    importFolders.forEach(folder => {
+    importItems.forEach(folder => {
       if (existingNames.has(folder.name)) {
-        duplicates.push(folder);
+        duplicates.push({
+          id: folder.id,
+          name: folder.name,
+          isDuplicate: true
+        });
       } else {
         newTasks.push({
-          ...folder,
-          isValid: true,
+          id: folder.id,
+          name: folder.name,
           isDuplicate: false,
+          isValid: true,
           errors: []
         });
       }
@@ -219,19 +165,18 @@ function previewImport(importFolderId, productionFolderId) {
     return {
       canImport: newTasks.length > 0,
       message: `Found ${newTasks.length} new tasks to import`,
-      totalValid: importFolders.length,
+      totalValid: importItems.length,
       newTasks: newTasks.length,
       duplicates: duplicates.length,
       invalid: 0,
       tasks: newTasks.concat(duplicates.map(d => ({
         ...d,
         isValid: true,
-        isDuplicate: true,
         errors: []
       }))),
       scanTime: new Date() - startTime
     };
   } catch (error) {
-    throw new Error(`Fast preview failed: ${error.message}`);
+    throw new Error(`Preview failed: ${error.message}`);
   }
 }
