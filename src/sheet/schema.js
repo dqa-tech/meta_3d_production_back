@@ -23,7 +23,11 @@ const COLUMNS = {
   ALIGNMENT_LINK: 'Alignment',
   VIDEO_LINK: 'Task Video',
   EXPORT_TIME: 'Export Time',
-  EXPORT_BATCH_ID: 'Export Batch'
+  EXPORT_BATCH_ID: 'Export Batch',
+  REVISION_COUNT: 'Revision Count',
+  REVISION_HISTORY: 'Revision History',
+  ORIGINAL_COMPLETION_TIME: 'Original Completion',
+  PREVIOUS_AGENT_EMAIL: 'Previous Agent'
 };
 
 const COLUMN_ORDER = [
@@ -44,14 +48,19 @@ const COLUMN_ORDER = [
   'ALIGNMENT_LINK',
   'VIDEO_LINK',
   'EXPORT_TIME',
-  'EXPORT_BATCH_ID'
+  'EXPORT_BATCH_ID',
+  'REVISION_COUNT',
+  'REVISION_HISTORY',
+  'ORIGINAL_COMPLETION_TIME',
+  'PREVIOUS_AGENT_EMAIL'
 ];
 
 const STATUS_VALUES = {
   OPEN: 'open',
   IN_PROGRESS: 'in_progress',
   COMPLETE: 'complete',
-  FLAGGED: 'flagged'
+  FLAGGED: 'flagged',
+  REWORK: 'rework'
 };
 
 const GROUP_VALUES = {

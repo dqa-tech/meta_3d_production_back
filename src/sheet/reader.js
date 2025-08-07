@@ -54,8 +54,15 @@ function queryTasks(filters = {}) {
       include = false;
     }
     
-    if (filters.status && row[columns.STATUS] !== filters.status) {
-      include = false;
+    if (filters.status) {
+      // Support comma-separated status values for elegant multi-status queries
+      const statusList = filters.status.includes(',') 
+        ? filters.status.split(',').map(s => s.trim())
+        : [filters.status];
+      
+      if (!statusList.includes(row[columns.STATUS])) {
+        include = false;
+      }
     }
     
     if (filters.agentEmail && row[columns.AGENT_EMAIL] !== filters.agentEmail) {

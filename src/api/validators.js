@@ -51,8 +51,22 @@ function validateTaskUpdate(data) {
     throw new ValidationError('Invalid Drive file ID', 'alignmentFileId', data.alignmentFileId);
   }
   
-  if (data.videoFileId && !isValidDriveFileId(data.videoFileId)) {
-    throw new ValidationError('Invalid Drive file ID', 'videoFileId', data.videoFileId);
+  if (data.videoFileId) {
+    // videoFileId must always be an array
+    if (!Array.isArray(data.videoFileId)) {
+      throw new ValidationError('videoFileId must be an array', 'videoFileId', data.videoFileId);
+    }
+    
+    // Validate each ID in the array
+    data.videoFileId.forEach((id, index) => {
+      if (!isValidDriveFileId(id)) {
+        throw new ValidationError(
+          `Invalid Drive file ID at index ${index}`, 
+          'videoFileId', 
+          id
+        );
+      }
+    });
   }
 }
 
@@ -175,4 +189,54 @@ function validateBatchData(tasks) {
       throw new ValidationError(`Task ${index}: ${error.message}`);
     }
   });
+}
+
+/**
+ * Validate rework request
+ * @param {Object} data - Rework request data
+ * @throws {ValidationError} If validation fails
+ */
+function validateReworkRequest(data) {
+  // Email validation for requestedBy
+  if (data.requestedBy && !isValidEmail(data.requestedBy)) {
+    throw new ValidationError('Invalid requestedBy email format', 'requestedBy', data.requestedBy);
+  }
+  
+  // Reason length validation
+  if (data.reason && data.reason.length > 500) {
+    throw new ValidationError('Reason cannot exceed 500 characters', 'reason', data.reason);
+  }
+  
+  // Validate revision count if provided
+  if (data.revisionCount !== undefined) {
+    const count = parseInt(data.revisionCount);
+    if (isNaN(count) || count < 0 || count > 10) {
+      throw new ValidationError('Revision count must be between 0 and 10', 'revisionCount', data.revisionCount);
+    }
+  }
+}
+
+/**
+ * Validate revision history format
+ * @param {string} historyJson - JSON string of revision history
+ * @returns {boolean} True if valid
+ */
+function isValidRevisionHistory(historyJson) {
+  try {
+    const history = JSON.parse(historyJson);
+    if (!Array.isArray(history)) {
+      return false;
+    }
+    
+    // Validate each revision entry
+    for (const revision of history) {
+      if (!revision.revision || !revision.agentEmail || !revision.completedAt) {
+        return false;
+      }
+    }
+    
+    return true;
+  } catch (error) {
+    return false;
+  }
 }

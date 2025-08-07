@@ -81,13 +81,15 @@ function routeRequest(request) {
     'POST': {
       '/api/task/update': updateTask,
       '/api/task/assign': assignTask,
+      '/api/task/rework': reworkTask,
       '/api/tasks/batch': batchUpdateTasks
     },
     'GET': {
       '/api/task': getTask,
       '/api/tasks': getTasks,
       '/api/status': getApiStatus,
-      '/api/agent/groups': getAgentGroupsEndpoint
+      '/api/agent/groups': getAgentGroupsEndpoint,
+      '/api/agent/history': getAgentHistory
     }
   };
   
@@ -134,7 +136,11 @@ function updateTask(request) {
     updates.alignmentLink = `https://drive.google.com/file/d/${updates.alignmentFileId}/view`;
   }
   if (updates.videoFileId) {
-    updates.videoLink = `https://drive.google.com/file/d/${updates.videoFileId}/view`;
+    // videoFileId is always an array (even for single videos)
+    const videoUrls = updates.videoFileId.map(id => 
+      `https://drive.google.com/file/d/${id}/view`
+    );
+    updates.videoLink = videoUrls.join(',');
   }
   
   const result = updateTaskRecord(data.taskId, updates);
@@ -187,7 +193,35 @@ function getTasks(request) {
     offset: parseInt(request.params.offset) || 0
   };
   
-  const tasks = queryTasks(filters);
+  let tasks = queryTasks(filters);
+  
+  // Apply field selection if requested
+  if (request.params.fields) {
+    const requestedFields = request.params.fields.split(',').map(f => f.trim());
+    tasks = tasks.map(task => {
+      const filteredTask = {};
+      requestedFields.forEach(field => {
+        if (task.hasOwnProperty(field)) {
+          filteredTask[field] = task[field];
+        }
+      });
+      return filteredTask;
+    });
+  }
+  
+  // Include revision history if requested
+  if (request.params.includeHistory === 'true' && !request.params.fields) {
+    tasks = tasks.map(task => {
+      if (task.revisionHistory) {
+        try {
+          task.revisionHistoryParsed = JSON.parse(task.revisionHistory);
+        } catch (e) {
+          task.revisionHistoryParsed = [];
+        }
+      }
+      return task;
+    });
+  }
   
   return {
     success: true,
@@ -233,6 +267,15 @@ function assignTask(request) {
     throw new ApiError('Cannot assign flagged task - requires review first', 400);
   }
   
+  // Task must be OPEN or REWORK to be assigned
+  if (currentTask.status !== STATUS_VALUES.OPEN && 
+      currentTask.status !== STATUS_VALUES.REWORK) {
+    throw new ApiError(
+      `Cannot assign task with status: ${currentTask.status}`, 
+      400
+    );
+  }
+  
   // Proceed with assignment for OPEN tasks
   const updates = {
     agentEmail: data.agentEmail,
@@ -246,6 +289,86 @@ function assignTask(request) {
     success: true,
     task: result,
     message: `Task assigned to ${data.agentEmail}`,
+    timestamp: new Date().toISOString()
+  };
+}
+
+/**
+ * Rework task endpoint
+ * @param {Object} request - Request object
+ * @returns {Object} Response
+ */
+function reworkTask(request) {
+  const data = request.body;
+  
+  validateRequired(data, ['taskId', 'requestedBy']);
+  validateReworkRequest(data);
+  
+  // Fetch current task
+  const currentTask = getTaskById(data.taskId);
+  
+  if (!currentTask) {
+    throw new ApiError(`Task not found: ${data.taskId}`, 404);
+  }
+  
+  // Only completed tasks can be marked for rework
+  if (currentTask.status !== STATUS_VALUES.COMPLETE) {
+    throw new ApiError(
+      `Only completed tasks can be marked for rework. Current status: ${currentTask.status}`,
+      400
+    );
+  }
+  
+  // Build revision history entry
+  const revisionEntry = {
+    revision: (currentTask.revisionCount || 0) + 1,
+    agentEmail: currentTask.agentEmail,
+    completedAt: currentTask.endTime,
+    startedAt: currentTask.startTime,
+    objLink: currentTask.objLink,
+    alignmentLink: currentTask.alignmentLink,
+    videoLink: currentTask.videoLink,
+    reason: data.reason || 'No reason provided'
+  };
+  
+  // Parse existing history or create new array
+  let revisionHistory = [];
+  if (currentTask.revisionHistory) {
+    try {
+      revisionHistory = JSON.parse(currentTask.revisionHistory);
+    } catch (e) {
+      revisionHistory = [];
+    }
+  }
+  revisionHistory.push(revisionEntry);
+  
+  // Update task for rework - requester becomes the owner
+  const updates = {
+    status: STATUS_VALUES.REWORK,
+    revisionCount: (currentTask.revisionCount || 0) + 1,
+    revisionHistory: JSON.stringify(revisionHistory),
+    previousAgentEmail: currentTask.agentEmail,
+    // The person requesting rework takes ownership
+    agentEmail: data.requestedBy,
+    startTime: new Date().toISOString(),  // Rework starts now
+    // Clear completion data but keep assignment
+    endTime: '',
+    objLink: '',
+    alignmentLink: '',
+    videoLink: ''
+  };
+  
+  // Store original completion time if this is first rework
+  if (!currentTask.originalCompletionTime && currentTask.endTime) {
+    updates.originalCompletionTime = currentTask.endTime;
+  }
+  
+  const result = updateTaskRecord(data.taskId, updates);
+  
+  return {
+    success: true,
+    task: result,
+    message: `Task marked for rework (revision ${updates.revisionCount})`,
     timestamp: new Date().toISOString()
   };
 }
@@ -309,11 +432,13 @@ function getApiStatus(request) {
     endpoints: [
       'POST /api/task/update',
       'POST /api/task/assign',
+      'POST /api/task/rework',
       'POST /api/tasks/batch',
       'GET /api/task',
       'GET /api/tasks',
       'GET /api/status',
-      'GET /api/agent/groups'
+      'GET /api/agent/groups',
+      'GET /api/agent/history'
     ],
     timestamp: new Date().toISOString()
   };
@@ -340,6 +465,72 @@ function getAgentGroupsEndpoint(request) {
     success: true,
     agentEmail: email,
     groups: groups,
+    timestamp: new Date().toISOString()
+  };
+}
+
+/**
+ * Get agent history endpoint
+ * @param {Object} request - Request object
+ * @returns {Object} Response
+ */
+function getAgentHistory(request) {
+  const email = request.params.email || request.params.agentEmail;
+  
+  if (!email) {
+    throw new ApiError('email parameter required', 400);
+  }
+  
+  // Get all tasks for this agent
+  const completedTasks = queryTasks({
+    agentEmail: email,
+    status: STATUS_VALUES.COMPLETE
+  });
+  
+  const inProgressTasks = queryTasks({
+    agentEmail: email,
+    status: STATUS_VALUES.IN_PROGRESS
+  });
+  
+  // Get tasks that were reworked (where this agent's work was revised)
+  const allTasks = queryTasks({});
+  const reworkedTasks = allTasks.filter(task => {
+    if (task.previousAgentEmail === email && task.status === STATUS_VALUES.REWORK) {
+      return true;
+    }
+    // Check revision history for this agent's work
+    if (task.revisionHistory) {
+      try {
+        const history = JSON.parse(task.revisionHistory);
+        return history.some(rev => rev.agentEmail === email);
+      } catch (e) {
+        return false;
+      }
+    }
+    return false;
+  });
+  
+  // Prepare lightweight response with folder link for task context
+  const formatTaskLight = (task) => ({
+    taskId: task.taskId,
+    folderName: task.folderName,
+    productionFolderLink: task.productionFolderLink,  // Contains all source files for review
+    completedAt: task.endTime,
+    revisionCount: task.revisionCount || 0,
+    status: task.status
+  });
+  
+  return {
+    success: true,
+    agent: email,
+    summary: {
+      totalCompleted: completedTasks.length,
+      totalReworked: reworkedTasks.length,
+      currentlyWorking: inProgressTasks.length
+    },
+    completedTasks: completedTasks.map(formatTaskLight),
+    reworkedTasks: reworkedTasks.map(formatTaskLight),
+    inProgressTasks: inProgressTasks.map(formatTaskLight),
     timestamp: new Date().toISOString()
   };
 }

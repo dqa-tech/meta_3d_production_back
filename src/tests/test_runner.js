@@ -393,6 +393,90 @@ function testApiEndpoints() {
         // Clean up test task
         deleteTaskRecord(testTaskId);
       }
+    },
+    {
+      name: 'Task rework system',
+      func: () => {
+        // Create a completed test task
+        const testTaskId = generateUUID();
+        const testTask = {
+          taskId: testTaskId,
+          batchId: 'TEST_BATCH_002',
+          status: STATUS_VALUES.COMPLETE,
+          folderName: 'test_rework_folder',
+          group: 'B',
+          importTime: new Date().toISOString(),
+          agentEmail: 'original@example.com',
+          startTime: new Date(Date.now() - 3600000).toISOString(),
+          endTime: new Date().toISOString(),
+          objLink: 'https://drive.google.com/file/d/test/view',
+          alignmentLink: 'https://drive.google.com/file/d/test2/view',
+          videoLink: 'https://drive.google.com/file/d/test3/view'
+        };
+        
+        // Create the completed task
+        createTaskRecord(testTask);
+        
+        // Test marking task for rework
+        const reworkRequest = {
+          body: {
+            taskId: testTaskId,
+            requestedBy: 'lead@example.com',
+            reason: 'Alignment needs adjustment'
+          }
+        };
+        
+        const reworkResult = reworkTask(reworkRequest);
+        assert(reworkResult.success === true, 'Rework request should succeed');
+        
+        // Verify task state after rework
+        const reworkedTask = getTaskById(testTaskId);
+        assertEquals(reworkedTask.status, STATUS_VALUES.REWORK, 'Status should be rework');
+        assertEquals(reworkedTask.previousAgentEmail, 'original@example.com', 'Previous agent should be stored');
+        assertEquals(reworkedTask.reworkRequestedBy, 'lead@example.com', 'Requester should be stored');
+        assertEquals(reworkedTask.revisionCount, 1, 'Revision count should be 1');
+        assert(!reworkedTask.objLink, 'OBJ link should be cleared');
+        assert(!reworkedTask.agentEmail, 'Agent email should be cleared');
+        
+        // Verify revision history
+        assert(reworkedTask.revisionHistory, 'Revision history should exist');
+        const history = JSON.parse(reworkedTask.revisionHistory);
+        assertEquals(history.length, 1, 'Should have one revision entry');
+        assertEquals(history[0].agentEmail, 'original@example.com', 'History should contain original agent');
+        
+        // Test assigning reworked task
+        const assignRequest = {
+          body: {
+            taskId: testTaskId,
+            agentEmail: 'newagent@example.com'
+          }
+        };
+        
+        const assignResult = assignTask(assignRequest);
+        assert(assignResult.success === true, 'Should be able to assign reworked task');
+        
+        const assignedTask = getTaskById(testTaskId);
+        assertEquals(assignedTask.status, STATUS_VALUES.IN_PROGRESS, 'Status should be in_progress');
+        assertEquals(assignedTask.agentEmail, 'newagent@example.com', 'New agent should be assigned');
+        
+        // Test that only completed tasks can be reworked
+        let errorCaught = false;
+        try {
+          reworkTask({
+            body: {
+              taskId: testTaskId,
+              requestedBy: 'lead@example.com'
+            }
+          });
+        } catch (error) {
+          errorCaught = true;
+          assert(error.message.includes('Only completed tasks'), 'Should get appropriate error message');
+        }
+        assert(errorCaught, 'Should not be able to rework non-completed task');
+        
+        // Clean up
+        deleteTaskRecord(testTaskId);
+      }
     }
   ];
   
