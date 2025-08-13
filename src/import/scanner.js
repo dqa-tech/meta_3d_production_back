@@ -127,14 +127,16 @@ function previewImport(importFolderId, productionFolderId) {
       q: `'${importFolderId}' in parents and mimeType='application/vnd.google-apps.folder' and trashed=false`,
       fields: 'files(id,name)',
       pageSize: 1000,
-      supportsAllDrives: true
+      supportsAllDrives: true,
+      includeItemsFromAllDrives: true
     }).files || [];
     
     const productionItems = Drive.Files.list({
       q: `'${productionFolderId}' in parents and mimeType='application/vnd.google-apps.folder' and trashed=false`,
       fields: 'files(name)',
       pageSize: 1000,
-      supportsAllDrives: true
+      supportsAllDrives: true,
+      includeItemsFromAllDrives: true
     }).files || [];
     
     // Create set of existing names for O(1) lookup

@@ -77,7 +77,21 @@ All responses return JSON with this structure:
 }
 ```
 
-## Endpoints
+## Quick Endpoint Reference
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| **GET** | `/api/tasks` | Get filtered list of tasks |
+| **GET** | `/api/task` | Get single task details |
+| **GET** | `/api/status` | Check API status |
+| **GET** | `/api/agent/groups` | Get agent's allowed groups |
+| **GET** | `/api/agent/history` | Get agent's task history |
+| **POST** | `/api/task/assign` | Assign task to agent |
+| **POST** | `/api/task/update` | Update task with artifacts |
+| **POST** | `/api/task/rework` | Mark task for rework |
+| **POST** | `/api/tasks/batch` | Batch update multiple tasks |
+
+## Detailed Endpoint Documentation
 
 ### 1. Get Available Tasks
 
@@ -89,11 +103,17 @@ GET {BASE_URL}?apiKey=your-api-key&path=/api/tasks&status=open&limit=100&offset=
 ```
 
 **Parameters:**
-- `status` (optional): Filter by status (`open`, `in_progress`, `complete`, `flagged`)
+- `status` (optional): Filter by status - single value or comma-separated list
+  - Single: `status=in_progress`
+  - Multiple: `status=in_progress,rework`
+  - Valid values: `open`, `in_progress`, `complete`, `flagged`, `rework`
 - `batchId` (optional): Filter by batch ID
 - `agentEmail` (optional): Filter by assigned agent
 - `limit` (optional): Max results to return (default: 100, max: 1000)
 - `offset` (optional): Pagination offset (default: 0)
+- `fields` (optional): Comma-separated list of fields to return (for lightweight responses)
+  - Example: `fields=taskId,folderName,productionFolderLink,revisionCount`
+- `includeHistory` (optional): Include revision history if `true` (default: `false`)
 
 **Response:**
 ```javascript
@@ -204,7 +224,7 @@ POST {BASE_URL}
 - `agentEmail` (optional): Assign/reassign agent
 - `objFileId` (optional): Google Drive file ID for .obj file
 - `alignmentFileId` (optional): Google Drive file ID for alignment image
-- `videoFileId` (optional): Google Drive file ID for task video
+- `videoFileId` (optional): Array of Google Drive file IDs for task videos (always an array, even for single video)
 - `startTime` (optional): ISO timestamp
 - `endTime` (optional): ISO timestamp
 
@@ -296,7 +316,96 @@ GET {BASE_URL}?apiKey=your-api-key&path=/api/agent/groups&email=agent@example.co
 }
 ```
 
-### 7. API Status Check
+### 7. Mark Task for Rework
+
+Transition a completed task to rework status for revision.
+
+**Request:**
+```javascript
+POST {BASE_URL}
+{
+  "path": "/api/task/rework",
+  "apiKey": "your-api-key",
+  "taskId": "uuid-here",
+  "requestedBy": "lead@example.com",
+  "reason": "Alignment needs adjustment"  // Optional
+}
+```
+
+**Parameters:**
+- `taskId` (required): Task UUID to mark for rework
+- `requestedBy` (required): Email of person requesting rework
+- `reason` (optional): Reason for rework (max 500 characters)
+
+**Response:**
+```javascript
+{
+  "success": true,
+  "task": {
+    "taskId": "uuid-here",
+    "status": "rework",
+    "revisionCount": 1,
+    "previousAgentEmail": "original@example.com",
+    "reworkRequestedBy": "lead@example.com",
+    "reworkRequestedTime": "2025-08-04T12:00:00Z"
+    // Output fields cleared (objLink, alignmentLink, videoLink)
+  },
+  "message": "Task marked for rework (revision 1)",
+  "timestamp": "2025-08-04T12:00:00Z"
+}
+```
+
+**Notes:**
+- Only tasks with `complete` status can be marked for rework
+- Archives current work to revision history
+- Clears output files (obj, alignment, video links)
+- Task becomes available for assignment again with `rework` status
+
+### 8. Get Agent History
+
+Retrieve an agent's task history with lightweight task data.
+
+**Request:**
+```javascript
+GET {BASE_URL}?apiKey=your-api-key&path=/api/agent/history&email=agent@example.com
+```
+
+**Parameters:**
+- `email` or `agentEmail` (required): Agent's email address
+
+**Response:**
+```javascript
+{
+  "success": true,
+  "agent": "agent@example.com",
+  "summary": {
+    "totalCompleted": 45,
+    "totalReworked": 3,
+    "currentlyWorking": 2
+  },
+  "completedTasks": [
+    {
+      "taskId": "uuid-123",
+      "folderName": "mc_0_1300_e795115eba5c1504dba7ff4c_saucer_0",
+      "productionFolderLink": "https://drive.google.com/drive/folders/abc123",
+      "completedAt": "2025-08-04T10:00:00Z",
+      "revisionCount": 0,
+      "status": "complete"
+    }
+    // ... more tasks
+  ],
+  "reworkedTasks": [...],  // Tasks where this agent's work was revised
+  "inProgressTasks": [...],
+  "timestamp": "2025-08-04T12:00:00Z"
+}
+```
+
+**Key Fields:**
+- `productionFolderLink`: Google Drive folder containing all source files (image.jpg, img_mask.jpg, mask.jpg)
+- Provides complete task context without loading individual files
+- Lightweight response optimized for task history panels
+
+### 9. API Status Check
 
 Verify API connectivity and authentication.
 
@@ -314,11 +423,13 @@ GET {BASE_URL}?path=/api/status
   "endpoints": [
     "POST /api/task/update",
     "POST /api/task/assign",
+    "POST /api/task/rework",
     "POST /api/tasks/batch",
     "GET /api/task",
     "GET /api/tasks",
     "GET /api/status",
-    "GET /api/agent/groups"
+    "GET /api/agent/groups",
+    "GET /api/agent/history"
   ],
   "timestamp": "2025-08-04T12:00:00Z"
 }
@@ -341,6 +452,7 @@ Tasks can have one of these status values:
 - `in_progress` - Assigned and being worked on
 - `complete` - Finished with all artifacts uploaded
 - `flagged` - Marked for review/issues
+- `rework` - Completed task marked for revision (available for reassignment)
 
 ## Rate Limits
 
@@ -399,11 +511,43 @@ async function completeTask(taskId, fileIds) {
       status: 'complete',
       objFileId: fileIds.obj,
       alignmentFileId: fileIds.alignment,
-      videoFileId: fileIds.video,
+      videoFileId: fileIds.videos,  // Array of video IDs
       endTime: new Date().toISOString()
     })
   });
   
+  return await response.json();
+}
+
+// Get lightweight task history
+async function getAgentHistory(agentEmail) {
+  const url = `${API_URL}?apiKey=${API_KEY}&path=/api/agent/history&email=${agentEmail}`;
+  const response = await fetch(url);
+  return await response.json();
+}
+
+// Get tasks with specific fields only
+async function getTasksLightweight(agentEmail, status) {
+  const url = `${API_URL}?apiKey=${API_KEY}&path=/api/tasks` +
+    `&agentEmail=${agentEmail}&status=${status}` +
+    `&fields=taskId,folderName,productionFolderLink,revisionCount`;
+  const response = await fetch(url);
+  return await response.json();
+}
+
+// Mark task for rework
+async function reworkTask(taskId, reason) {
+  const response = await fetch(API_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      path: '/api/task/rework',
+      apiKey: API_KEY,
+      taskId: taskId,
+      requestedBy: currentUser.email,
+      reason: reason
+    })
+  });
   return await response.json();
 }
 ```

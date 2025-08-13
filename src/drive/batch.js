@@ -179,7 +179,7 @@ function batchCreateFolders(parentId, folderNames) {
 function batchCopyFiles(fileMappings) {
   const requests = fileMappings.map(mapping => ({
     method: 'POST',
-    path: `/drive/v3/files/${mapping.fileId}/copy`,
+    path: `/drive/v3/files/${mapping.fileId}/copy?supportsAllDrives=true`,
     body: {
       name: mapping.newName,
       parents: [mapping.targetFolderId]
@@ -227,7 +227,8 @@ function bulkListFiles(parentId, options = {}) {
       q: query,
       pageSize: pageSize,
       fields: 'nextPageToken, files(id, name, mimeType, parents, webViewLink)',
-      supportsAllDrives: true
+      supportsAllDrives: true,
+      includeItemsFromAllDrives: true
     };
     
     if (pageToken) {
