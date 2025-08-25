@@ -14,9 +14,8 @@ function createMenu() {
     .addItem('Manual Review', 'showManualReviewDialog')
     .addSeparator()
     .addSubMenu(ui.createMenu('Export')
-      .addItem('Export Tasks', 'showExportWizard')
       .addItem('Stage Tasks for Export', 'showStagingWizard')
-      .addItem('Reset Failed Exports', 'showResetFailedExports')
+      .addItem('Deliver Staged Tasks', 'showDeliveryWizard')
       .addItem('Export Status Report', 'showExportStatusReport'))
     .addSeparator()
     .addSubMenu(ui.createMenu('Data Management')
@@ -54,61 +53,7 @@ function showImportWizard() {
   SpreadsheetApp.getUi().showModalDialog(html, 'Import Tasks');
 }
 
-/**
- * Show new direct export wizard
- */
-function showExportWizard() {
-  const html = HtmlService.createTemplateFromFile('src/export/wizard')
-    .evaluate()
-    .setTitle('Export Tasks')
-    .setWidth(1000)
-    .setHeight(700);
-  
-  SpreadsheetApp.getUi().showModalDialog(html, 'Export Tasks');
-}
 
-/**
- * Reset failed export tasks for retry (menu handler)
- */
-function showResetFailedExports() {
-  const ui = SpreadsheetApp.getUi();
-  
-  try {
-    const result = ui.alert(
-      'Reset Failed Exports',
-      'This will reset all failed export tasks so they can be exported again.\n\nContinue?',
-      ui.ButtonSet.YES_NO
-    );
-    
-    if (result !== ui.Button.YES) {
-      return;
-    }
-    
-    // Call the core reset function (defined in core.js)
-    const resetResult = resetFailedExports();
-    
-    if (resetResult.success) {
-      ui.alert(
-        'Reset Complete',
-        `Successfully reset ${resetResult.resetCount} failed export tasks.\n\nYou can now export these tasks again.`,
-        ui.ButtonSet.OK
-      );
-    } else {
-      ui.alert(
-        'Reset Failed', 
-        'Failed to reset exports: ' + resetResult.error,
-        ui.ButtonSet.OK
-      );
-    }
-    
-  } catch (err) {
-    ui.alert(
-      'Reset Error',
-      'Error resetting failed exports: ' + err.message,
-      ui.ButtonSet.OK
-    );
-  }
-}
 
 /**
  * Refresh sheet data
@@ -287,31 +232,14 @@ function showStagingWizard() {
 function showDeliveryWizard() {
   const ui = SpreadsheetApp.getUi();
   
-  // Check if staging folder is configured (needed for delivery)
-  const scriptProperties = PropertiesService.getScriptProperties();
-  const stagingFolderId = scriptProperties.getProperty('STAGING_FOLDER_ID');
-  
-  if (!stagingFolderId) {
-    const result = ui.alert(
-      'Staging Folder Required',
-      'Delivery requires a configured staging folder.\n\nWould you like to configure it now?',
-      ui.ButtonSet.YES_NO
-    );
-    
-    if (result === ui.Button.YES) {
-      configureStagingFolder();
-    }
-    return;
-  }
-  
-  // Check if there are any staged exports available
+  // Check if there are any deliverable batches available
   try {
-    const stagedBatches = getStagedExportBatches();
+    const deliverableBatches = getDeliverableBatches();
     
-    if (stagedBatches.length === 0) {
+    if (deliverableBatches.length === 0) {
       ui.alert(
-        'No Staged Exports',
-        'There are no staged exports available for delivery.\n\nYou need to stage tasks first using "Stage Tasks for Export".',
+        'No Deliverable Tasks',
+        'There are no staged tasks available for delivery.\n\nYou need to stage tasks first using "Stage Tasks for Export".',
         ui.ButtonSet.OK
       );
       return;
@@ -319,7 +247,7 @@ function showDeliveryWizard() {
   } catch (error) {
     ui.alert(
       'Error',
-      'Failed to check for staged exports: ' + error.message,
+      'Failed to check for deliverable tasks: ' + error.message,
       ui.ButtonSet.OK
     );
     return;
@@ -328,11 +256,11 @@ function showDeliveryWizard() {
   // Show the delivery wizard
   const html = HtmlService.createTemplateFromFile('src/export/wizard_delivery')
     .evaluate()
-    .setTitle('Deliver Staged Export')
-    .setWidth(900)
-    .setHeight(700);
+    .setTitle('Deliver Staged Tasks')
+    .setWidth(700)
+    .setHeight(600);
   
-  ui.showModalDialog(html, 'Deliver Staged Export');
+  ui.showModalDialog(html, 'Deliver Staged Tasks');
 }
 
 /**
@@ -447,14 +375,9 @@ Import Tasks:
 - Each task folder should contain image.jpg, img_mask.jpg, and mask.jpg
 - Tasks will be copied to the production folder
 
-Export Tasks (Two-Phase System):
+Export Tasks:
 - Stage Tasks: Select and validate tasks for staging
-- Deliver Staged: Review staged tasks and deliver to client
 - Export Status Report: Monitor export progress and status
-
-Legacy Single-Phase Export:
-- Filter tasks by batch, status, date, or agent
-- Select which files to export
 - Choose destination folder in client's Drive
 
 For more help, contact support.

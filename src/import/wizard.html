@@ -370,6 +370,7 @@
     let selectedFolder = null;
     let scanData = null;
     let productionFolderId = null;
+    let importInProgress = false;
     
     // Initialize
     google.script.run
@@ -407,7 +408,10 @@
       if (currentStep === 1 && selectedFolder) {
         scanFolder();
       } else if (currentStep === 2 && scanData && scanData.canImport) {
-        startImport();
+        // Additional check to prevent double execution
+        if (!importInProgress) {
+          startImport();
+        }
       } else if (currentStep < 4) {
         document.getElementById('step' + currentStep).classList.remove('active');
         currentStep++;
@@ -492,6 +496,18 @@
     }
     
     function startImport() {
+      // Prevent double execution
+      if (importInProgress) {
+        return;
+      }
+      
+      importInProgress = true;
+      
+      // Disable the import button immediately
+      const nextBtn = document.getElementById('nextBtn');
+      nextBtn.disabled = true;
+      nextBtn.textContent = 'Importing...';
+      
       document.getElementById('step2').classList.remove('active');
       currentStep = 3;
       document.getElementById('step3').classList.add('active');
@@ -502,9 +518,14 @@
       
       google.script.run
         .withSuccessHandler(function(result) {
+          importInProgress = false;
           displayImportComplete(result);
         })
         .withFailureHandler(function(error) {
+          importInProgress = false;
+          // Re-enable the button on error
+          nextBtn.disabled = false;
+          nextBtn.textContent = 'Import';
           displayImportError(error);
         })
         .executeImport(selectedFolder.id, productionFolderId, batchName, batchGroup);

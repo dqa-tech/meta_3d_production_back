@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Deliver Staged Tasks</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            font-size: 13px;
+            padding: 20px;
+        }
+        
+        .wizard-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .wizard-header {
+            background: linear-gradient(135deg, #34A853 0%, #4285F4 100%);
+            color: white;
+            padding: 24px;
+            text-align: center;
+        }
+        
+        .wizard-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .wizard-subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .wizard-content {
+            padding: 32px;
+        }
+        
+        .step {
+            display: none;
+            animation: fadeIn 0.3s ease-in;
+        }
+        
+        .step.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .step-header {
+            margin-bottom: 24px;
+        }
+        
+        .step-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        
+        .step-description {
+            color: #666;
+            line-height: 1.5;
+        }
+        
+        .form-group {
+            margin-bottom: 24px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            background-color: white;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #34A853;
+            box-shadow: 0 0 0 3px rgba(52, 168, 83, 0.1);
+        }
+        
+        .batch-list {
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background: white;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .batch-item {
+            padding: 16px;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .batch-item:last-child {
+            border-bottom: none;
+        }
+        
+        .batch-item:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .batch-item.selected {
+            background-color: #e8f5e8;
+            border-left: 4px solid #34A853;
+        }
+        
+        .batch-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .batch-id {
+            font-weight: 600;
+            font-size: 16px;
+            color: #333;
+        }
+        
+        .batch-date {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .batch-stats {
+            display: flex;
+            gap: 16px;
+            font-size: 14px;
+        }
+        
+        .batch-stat {
+            color: #666;
+        }
+        
+        .batch-stat-value {
+            font-weight: 600;
+            color: #34A853;
+        }
+        
+        .resume-notice {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 16px;
+            border-radius: 6px;
+            margin-bottom: 24px;
+        }
+        
+        .resume-notice h4 {
+            margin: 0 0 8px 0;
+            font-size: 16px;
+        }
+        
+        .alert {
+            padding: 16px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            border-left: 4px solid;
+        }
+        
+        .alert-success {
+            background-color: #e8f5e8;
+            border-left-color: #34A853;
+            color: #2e7d32;
+        }
+        
+        .alert-error {
+            background-color: #ffebee;
+            border-left-color: #f44336;
+            color: #c62828;
+        }
+        
+        .alert-warning {
+            background-color: #fff3cd;
+            border-left-color: #ffc107;
+            color: #856404;
+        }
+        
+        .validation-result {
+            margin-top: 16px;
+        }
+        
+        .folder-info {
+            background: #f8f9fa;
+            padding: 16px;
+            border-radius: 6px;
+            margin-top: 16px;
+        }
+        
+        .folder-info h4 {
+            margin: 0 0 8px 0;
+            color: #333;
+        }
+        
+        .folder-info p {
+            margin: 4px 0;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .progress-container {
+            text-align: center;
+            padding: 40px 20px;
+        }
+        
+        .progress-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 16px;
+        }
+        
+        .progress-message {
+            color: #666;
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+        
+        .loading-spinner {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #34A853;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 16px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .results-container {
+            text-align: center;
+        }
+        
+        .result-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            margin: 24px 0;
+        }
+        
+        .stat-card {
+            background: #f8f9fa;
+            padding: 16px;
+            border-radius: 6px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+        
+        .stat-value.success {
+            color: #34A853;
+        }
+        
+        .stat-value.error {
+            color: #EA4335;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 12px;
+        }
+        
+        .wizard-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 32px;
+            background: #f8f9fa;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .btn-primary {
+            background-color: #34A853;
+            color: white;
+        }
+        
+        .btn-primary:hover:not(:disabled) {
+            background-color: #2e7d32;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(52, 168, 83, 0.3);
+        }
+        
+        .btn-secondary {
+            background-color: #f5f5f5;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+        
+        .btn-secondary:hover:not(:disabled) {
+            background-color: #e8e8e8;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="wizard-container">
+        <!-- Header -->
+        <div class="wizard-header">
+            <div class="wizard-title">Deliver Staged Tasks</div>
+            <div class="wizard-subtitle">Deliver completed tasks directly to client folders</div>
+        </div>
+
+        <!-- Content -->
+        <div class="wizard-content">
+            <!-- Step 1: Check Resume -->
+            <div class="step active" id="step-1">
+                <div class="step-header">
+                    <div class="step-title">Delivery Status</div>
+                    <div class="step-description">Checking for previous delivery operations.</div>
+                </div>
+                
+                <div id="resume-check">
+                    <!-- Resume notice will be populated here -->
+                </div>
+                
+                <div id="batch-selection" class="hidden">
+                    <div class="form-group">
+                        <div class="form-label">Available Export Batches</div>
+                        <div id="batch-list" class="batch-list">
+                            <div style="padding: 40px; text-align: center; color: #666;">
+                                Loading available batches...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Client Folder -->
+            <div class="step" id="step-2">
+                <div class="step-header">
+                    <div class="step-title">Client Destination</div>
+                    <div class="step-description">Specify where to deliver the completed tasks.</div>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-label">Client Folder</div>
+                    <input type="text" 
+                           id="client-folder-input" 
+                           class="form-control" 
+                           placeholder="Enter Google Drive folder ID or paste folder URL"
+                           autocomplete="off">
+                    <div style="color: #666; font-size: 12px; margin-top: 5px;">
+                        Paste the full Google Drive URL or just the folder ID
+                    </div>
+                </div>
+                
+                <div id="validation-result" class="validation-result hidden">
+                    <!-- Validation results will be populated here -->
+                </div>
+            </div>
+
+            <!-- Step 3: Execute -->
+            <div class="step" id="step-3">
+                <div class="progress-container">
+                    <div class="loading-spinner"></div>
+                    <div class="progress-title" id="progress-title">Starting delivery...</div>
+                    <div class="progress-message" id="progress-message">
+                        This may take several minutes depending on the number of tasks.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Results -->
+            <div class="step" id="step-4">
+                <div class="results-container">
+                    <div class="step-header">
+                        <div class="step-title">Delivery Complete</div>
+                        <div class="step-description" id="results-description">
+                            <!-- Results description will be populated here -->
+                        </div>
+                    </div>
+                    
+                    <div id="result-alert">
+                        <!-- Success/error alert will be populated here -->
+                    </div>
+                    
+                    <div class="result-stats" id="result-stats">
+                        <!-- Stats will be populated here -->
+                    </div>
+                    
+                    <div id="client-folder-link" class="folder-info hidden">
+                        <!-- Client folder link will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="wizard-actions">
+            <button type="button" 
+                    id="btn-back" 
+                    class="btn btn-secondary" 
+                    onclick="previousStep()" 
+                    disabled>
+                ← Back
+            </button>
+            
+            <div>
+                <button type="button" 
+                        id="btn-cancel" 
+                        class="btn btn-secondary" 
+                        onclick="google.script.host.close()">
+                    Cancel
+                </button>
+                
+                <button type="button" 
+                        id="btn-next" 
+                        class="btn btn-primary" 
+                        onclick="nextStep()"
+                        disabled>
+                    Next
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        let selectedBatch = null;
+        let clientFolder = null;
+        let deliveryResult = null;
+        let hasResume = false;
+
+        // Initialize wizard
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeWizard();
+        });
+
+        function initializeWizard() {
+            checkForResume();
+            setupEventListeners();
+        }
+
+        function setupEventListeners() {
+            document.getElementById('client-folder-input').addEventListener('input', function() {
+                clearTimeout(this.debounceTimer);
+                this.debounceTimer = setTimeout(validateClientFolder, 1000);
+            });
+
+            document.getElementById('client-folder-input').addEventListener('blur', validateClientFolder);
+        }
+
+        function checkForResume() {
+            google.script.run
+                .withSuccessHandler(function(result) {
+                    handleResumeCheck(result);
+                })
+                .withFailureHandler(function(error) {
+                    showError('Failed to check for resume: ' + error);
+                    loadBatches();
+                })
+                .checkForResumeUI();
+        }
+
+        function handleResumeCheck(result) {
+            const resumeContainer = document.getElementById('resume-check');
+            const batchContainer = document.getElementById('batch-selection');
+            
+            if (result && result.success && result.hasResume) {
+                hasResume = true;
+                const totalTasks = result.totalTasks;
+                
+                resumeContainer.innerHTML = `
+                    <div class="resume-notice">
+                        <h4>⚠ Previous Delivery Detected</h4>
+                        <p>There are ${totalTasks} tasks from a previous delivery operation that was interrupted.</p>
+                        <p style="margin-top: 12px;">
+                            <button class="btn btn-primary" onclick="showResumeDelivery()">Resume Previous Delivery</button>
+                            <button class="btn btn-secondary" onclick="startNewDelivery()" style="margin-left: 8px;">Start New Delivery</button>
+                        </p>
+                    </div>
+                `;
+                
+                updateNextButtonState();
+            } else {
+                startNewDelivery();
+            }
+        }
+
+        function showResumeDelivery() {
+            currentStep = 2;
+            updateStepDisplay();
+            updateButtons();
+            
+            // Pre-populate the title
+            document.querySelector('#step-2 .step-title').textContent = 'Resume Delivery - Client Destination';
+            document.querySelector('#step-2 .step-description').textContent = 'Enter the client folder to continue the previous delivery.';
+        }
+
+        function startNewDelivery() {
+            hasResume = false;
+            document.getElementById('batch-selection').classList.remove('hidden');
+            loadBatches();
+        }
+
+        function loadBatches() {
+            const container = document.getElementById('batch-list');
+            
+            google.script.run
+                .withSuccessHandler(function(result) {
+                    if (result && result.success) {
+                        renderBatches(result.batches, result.summary);
+                    } else {
+                        const error = result ? result.error : 'Unknown error';
+                        container.innerHTML = '<div style="padding: 40px; text-align: center; color: #EA4335;">Failed to load batches: ' + error + '</div>';
+                    }
+                })
+                .withFailureHandler(function(error) {
+                    container.innerHTML = '<div style="padding: 40px; text-align: center; color: #EA4335;">Error loading batches: ' + error + '</div>';
+                })
+                .getDeliverableBatchesForUI();
+        }
+
+        function renderBatches(batches, summary) {
+            const container = document.getElementById('batch-list');
+            
+            if (batches.length === 0) {
+                container.innerHTML = '<div style="padding: 40px; text-align: center; color: #666;">No deliverable batches found. Stage some tasks first.</div>';
+                return;
+            }
+            
+            container.innerHTML = batches.map(batch => {
+                const createdDate = batch.createdDate ? new Date(batch.createdDate).toLocaleDateString() : 'Unknown';
+                
+                return `
+                <div class="batch-item" onclick="selectBatch('${batch.exportBatchId}')">
+                    <div class="batch-header">
+                        <div class="batch-id">${batch.exportBatchId}</div>
+                        <div class="batch-date">${createdDate}</div>
+                    </div>
+                    <div class="batch-stats">
+                        <div class="batch-stat">
+                            <span class="batch-stat-value">${batch.stagedTasks}</span> Ready
+                        </div>
+                        ${batch.failedTasks > 0 ? `
+                        <div class="batch-stat">
+                            <span class="batch-stat-value">${batch.failedTasks}</span> Failed
+                        </div>
+                        ` : ''}
+                        <div class="batch-stat">
+                            <span class="batch-stat-value">${batch.totalTasks}</span> Total
+                        </div>
+                    </div>
+                </div>
+                `;
+            }).join('');
+            
+            updateNextButtonState();
+        }
+
+        function selectBatch(batchId) {
+            // Remove previous selection
+            document.querySelectorAll('.batch-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            
+            // Select new batch
+            event.target.closest('.batch-item').classList.add('selected');
+            selectedBatch = batchId;
+            
+            updateNextButtonState();
+        }
+
+        function validateClientFolder() {
+            const input = document.getElementById('client-folder-input');
+            const folderInput = input.value.trim();
+            
+            if (!folderInput) {
+                hideValidationResults();
+                updateNextButtonState();
+                return;
+            }
+
+            // Extract folder ID from URL if provided
+            let folderId = folderInput;
+            const urlMatch = folderInput.match(/folders\/([a-zA-Z0-9-_]+)/);
+            if (urlMatch) {
+                folderId = urlMatch[1];
+            }
+
+            google.script.run
+                .withSuccessHandler(function(result) {
+                    handleValidationResult(result);
+                })
+                .withFailureHandler(function(error) {
+                    showValidationError(error.toString());
+                    clientFolder = null;
+                    updateNextButtonState();
+                })
+                .validateDeliveryFolderUI(folderId, selectedBatch);
+        }
+
+        function handleValidationResult(result) {
+            if (result && result.success && result.validation && result.validation.valid) {
+                showValidationSuccess(result.validation);
+                clientFolder = result.validation;
+            } else {
+                const error = (result && result.validation) ? result.validation.error : 
+                              (result && result.error) ? result.error : 'Unknown validation error';
+                showValidationError(error);
+                clientFolder = null;
+            }
+            updateButtons();
+        }
+
+        function showValidationSuccess(validation) {
+            const container = document.getElementById('validation-result');
+            
+            let message = `✓ Folder validated: ${validation.folderName}`;
+            let alertClass = 'alert-success';
+            
+            if (validation.sampleValidation) {
+                const sample = validation.sampleValidation;
+                if (sample.matchPercentage < 100 && sample.sampledTasks > 0) {
+                    message += `<br><small>⚠ ${sample.matchedFolders}/${sample.sampledTasks} sample task folders found (${sample.matchPercentage}%)</small>`;
+                    alertClass = 'alert-warning';
+                } else if (sample.sampledTasks > 0) {
+                    message += `<br><small>✓ All ${sample.sampledTasks} sample task folders found</small>`;
+                }
+            }
+            
+            container.innerHTML = `<div class="alert ${alertClass}">${message}</div>`;
+            container.classList.remove('hidden');
+        }
+
+        function showValidationError(errorMessage) {
+            const container = document.getElementById('validation-result');
+            container.innerHTML = `<div class="alert alert-error">✗ ${errorMessage}</div>`;
+            container.classList.remove('hidden');
+        }
+
+        function hideValidationResults() {
+            document.getElementById('validation-result').classList.add('hidden');
+        }
+
+        function nextStep() {
+            if (currentStep === 1) {
+                if (hasResume || selectedBatch) {
+                    currentStep = 2;
+                }
+            } else if (currentStep === 2) {
+                if (clientFolder && clientFolder.valid) {
+                    startDelivery();
+                }
+            }
+            
+            if (currentStep <= 2) {
+                updateStepDisplay();
+                updateButtons();
+            }
+        }
+
+        function previousStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                updateStepDisplay();
+                updateButtons();
+            }
+        }
+
+        function startDelivery() {
+            currentStep = 3;
+            updateStepDisplay();
+            updateButtons();
+
+            const progressTitle = document.getElementById('progress-title');
+            const progressMessage = document.getElementById('progress-message');
+
+            progressTitle.textContent = 'Delivering tasks...';
+            progressMessage.textContent = 'Copying production files to client folder. This process cannot be cancelled.';
+
+            // Start the delivery operation
+            if (hasResume) {
+                google.script.run
+                    .withSuccessHandler(handleDeliveryResult)
+                    .withFailureHandler(handleDeliveryError)
+                    .resumeDeliveryWizard(clientFolder.folderId);
+            } else {
+                google.script.run
+                    .withSuccessHandler(handleDeliveryResult)
+                    .withFailureHandler(handleDeliveryError)
+                    .startDeliveryWizard(selectedBatch, clientFolder.folderId);
+            }
+        }
+
+        function handleDeliveryResult(result) {
+            deliveryResult = result;
+            
+            setTimeout(() => {
+                currentStep = 4;
+                updateStepDisplay();
+                updateButtons();
+                showDeliveryResults(result);
+            }, 1000);
+        }
+
+        function handleDeliveryError(error) {
+            deliveryResult = { success: false, error: error.toString() };
+            
+            setTimeout(() => {
+                currentStep = 4;
+                updateStepDisplay();
+                updateButtons();
+                showDeliveryResults(deliveryResult);
+            }, 1000);
+        }
+
+        function showDeliveryResults(result) {
+            const alertContainer = document.getElementById('result-alert');
+            const statsContainer = document.getElementById('result-stats');
+            const folderContainer = document.getElementById('client-folder-link');
+            const description = document.getElementById('results-description');
+
+            if (result && result.success) {
+                if (result.partial) {
+                    // Partial completion due to timeout
+                    alertContainer.innerHTML = `
+                        <div class="alert alert-warning">
+                            <strong>⚠ Delivery Partially Complete</strong><br>
+                            ${result.message}
+                        </div>
+                    `;
+                    description.textContent = 'The delivery was partially completed due to time limits.';
+                } else {
+                    // Full success
+                    alertContainer.innerHTML = `
+                        <div class="alert alert-success">
+                            <strong>✓ Delivery Complete</strong><br>
+                            All tasks have been successfully delivered to the client folder.
+                        </div>
+                    `;
+                    description.textContent = 'All tasks have been delivered successfully.';
+                }
+                
+                // Show stats
+                statsContainer.innerHTML = `
+                    <div class="stat-card">
+                        <div class="stat-value success">${result.delivered || 0}</div>
+                        <div class="stat-label">Delivered</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value ${result.failed > 0 ? 'error' : ''}">${result.failed || 0}</div>
+                        <div class="stat-label">Failed</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">${result.totalTasks || 0}</div>
+                        <div class="stat-label">Total Tasks</div>
+                    </div>
+                    ${result.remaining ? `
+                    <div class="stat-card">
+                        <div class="stat-value">${result.remaining}</div>
+                        <div class="stat-label">Remaining</div>
+                    </div>
+                    ` : ''}
+                `;
+                
+                // Show client folder link
+                if (result.clientFolder) {
+                    folderContainer.innerHTML = `
+                        <h4>Client Folder</h4>
+                        <p><strong>Name:</strong> ${result.clientFolder.folderName}</p>
+                        <p><a href="${result.clientFolder.folderUrl}" target="_blank">Open Client Folder</a></p>
+                    `;
+                    folderContainer.classList.remove('hidden');
+                }
+                
+            } else {
+                // Delivery failed
+                alertContainer.innerHTML = `
+                    <div class="alert alert-error">
+                        <strong>✗ Delivery Failed</strong><br>
+                        ${result.error}
+                    </div>
+                `;
+                description.textContent = 'The delivery operation encountered an error.';
+            }
+        }
+
+        function updateStepDisplay() {
+            // Hide all steps
+            document.querySelectorAll('.step').forEach(el => {
+                el.classList.remove('active');
+            });
+            
+            // Show current step
+            document.getElementById(`step-${currentStep}`).classList.add('active');
+        }
+
+        function updateButtons() {
+            const btnBack = document.getElementById('btn-back');
+            const btnNext = document.getElementById('btn-next');
+            const btnCancel = document.getElementById('btn-cancel');
+
+            // Back button
+            btnBack.disabled = currentStep === 1;
+            btnBack.style.display = currentStep === 1 ? 'none' : 'inline-flex';
+
+            // Next button text and state
+            if (currentStep === 1) {
+                btnNext.textContent = hasResume ? 'Resume Delivery' : 'Next';
+                updateNextButtonState();
+            } else if (currentStep === 2) {
+                btnNext.textContent = 'Start Delivery';
+                btnNext.disabled = !clientFolder || !clientFolder.valid;
+            } else if (currentStep === 3) {
+                btnNext.style.display = 'none';
+            } else if (currentStep === 4) {
+                btnNext.textContent = 'Close';
+                btnNext.disabled = false;
+                btnNext.onclick = () => google.script.host.close();
+                btnCancel.style.display = 'none';
+            }
+        }
+
+        function updateNextButtonState() {
+            const btnNext = document.getElementById('btn-next');
+            
+            if (currentStep === 1) {
+                btnNext.disabled = !hasResume && !selectedBatch;
+            }
+        }
+
+        function showError(message) {
+            console.error('Delivery wizard error:', message);
+            alert('Error: ' + message);
+        }
+    </script>
+</body>
+</html>

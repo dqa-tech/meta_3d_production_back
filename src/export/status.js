@@ -7,9 +7,10 @@
  * Update export status for multiple tasks (simplified for direct export)
  * @param {Array} taskIds - Task IDs to update
  * @param {string} status - New export status
+ * @param {string} exportBatchId - Optional export batch ID
  * @returns {Object} Update results
  */
-function updateTaskExportStatus(taskIds, status) {
+function updateTaskExportStatus(taskIds, status, exportBatchId = null) {
   if (!taskIds || taskIds.length === 0) {
     return { updated: 0, failed: 0 };
   }
@@ -20,13 +21,22 @@ function updateTaskExportStatus(taskIds, status) {
     throw new ValidationError(`Invalid export status: ${status}`);
   }
   
-  const updates = taskIds.map(taskId => ({
-    taskId: taskId,
-    updates: { 
+  const updates = taskIds.map(taskId => {
+    const taskUpdates = { 
       exportStatus: status,
       exportTime: new Date().toISOString()
+    };
+    
+    // Add export batch ID if provided
+    if (exportBatchId) {
+      taskUpdates.exportBatchId = exportBatchId;
     }
-  }));
+    
+    return {
+      taskId: taskId,
+      updates: taskUpdates
+    };
+  });
   
   try {
     const results = batchUpdateTasksOptimized(updates);
