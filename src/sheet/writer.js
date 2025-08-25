@@ -17,28 +17,26 @@ function updateTaskRecord(taskId, updates) {
     throw new ApiError(`Task not found: ${taskId}`, 404);
   }
   
-  // Validate updates
+  // Validate updates before any sheet operations
   validateTaskUpdate(updates);
   
-  // Get current row data
-  const row = sheet.getRange(rowIndex, 1, 1, COLUMN_ORDER.length).getValues()[0];
+  // Get current row data and create working copy
+  const originalRow = sheet.getRange(rowIndex, 1, 1, COLUMN_ORDER.length).getValues()[0];
+  const newRow = [...originalRow];
   
-  // Apply updates
+  // Apply all updates to working copy in memory first
   Object.entries(updates).forEach(([field, value]) => {
     // Convert camelCase to UPPER_SNAKE_CASE
     const columnKey = field.replace(/([A-Z])/g, '_$1').toUpperCase();
     const columnIndex = getColumnIndex(columnKey);
     
     if (columnIndex > 0) {
-      row[columnIndex - 1] = value;
+      newRow[columnIndex - 1] = value;
     }
   });
   
-  // Update timestamp
-  const now = new Date().toISOString();
-  
-  // Write back to sheet
-  sheet.getRange(rowIndex, 1, 1, COLUMN_ORDER.length).setValues([row]);
+  // ATOMIC WRITE - Single sheet operation
+  sheet.getRange(rowIndex, 1, 1, COLUMN_ORDER.length).setValues([newRow]);
   
   // Log update
   info('Task updated', {
@@ -47,7 +45,7 @@ function updateTaskRecord(taskId, updates) {
     rowIndex: rowIndex
   });
   
-  return formatTaskResponse(row, rowIndex, COLUMN_ORDER);
+  return formatTaskResponse(newRow, rowIndex, COLUMN_ORDER);
 }
 
 /**
@@ -162,11 +160,11 @@ function batchUpdateTasks(updates) {
         taskId: update.taskId,
         success: true
       });
-    } catch (error) {
+    } catch (err) {
       results.push({
         taskId: update.taskId,
         success: false,
-        error: error.message
+        error: err.message
       });
     }
   });
@@ -318,9 +316,9 @@ function bulkCreateTaskRecords(tasksData) {
       created: rows.length,
       failed: 0
     };
-  } catch (error) {
+  } catch (err) {
     error('Bulk creation failed', {
-      error: error.message,
+      error: err.message,
       attempted: rows.length
     });
     

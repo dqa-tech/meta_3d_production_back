@@ -1,0 +1,2816 @@
+Cloud logs
+
+# LOG1 
+Aug 8, 2025, 4:04:19 PM	Debug	Logging output too large. Truncating output. batchCreateFolders result: [ { kind: 'drive#file',
+    id: '1K-vzXb0SKReI3fi_hy_D-T8yshP7lm5r',
+    name: 'sa3_1605055162_tricycle_3',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1Va4D6_iK-csSf5BToI6ZMX3WB7MoywwN',
+    name: 'sa3_2182201959_microscope_0',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '17ywsoJhKg7GI1adYRBQD_GzYtUMp5xpU',
+    name: 'sa3_718890319_clock_tower_2',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1bkWbwnfUzzVb1QMoU1jn85PDe6za8wsC',
+    name: 'sa3_435429754_cargo_ship_1',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1PwSA1aWQwcA3i5Wn8EGggldUr7fSykm3',
+    name: 'sa3_1777085444_bullhorn_6',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1GBiQyjyo9Shf-1bSpUQo1nfdHCbwx4CD',
+    name: 'sa3_1140193754_sword_4',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1TuQtyfrmkuE6Ui5_qG-JmQtPjg1JBAW7',
+    name: 'sa3_1470122615_bagpipe_1',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1VWbAfPDDClXEiaZpz2z4WhSKY8Wf7yXF',
+    name: 'sa3_1384782986_vent_7',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1_kjuusgPjC6IHa3wN19jlz8mnLP4tQhS',
+    name: 'sa3_504894037_dagger_4',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '14zn1_y2F3XBqmVVsD2McwZ45BoYCQb17',
+    name: 'sa3_1923997838_drill_5',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '12ICEGOjKBvUxp0wR29evFHmdUdaXdNI5',
+    name: 'sa3_1331717945_remote_control_2',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1wYeSW9aoOoLsaIsh6im4lLdTZqwO1ZOs',
+    name: 'sa3_1069947569_clasp_4',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1hcVi4bRgKJKEkVdDIuPqyYivx0Aws779',
+    name: 'sa3_307733915_chalice_3',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1BxM8mD_PBejhYn_0bH8vjuMMC5pK_9QW',
+    name: 'sa3_310099100_generator_5',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1_K7UaK3hLjKi5nAMBwWo8EgIFnSFHKaR',
+    name: 'sa3_1448864750_handcart_2',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1shZ0kb0SXtmOfXdT0bi8BVR1Sdj9BYZO',
+    name: 'sa3_1646842057_dagger_5',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '16DCVfHWfPoDlVa0Is3FOFESzbYPc0hiW',
+    name: 'sa3_1056753578_bear_2',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '13X-opov3sxqdQ00GANi5IsuNS3AG2x6Z',
+    name: 'sa3_2187950231_piggy_bank_1',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1ATPif8sWqeKJD1tR5CnOD3WxctnlULlc',
+    name: 'sa3_1588642135_tank_5',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1gYdU0PGLwDNn8qG8vVNXu2mf9wV5TeaW',
+    name: 'sa3_1446571157_mattress_0',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1BeBLWiYlcHAPrjkQvWr3EXPjhWCVdjFK',
+    name: 'sa3_1033017631_broom_9',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1PMbYCqrV3SqJsjIlugC4TZdIZHFwu493',
+    name: 'sa3_1138111259_hook_8',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1VmGot8ieiRk5MUl_eMQm0fWtCKVkJpyn',
+    name: 'sa3_1446844643_ladle_6',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1aeBVkfgbUt41wwFCCTFTYqvU8ztguuMh',
+    name: 'sa3_1509275963_spectacles_4',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1zdI-WTf7ZuKo4sgIqXK8L1zaDocPZzCE',
+    name: 'sa3_1820564327_tank_4',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1aur9C23PSrjRnThw3d0sAaOyYIP_O9wC',
+    name: 'sa3_1141254710_headstall_1',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1vtlkBQvJQUkXbbJ-njwq4enh1FCSVi9a',
+    name: 'sa3_1069068485_heater_5',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '13SEKILaW34VHf5qmJ1Venzp6k1bWtfDk',
+    name: 'sa3_375181537_telephone_booth_3',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '18tR5YGuOfnBFUsZDeAKAsk2AvUJln2qT',
+    name: 'sa3_1624585915_boxing_glove_2',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1DSmTC-0e3MvdaaX3aHYTubA6ukJt8T9r',
+    name: 'sa3_1740588047_hair_dryer_2',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '18HmuvYseZh6EC5mwy5jZM-OZPd-OqhYY',
+    name: 'sa3_571858081_shaver_2',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1S52jduaPevjg0SDj557rMQwy4qAk3VEz',
+    name: 'sa3_185150711_goat_0',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1K-boSmmzDv7vNhhI4w5tgocTVKkTHFpt',
+    name: 'sa3_304008416_forklift_4',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '10GXLGWR-VqgSuyfTvaS4avqRsBQadszy',
+    name: 'sa3_1100192663_drill_6',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1cUgpFEbntjTMKUDmjGb9iEamGuy3I3TN',
+    name: 'sa3_774079315_pepper_mill_2',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1V69eJZ8IOQ_Neg-HakDGq_LqoGYQqe8R',
+    name: 'sa3_1529365349_spoon_8',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '19RziocInKv_sZeyjxlQa_ECQZfYPVTm8',
+    name: 'sa3_1612091317_sled_4',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1bf4tUifGnQQCWdj_yvHcJZHOuNgavve9',
+    name: 'sa3_456197911_bell_7',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1K44GhaIgTfhlLu8AYv-xq-DwyxHLIThE',
+    name: 'sa3_1247973097_elevator_car_3',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1jvF6l2Jl6crmFVZIiju5d2K0ztIwhO9W',
+    name: 'sa3_1811737492_fume_hood_2',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1H7jwQCCBQx2QGeY1mW3JfBp-jRhYCiqI',
+    name: 'sa3_1211873758_spatula_7',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1mQVbrAAnnomKZNoKMg3BxF9alixERurV',
+    name: 'sa3_1150545329_cornet_5',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1BhEoksuRRIuXtJR5dFaylgxcTOx8sRTr',
+    name: 'sa3_2208333767_scissors_2',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '124z7DGYp-QOlw3lGoWBilDMJ-vThVl0Q',
+    name: 'sa3_1442443202_vending_machine_4',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1N6UrAn_TyfskQzrahQpWp8KT0N3JaKWL',
+    name: 'sa3_691778065_inhaler_3',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1n0YmA4l2_Po8a8zP4WC-U7hFwAi9u_3Y',
+    name: 'sa3_154540763_pillow_7',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1qjwvWrvTecnadSXi8Bz-1N5l2dBJ5HBH',
+    name: 'sa3_1745334911_baby_buggy_9',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1vD-IR72bVdCR_Lq6QMQmwWHHD8ue3X2G',
+    name: 'sa3_1129468466_oar_1',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1INePWnwQMMrN-t0G2KynyfEOWKQQ2Vgi',
+    name: 'sa3_1158093478_parking_meter_2',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1sFQTIpuvgDKY-9Wbw6L3VaGDwmoCPSox',
+    name: 'sa3_599883971_generator_4',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1dV6VR6iQDGfzJWJazNq
+Aug 8, 2025, 4:04:19 PM	Debug	Logging output too large. Truncating output. Created folders response: [ { kind: 'drive#file',
+    id: '1K-vzXb0SKReI3fi_hy_D-T8yshP7lm5r',
+    name: 'sa3_1605055162_tricycle_3',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1Va4D6_iK-csSf5BToI6ZMX3WB7MoywwN',
+    name: 'sa3_2182201959_microscope_0',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '17ywsoJhKg7GI1adYRBQD_GzYtUMp5xpU',
+    name: 'sa3_718890319_clock_tower_2',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1bkWbwnfUzzVb1QMoU1jn85PDe6za8wsC',
+    name: 'sa3_435429754_cargo_ship_1',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1PwSA1aWQwcA3i5Wn8EGggldUr7fSykm3',
+    name: 'sa3_1777085444_bullhorn_6',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1GBiQyjyo9Shf-1bSpUQo1nfdHCbwx4CD',
+    name: 'sa3_1140193754_sword_4',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1TuQtyfrmkuE6Ui5_qG-JmQtPjg1JBAW7',
+    name: 'sa3_1470122615_bagpipe_1',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1VWbAfPDDClXEiaZpz2z4WhSKY8Wf7yXF',
+    name: 'sa3_1384782986_vent_7',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1_kjuusgPjC6IHa3wN19jlz8mnLP4tQhS',
+    name: 'sa3_504894037_dagger_4',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '14zn1_y2F3XBqmVVsD2McwZ45BoYCQb17',
+    name: 'sa3_1923997838_drill_5',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '12ICEGOjKBvUxp0wR29evFHmdUdaXdNI5',
+    name: 'sa3_1331717945_remote_control_2',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1wYeSW9aoOoLsaIsh6im4lLdTZqwO1ZOs',
+    name: 'sa3_1069947569_clasp_4',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1hcVi4bRgKJKEkVdDIuPqyYivx0Aws779',
+    name: 'sa3_307733915_chalice_3',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1BxM8mD_PBejhYn_0bH8vjuMMC5pK_9QW',
+    name: 'sa3_310099100_generator_5',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1_K7UaK3hLjKi5nAMBwWo8EgIFnSFHKaR',
+    name: 'sa3_1448864750_handcart_2',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1shZ0kb0SXtmOfXdT0bi8BVR1Sdj9BYZO',
+    name: 'sa3_1646842057_dagger_5',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '16DCVfHWfPoDlVa0Is3FOFESzbYPc0hiW',
+    name: 'sa3_1056753578_bear_2',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '13X-opov3sxqdQ00GANi5IsuNS3AG2x6Z',
+    name: 'sa3_2187950231_piggy_bank_1',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1ATPif8sWqeKJD1tR5CnOD3WxctnlULlc',
+    name: 'sa3_1588642135_tank_5',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1gYdU0PGLwDNn8qG8vVNXu2mf9wV5TeaW',
+    name: 'sa3_1446571157_mattress_0',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1BeBLWiYlcHAPrjkQvWr3EXPjhWCVdjFK',
+    name: 'sa3_1033017631_broom_9',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1PMbYCqrV3SqJsjIlugC4TZdIZHFwu493',
+    name: 'sa3_1138111259_hook_8',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1VmGot8ieiRk5MUl_eMQm0fWtCKVkJpyn',
+    name: 'sa3_1446844643_ladle_6',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1aeBVkfgbUt41wwFCCTFTYqvU8ztguuMh',
+    name: 'sa3_1509275963_spectacles_4',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1zdI-WTf7ZuKo4sgIqXK8L1zaDocPZzCE',
+    name: 'sa3_1820564327_tank_4',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1aur9C23PSrjRnThw3d0sAaOyYIP_O9wC',
+    name: 'sa3_1141254710_headstall_1',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1vtlkBQvJQUkXbbJ-njwq4enh1FCSVi9a',
+    name: 'sa3_1069068485_heater_5',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '13SEKILaW34VHf5qmJ1Venzp6k1bWtfDk',
+    name: 'sa3_375181537_telephone_booth_3',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '18tR5YGuOfnBFUsZDeAKAsk2AvUJln2qT',
+    name: 'sa3_1624585915_boxing_glove_2',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1DSmTC-0e3MvdaaX3aHYTubA6ukJt8T9r',
+    name: 'sa3_1740588047_hair_dryer_2',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '18HmuvYseZh6EC5mwy5jZM-OZPd-OqhYY',
+    name: 'sa3_571858081_shaver_2',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1S52jduaPevjg0SDj557rMQwy4qAk3VEz',
+    name: 'sa3_185150711_goat_0',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1K-boSmmzDv7vNhhI4w5tgocTVKkTHFpt',
+    name: 'sa3_304008416_forklift_4',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '10GXLGWR-VqgSuyfTvaS4avqRsBQadszy',
+    name: 'sa3_1100192663_drill_6',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1cUgpFEbntjTMKUDmjGb9iEamGuy3I3TN',
+    name: 'sa3_774079315_pepper_mill_2',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1V69eJZ8IOQ_Neg-HakDGq_LqoGYQqe8R',
+    name: 'sa3_1529365349_spoon_8',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '19RziocInKv_sZeyjxlQa_ECQZfYPVTm8',
+    name: 'sa3_1612091317_sled_4',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1bf4tUifGnQQCWdj_yvHcJZHOuNgavve9',
+    name: 'sa3_456197911_bell_7',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1K44GhaIgTfhlLu8AYv-xq-DwyxHLIThE',
+    name: 'sa3_1247973097_elevator_car_3',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1jvF6l2Jl6crmFVZIiju5d2K0ztIwhO9W',
+    name: 'sa3_1811737492_fume_hood_2',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1H7jwQCCBQx2QGeY1mW3JfBp-jRhYCiqI',
+    name: 'sa3_1211873758_spatula_7',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1mQVbrAAnnomKZNoKMg3BxF9alixERurV',
+    name: 'sa3_1150545329_cornet_5',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1BhEoksuRRIuXtJR5dFaylgxcTOx8sRTr',
+    name: 'sa3_2208333767_scissors_2',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '124z7DGYp-QOlw3lGoWBilDMJ-vThVl0Q',
+    name: 'sa3_1442443202_vending_machine_4',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1N6UrAn_TyfskQzrahQpWp8KT0N3JaKWL',
+    name: 'sa3_691778065_inhaler_3',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1n0YmA4l2_Po8a8zP4WC-U7hFwAi9u_3Y',
+    name: 'sa3_154540763_pillow_7',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1qjwvWrvTecnadSXi8Bz-1N5l2dBJ5HBH',
+    name: 'sa3_1745334911_baby_buggy_9',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1vD-IR72bVdCR_Lq6QMQmwWHHD8ue3X2G',
+    name: 'sa3_1129468466_oar_1',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1INePWnwQMMrN-t0G2KynyfEOWKQQ2Vgi',
+    name: 'sa3_1158093478_parking_meter_2',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1sFQTIpuvgDKY-9Wbw6L3VaGDwmoCPSox',
+    name: 'sa3_599883971_generator_4',
+    mimeType: 'application/vnd.google-apps.folder' },
+  { kind: 'drive#file',
+    id: '1dV6VR6iQDGfzJWJazNq6
+
+# LOG2
+Aug 8, 2025, 4:04:20 PM	Debug	Sending batch request to: https://www.googleapis.com/batch/drive/v3
+Aug 8, 2025, 4:04:20 PM	Debug	Batch body preview: 
+---------314159265358979323846
+Content-Type: application/http
+Content-ID: 1
+
+POST /drive/v3/files/19BkwMNSAbkyWe9w6uZjM25c2e9eZ43-N/copy HTTP/1.1
+Content-Type: application/json
+
+{"name":"image.jpg","parents":["1K-vzXb0SKReI3fi_hy_D-T8yshP7lm5r"]}
+---------314159265358979323846
+Content-Type: application/http
+Content-ID: 2
+
+POST /drive/v3/files/1Xi-OW8G9PEykz85kyWgBjeXN5vsP5Jui/copy HTTP/1.1
+Content-Type: application/json
+
+{"name":"mask.jpg","parents":["1K-vzXb0SKReI3fi_hy_D-T8ysh
+Aug 8, 2025, 4:04:20 PM	Debug	Batch API response code: 200
+Aug 8, 2025, 4:04:20 PM	Debug	Batch API response preview: 
+--batch_WYi17M26AkT9LqcLjUpBKv7SONJ4MSmM
+Content-Type: application/http
+Content-ID: response-1
+
+HTTP/1.1 404 Not Found
+Expires: Fri, 08 Aug 2025 23:04:20 GMT
+Date: Fri, 08 Aug 2025 23:04:20 GMT
+Cache-Control: private, max-age=0
+Content-Type: application/json; charset=UTF-8
+Content-Length: 342
+
+# LOG3
+{
+  "error": {
+    "code": 404,
+    "message": "File not found: 19BkwMNSAbkyWe9w6uZjM25c2e9eZ43-N.",
+    "errors": [
+      {
+        "message": "File not found: 19BkwMNSAbkyWe9w6uZjM25c2e9eZ43
+Aug 8, 2025, 4:04:20 PM	Debug	Response boundary: batch_WYi17M26AkT9LqcLjUpBKv7SONJ4MSmM
+Aug 8, 2025, 4:04:20 PM	Debug	Found 101 parts in response
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 1 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 2 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 3 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 4 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 5 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 6 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 7 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 8 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 9 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 10 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 11 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 12 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 13 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 14 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 15 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 16 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 17 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 18 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 19 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 20 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 21 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 22 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 23 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 24 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 25 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 26 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 27 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 28 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 29 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 30 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 31 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 32 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 33 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 34 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 35 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 36 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 37 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 38 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 39 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 40 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 41 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 42 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 43 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 44 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 45 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 46 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 47 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 48 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 49 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 50 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 51 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 52 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 53 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 54 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 55 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 56 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 57 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 58 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 59 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 60 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 61 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 62 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 63 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 64 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 65 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 66 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 67 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 68 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 69 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 70 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 71 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 72 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 73 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 74 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 75 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 76 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 77 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 78 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 79 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 80 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 81 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 82 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 83 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 84 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 85 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 86 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 87 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 88 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 89 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 90 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 91 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 92 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 93 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 94 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 95 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 96 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 97 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 98 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 99 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Parsed folder 100 : undefined id: undefined
+Aug 8, 2025, 4:04:20 PM	Debug	Successfully parsed 100 responses
+Aug 8, 2025, 4:04:20 PM	Debug	
+Logging output too large. Truncating output.
+
+# LOG4
+ Parsed batch response: [ { error: 
+     { code: 404,
+       message: 'File not found: 19BkwMNSAbkyWe9w6uZjM25c2e9eZ43-N.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1Xi-OW8G9PEykz85kyWgBjeXN5vsP5Jui.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1j6yFoTUzDpBN8w1InCMh_tX01fLE2yEv.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1bLtNwaLcM6Z1d_ak3xs5Hnjv3I1fS-MV.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1R9hBxItgHnLD41p5BUeLW2XDJtscWz5J.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1TNxUF5yLgzfIpBJgC_myKiFoStkxZglO.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 17dGfvDWwKX7vwp6Yu-O96lyMGPsFAWS0.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 11df8hpLp5DSdEijsg3wgxIGLURo8t1hJ.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1MjX1Zzr6gVUnH0pMU5ZRUCpL8TJ7IaFw.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1aaD0jUa8S5FCS16H4RYBNvmDNr9j11hn.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1wNc7IHWIg8FUa4o05WANZbfsATPel5uH.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1665t82tuiOl7WEYkG9l1tHPDMlW0NF8P.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1wU8pAG_UAXFiRXKvvW6e51MxSxgSh7du.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1EVeCl9H37zqqs7waX5urSDOWJI_JqANi.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 110jt5uJYtCKWJTWr574to1ENfoq-EUef.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1uS3engqjPEA4HP_HsiYsi9L0IlRcYvqZ.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1xYFtJ6b4L_aMHNcXRZZYG5YN5z5xIGWi.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1gugm22IBxvqN-ypOBT36Sm3nkYNjJgFd.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1bYD-AQ66rBVqmeyto5rrwNQ7LWREDJNc.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1gyXpPgduSVXxUx-5Gwvp9Pq-ySMM6_BD.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1R5ksT4-IiWQNcFs6rAnyjMuRr35pb0a5.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1mAw_p5EZ5rBres1GUKkTOeSwgI2wYYrz.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1JSLmJbUCttOUI-NAeDMzw8q2WFmVX7v-.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1VeldY2kZpVICTMYoOYFDYmCUGLcvJCXO.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1GzHlCHvIpy-BugF_9agHkH4fkEbeyM7E.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1OhR5dUval-iaSXrJ7npHyRt3mZBmsXRC.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1AR44haMvSEpLH9usX0swKwdlghcPNUsb.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1-FAwLCMLRdradMqd5ZwEX5E8OmkbOiaj.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 19NHlgRsfBWouM4l-yq061RITCW2L9e2N.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1tZ9b4A3CJRdHwcu2pgYrY7ypvcCdHZAv.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1Zu6n6kXifNUifU3m0vwWHHzLiiHETj2y.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1L0r3e9p-R85xJpCsqthMZYKZaP5hQ137.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1J0J40isP-Khc-dPr0iDn0LFuk6N8B0qi.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1gwzxqn4yxCx7x5ju4O1hTxjvxei-rEJS.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 10JmAEnco9DLU-B3BYvStIg5WlJ8tDwj4.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1isaJ9Phkwb5-naLb7MtAxKCxVgyeueoX.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1256RoOByfR8XrYDSh2MMWZtB3OTRo0wK.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1zdiFJd5B8ryUv4Y_Kr3Z9e60JW5fhNe1.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1bUU8XGoBeHnTrmxHtozJ5vRwX4Eh6Lxc.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1F_UyN_7m5-bnY91yxckoXlL-zRYn1Tqv.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1tJy2VAJ1x8zOdzu7evFdaceovrdnxDTI.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 14yQBF6M9sIXRvbVlko7-5Zj7D2L93-N-.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1aWEUqR9rylynuTfucY0N8eX9EzlOHIJS.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1bXBH17jaoraYKr9H58EWvgy0x9UvyDkp.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1XEZ1XfwhuQiy7CK_HLcUsRxhJk59NLeO.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1S8lJ2jmeh1DHqFiZgP0yCRNs-BLYroG7.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1Ofvth4iL8ohopVap4I3uJeel2_0mfCEq.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 13TqNggDT_CWO8qpTFjYh0x1UCvFmhqUw.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1REBbas990sTOgyPv-Gnv57NHCGjFSNZJ.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1JAhJ5yRGp3uPojAc15h1D5OuPXsNqD-J.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1B7inDBkQkT_NuWpgQSyMrUXR4EFpduDh.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1ik75ynn3MDjz9NDH_sgVQfQVwaGEqJYh.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 17fmzJdb7rGJFalaWgQJj7c6xKqPHqOET.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1zCIG5wKh56lQa5cZgVsH0JZ0adtsrj1v.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1Rmtgy6fNR_JxTSZ4V1fYD8mjNw2pSvBq.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1iWjomfINtDYX-vFTKCrvL4CenEXk3qYt.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1MUs2yG_-ZGO4H6KJv4lSLEZXDjDa0V-i.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 17ZRV7ZuCtN4O1AlL_8D_3etsDBIAicDo.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1FjhbKWpfpGHL-GvVGZmLuvIpuYwdXPqS.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1VFso82jOWMtXTW1u-rXUPsuJkT2gdRHj.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1GQhGFMhVfeHPmvScRooMnz8Wi_Z-4yWt.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1sV8jgeBQLYfqojr_qddT7RsD1iz-UWpr.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 15ebwSo7l4FFu2eJEZ_tg3xdYbEoY1BAl.',
+       errors: [Object] } 
+Aug 8, 2025, 4:04:20 PM	Debug	S
+
+ending batch request to: https://www.googleapis.com/batch/drive/v3
+Aug 8, 2025, 4:04:20 PM	Debug	
+
+# LOG5
+Batch body preview: 
+---------314159265358979323846
+Content-Type: application/http
+Content-ID: 1
+
+POST /drive/v3/files/1xBtv1DKYebDFmtrM6j9NP4IbR9YKqxmm/copy HTTP/1.1
+Content-Type: application/json
+
+{"name":"mask.jpg","parents":["10GXLGWR-VqgSuyfTvaS4avqRsBQadszy"]}
+---------314159265358979323846
+Content-Type: application/http
+Content-ID: 2
+
+POST /drive/v3/files/1BmCjKUrXn-Kw7Qs4_eztsOY7w72mCEhx/copy HTTP/1.1
+Content-Type: application/json
+
+{"name":"img_mask.jpg","parents":["10GXLGWR-VqgSuyfTvaS4avq
+Aug 8, 2025, 4:04:21 PM	Debug	Batch API response code: 200
+Aug 8, 2025, 4:04:21 PM	Debug	Batch API response preview: 
+--batch_5PDRAwt4CnjgJbrD77tNUOtQbwJgo9lB
+Content-Type: application/http
+Content-ID: response-1
+
+HTTP/1.1 404 Not Found
+Date: Fri, 08 Aug 2025 23:04:21 GMT
+Cache-Control: private, max-age=0
+Expires: Fri, 08 Aug 2025 23:04:21 GMT
+Content-Type: application/json; charset=UTF-8
+Content-Length: 342
+
+
+# LOG6
+{
+  "error": {
+    "code": 404,
+    "message": "File not found: 1xBtv1DKYebDFmtrM6j9NP4IbR9YKqxmm.",
+    "errors": [
+      {
+        "message": "File not found: 1xBtv1DKYebDFmtrM6j9NP4IbR9YKqx
+Aug 8, 2025, 4:04:21 PM	Debug	Response boundary: batch_5PDRAwt4CnjgJbrD77tNUOtQbwJgo9lB
+Aug 8, 2025, 4:04:21 PM	Debug	Found 101 parts in response
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 1 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 2 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 3 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 4 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 5 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 6 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 7 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 8 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 9 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 10 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 11 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 12 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 13 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 14 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 15 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 16 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 17 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 18 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 19 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 20 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 21 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 22 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 23 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 24 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 25 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 26 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 27 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 28 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 29 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 30 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 31 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 32 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 33 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 34 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 35 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 36 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 37 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 38 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 39 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 40 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 41 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 42 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 43 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 44 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 45 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 46 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 47 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 48 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 49 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 50 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 51 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 52 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 53 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 54 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 55 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 56 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 57 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 58 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 59 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 60 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 61 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 62 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 63 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 64 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 65 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 66 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 67 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 68 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 69 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 70 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 71 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 72 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 73 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 74 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 75 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 76 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 77 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 78 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 79 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 80 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 81 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 82 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 83 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 84 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 85 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 86 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 87 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 88 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 89 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 90 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 91 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 92 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 93 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 94 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 95 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 96 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 97 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 98 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 99 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Parsed folder 100 : undefined id: undefined
+Aug 8, 2025, 4:04:21 PM	Debug	Successfully parsed 100 responses
+Aug 8, 2025, 4:04:21 PM	Debug	Logging output too large. Truncating output.
+
+# LOG7
+ Parsed batch response: [ { error: 
+     { code: 404,
+       message: 'File not found: 1xBtv1DKYebDFmtrM6j9NP4IbR9YKqxmm.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1BmCjKUrXn-Kw7Qs4_eztsOY7w72mCEhx.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1nkTyaGn55wqk3HO86u8DDpSFjD4REIZA.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1-siuZl8GaEOwXIB639VVnqsLTfeBsYpG.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1aUlE9VX8Q2zED1x6AkoXM47ik7rr5Vga.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1PaaP-2koV4rh6fVZW_pszCLdhT2ndD8L.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 15_M3KKOCL8Jt1sJTwFP6rGRAMlq7kc_K.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1Jz8_pSSK5ZstfvOqkiTmOFNkMY42E3c-.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1W9r5vmwZkdIoIPIDH8R8DSFYHVwgSfXO.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 15NyBEdtks00Ha27p5Z8Mp_Zfsa4V6OzN.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1JGRBiSr2J2RZtPQK7weB_swzv2A_n4xG.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1GnsnymoaGenS5cGb-cg7ijT1TcH5LuPk.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1GK4dkerjT3qnOEoalHoRd7a4SFHEb5th.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1ZKfSdYlAlib8HWPRLTrcGrhJpqpTI0r7.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1MIMQ8Rm62TpzzwR7Kusi8TiePwHSIIbN.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1ccLKlf3RJNws0FYQ55x1fDwuWcyM-2YV.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 17_iTLEgWByB1I2Eta52xvKNx3mW9Y0b4.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1644MxpG768Pv-UhZvr25wge-n_-jpJHp.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1auGuqc6eWtYfbZqps43-S0AtAFLBE4kD.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1dpjusGwwNKGDcA6vp7eGUYcuVnUZTnXD.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1u6mgmfthypzA6wMUoy_hHVLLBKkO1ZBt.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1qI8vVgm5zu8F-XzZTm-vsvuYTlSrf56u.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1CMm7lx5WOpHOAQm6ljNtM2kxaNE7PJCw.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 16UCfRp_m-MJN8FMVxAa96VGixRIYuyVc.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1Cmmpp4TmFfLs2cET5uItbpRSCX0Xai0r.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1P2u8xAUCArnOpV9gTq3XENGoILxyv-hj.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1wZ1MIxa_5dmy2hHhr5YvZ6WN0MGdEvt8.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1IQ-FAqcXnsZSvah7VUL2XspVdUEvqYY4.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1c_H5Ex9Z38qbHJbCC48cTxRmRxpuzIaR.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1yoOHpguqGhdBmiyk_xCIlyJKy9WF3shu.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1UnFImgFRmMC8Dqn8AI8apiyI7krcykHA.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1bv9NA73PkqkMjJTsAkcsGCX1Y4CO7O_q.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1EwRaQQPA6YhYBp6o7azTRbbCGPeevNcy.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1-B1Cn7UZN7iEksaYb0CfAQBGoIRRuMIz.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1WhoI_8v9-kln8u7M4LeITQNQ0ELSUUwi.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1XZ7B-IqP1jeXVS769xrOknqGpqa4ksHb.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1nz9HcdGbZjDPmCMs2K3IgiA4tOK1hDEA.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1FYuLPrqYivUPgNLLWXDbFpZMeZy_35P3.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1g4qwyo5n0NgevgPNntTcl1L4tApKIiaO.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1mTybJRVDnCVnQ4va-TBTDo340fPNKd-y.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1pJTbYC2H-ozgrkRbbFd20xlOxB6EamuA.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1EXMSLpB78TZSSmRThEdiCe9k1COb9ons.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1pi4LI5PV6rb169VgGqHVp3vfw9UinyaR.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 17orPiFcfwngGtEzwYYsPFhpl4AZDG2dV.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 15sXO-3fe9Akr4TtQUfGps2kCNPXjMegq.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1p5pRILOkttx-W5w-RlcxE6aO0U28i-bB.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1Het6I05WPyCudB3qrxDCTxiUML8La82x.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1ObEj7pKTEyX1JnuWYxS9UMxutcjcudfo.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 113HJBael0bKWRkxzb3KLSSaKRCxqOkJ5.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1_2wODzgzEle4amycBRw8_ddB8n-TU24C.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1NwZBv44_1nMU1SV0pC4K6hRdV2S__W2L.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 19-3iBhgUZEbNVR3hY0ss9J1O8YTZnUgk.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1k9MKxpXa-5VSAEGH6fohGzsDoeH32c-g.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1wcdV3vvoTYtb3CvnY0mQidlC6vVFWDaV.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1FY6q0emOTUu8Jy4hgMSPVpWHClGzzJ8D.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1j0u1Z1WXpyq9UBEokQwgUggnH5B2kwKT.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1D-QJlRojv2h2im8hKRtcM5g-n8577wik.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1TJF3t0lZkOk57If8hD1iCteCSFFnupcw.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1URxjr8dwCn97sa_yL5Paz5pdfP1PKwoY.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1MogmQt2PZERoHsphcepwCzIPNdGsbMlX.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1eDcmmXZG-dDcNBwv8dx5K7HXfBtGOEe3.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 160U8LbDCgAWGk0a22ncjzSr2KjwqSxvO.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1dkpODSxkQcfzRPQPnUaOtMu5CeNySSji.',
+       errors: [Object] } 
+Aug 8, 2025, 4:04:21 PM	Debug	
+
+# LOG8
+Sending batch request to: https://www.googleapis.com/batch/drive/v3
+Aug 8, 2025, 4:04:21 PM	Debug	
+
+Batch body preview: 
+---------314159265358979323846
+Content-Type: application/http
+Content-ID: 1
+
+POST /drive/v3/files/1w_rJMAVt4o_V0Ehd27K-_zMIRDzmI0ge/copy HTTP/1.1
+Content-Type: application/json
+
+{"name":"img_mask.jpg","parents":["1OzPepZzVxYjSs4wE8FWSZytkWrg7dL9o"]}
+---------314159265358979323846
+Content-Type: application/http
+Content-ID: 2
+
+POST /drive/v3/files/1BOeHHmnOsd-H6yDb-UqWSnJ5efglQzVF/copy HTTP/1.1
+Content-Type: application/json
+
+{"name":"image.jpg","parents":["1Fl89rumI91QAFKifL6ykAs
+Aug 8, 2025, 4:04:22 PM	Debug	Batch API response code: 200
+Aug 8, 2025, 4:04:22 PM	Debug	Batch API response preview: 
+--batch_htKnDgnkf2M7GtklvnjO4lShwctKd0A1
+Content-Type: application/http
+Content-ID: response-1
+
+HTTP/1.1 404 Not Found
+Cache-Control: private, max-age=0
+Date: Fri, 08 Aug 2025 23:04:22 GMT
+Expires: Fri, 08 Aug 2025 23:04:22 GMT
+Content-Type: application/json; charset=UTF-8
+Content-Length: 342
+
+{
+  "error": {
+    "code": 404,
+    "message": "File not found: 1w_rJMAVt4o_V0Ehd27K-_zMIRDzmI0ge.",
+    "errors": [
+      {
+        "message": "File not found: 1w_rJMAVt4o_V0Ehd27K-_zMIRDzmI0
+Aug 8, 2025, 4:04:22 PM	Debug	Response boundary: batch_htKnDgnkf2M7GtklvnjO4lShwctKd0A1
+Aug 8, 2025, 4:04:22 PM	Debug	Found 101 parts in response
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 1 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 2 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 3 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 4 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 5 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 6 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 7 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 8 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 9 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 10 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 11 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 12 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 13 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 14 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 15 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 16 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 17 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 18 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 19 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 20 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 21 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 22 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 23 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 24 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 25 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 26 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 27 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 28 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 29 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 30 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 31 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 32 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 33 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 34 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 35 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 36 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 37 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 38 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 39 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 40 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 41 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 42 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 43 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 44 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 45 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 46 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 47 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 48 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 49 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 50 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 51 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 52 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 53 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 54 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 55 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 56 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 57 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 58 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 59 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 60 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 61 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 62 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 63 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 64 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 65 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 66 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 67 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 68 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 69 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 70 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 71 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 72 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 73 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 74 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 75 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 76 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 77 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 78 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 79 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 80 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 81 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 82 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 83 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 84 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 85 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 86 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 87 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 88 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 89 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 90 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 91 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 92 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 93 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 94 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 95 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 96 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 97 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 98 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 99 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Parsed folder 100 : undefined id: undefined
+Aug 8, 2025, 4:04:22 PM	Debug	Successfully parsed 100 responses
+Aug 8, 2025, 4:04:22 PM	Debug	Logging output too large. Truncating output. Parsed batch response: [ { error: 
+     { code: 404,
+       message: 'File not found: 1w_rJMAVt4o_V0Ehd27K-_zMIRDzmI0ge.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1BOeHHmnOsd-H6yDb-UqWSnJ5efglQzVF.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1kC4glXa-M0cLyaMhhyi3Pz-SEEIJRzRK.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 13bApUIk7b3SI_UlWYBoQw3DoNxnoAvZ3.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1YG5k-UGy9MeyTNZPuOlDVL1smalkInwT.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1id_EmhrME4Te54vGy7oTCDjcty6juNyf.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1OggjD4rcM5pnNnW4QhrOUd6p0bLD0gK7.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 11cs85e2dl5ySImHNaL4L6rMIavIBXXJb.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 10abj50Mb04SaWJBwkQbuJOQen_QR5yyt.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1xegVsBttWrr-Wgre6_dVncwS1HrcZDEH.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 19aD9gDJhJhZJZQJDat0BY63KQ2AHFKqT.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1mk-fmkeLoDLLFApLLiwAlENpOoQymNCa.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1dNLVRf0cDwG464U-TGW1hrb6EWCVgPQe.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1du-D7NUP_B0egL37qyqNVAqj2d_XY_40.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1Fi2N2UUf-_Ka8l9ORHGyXSsEG_YctjFY.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1D7wBm8TU9fORPJQvMHxxZMuWvKaVeB8a.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 13mYnDAGXCbWj8pq9jHpAHndGMktVgYsu.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1v5-JFzGjiQAcQ4TSNfCJT9bYvybj7Edw.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1Kf-ds-5oRJP8pZdCTfNyd2uEn01saDA-.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1C1N1ELqe4R0hvEWPF74y_gDQru4AZtsc.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1yqe5Xm1zyhyY6xAFPg1Ln2i-obAOy7tg.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 11jRpF74MkCK-0e-S4JPNykR0D9ezwieo.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1483nc2T3SOseLSf2SiHwPWHKdr02Unzf.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1UKhhDVyk9RvW2RPVRMouZ-Aj6mICgbtC.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1BT-d8h8JTDb_xWqrzpVHGVEprgf63wRF.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1IImkjcl_mZ4fCX3uslkCFNMQpMrOWEqa.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1Wa12GnwXEHcOyCNelqm2NWiJ_8MpGp1T.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1FAGbiJ1OqY_FIiMDEjq8CRZQHUgdsCEd.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1_g3hbl3xRpCwhoCF_p3dzKzGDvq_Qi99.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1yjOShpisKkFke6U2Ycfer7pX9aseks9c.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1tN56julj1slFyoNoFbbsSHz6M9VfoTqd.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 17rCKaRZ3QH-MlDyyhzHpxog9C6jNy06k.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 12lhfRxsVEGJMiCQpVKd2wYhUD8JnK7g3.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 16oT8qx8rI2mRp18dY_7ZFwIlaWplE6Vq.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1dSRX-b0lFlYJelvZiMIFBDTb-JaxEWdf.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1rEpOL4Y8o94YhocsWSZ5Zss7DxBzm5Dt.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1XkEInqbv4LLqMC8G2YFpUe7E_tNcgUaG.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1z706dH_QwuVwBscl_Jo2dv_P9jquZBRP.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1jqD3-dKBksbDZK792pulnR1dGAu4UziS.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 13vz9gUtp9RIgvYWIbL8UMGxMoqiBSN3p.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1lmIwEmKrsrJVbPPBIeW2dfcqC5TTjLp0.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1r_n4IIunmsG2332kxqHNRrN9f6rmj8Z6.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 15Ol4CB--OKITb-fbKLZJaUZhtPVE6o_9.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1Pz82nPJr_dcIMNex3thuOTJ5uyxUeDmV.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1YpkvM9ZyRzkAt4GYlNcazGlDGYWHwhgj.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1I4n22Kb3KZ2DTHFm9DaU1F05fxoW04Wx.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1gQbt4zlQWbw9Mc7XPcldFfrNKNYHW8aS.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 16JoREy4RWnO5EsMg6nHV-LzuEkcZFJZp.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1aCwLAWxCaSv69Mc37m3hZdrFSFHRnQtP.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1m62iDoSW2MnAy4dFqYwUn9kUq_3-3114.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 11kyB-e0knMneAAlByL94wFFF_oeARs0w.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1d_O4yfJ9uXZYJYIbuoas9kMkRsTAJQJA.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1mUT4ttvHMmqlF2KWUwEJ6rip40wielcE.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1Mqf7TnPnPiCL8kq8qsKxS9ObiC50ai9K.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 12y8FeojyyWjIvh4JkOoynTOOHIwqr_nO.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1OuP96I4rIQ_AdJCrOFodrpst6jliOv7P.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 191bwKnwseSzu_4YPFCwBPDRxX6luvI8v.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1MlEfldQIbt8gj9InWlFCpUTgx02ZKJMy.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1iZwDzG_2ToYy13pJ2OknL7w7QONcjELO.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1mxI8R6WDzjltpdJpI72bigeWSl_3HVWl.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1-gp5AhvePqRRbI4jyEaUL4TqXFMNlIoM.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1uuDP1lfU_J4Hfr0dlnPyPQg72WiCRKQn.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1G0_AjzlE6AJuU_0D9d4M0__X5UUDKUpQ.',
+       errors: [Object] } 
+Aug 8, 2025, 4:04:22 PM	Debug	Sending batch request to: https://www.googleapis.com/batch/drive/v3
+Aug 8, 2025, 4:04:22 PM	Debug	
+
+# LOG9
+Batch body preview: 
+---------314159265358979323846
+Content-Type: application/http
+Content-ID: 1
+
+POST /drive/v3/files/12zJa-0-Uxd6RBP2x3a3RuPo8EKOcnKwY/copy HTTP/1.1
+Content-Type: application/json
+
+{"name":"image.jpg","parents":["1j1rssJ77A8S6YM33WkcEdV80onsWe0nB"]}
+---------314159265358979323846
+Content-Type: application/http
+Content-ID: 2
+
+POST /drive/v3/files/1LyP9TnJSfEz9FzlJ7S5kfYqYaFsujpf1/copy HTTP/1.1
+Content-Type: application/json
+
+{"name":"img_mask.jpg","parents":["1j1rssJ77A8S6YM33WkcEdV
+Aug 8, 2025, 4:04:23 PM	Debug	Batch API response code: 200
+Aug 8, 2025, 4:04:23 PM	Debug	Batch API response preview: 
+--batch_zIkyqvQOcxjGc6ZdmctIJeyLFaQPcKn3
+Content-Type: application/http
+Content-ID: response-1
+
+HTTP/1.1 404 Not Found
+Expires: Fri, 08 Aug 2025 23:04:23 GMT
+Date: Fri, 08 Aug 2025 23:04:23 GMT
+Cache-Control: private, max-age=0
+Content-Type: application/json; charset=UTF-8
+Content-Length: 342
+
+# LOG10
+{
+  "error": {
+    "code": 404,
+    "message": "File not found: 12zJa-0-Uxd6RBP2x3a3RuPo8EKOcnKwY.",
+    "errors": [
+      {
+        "message": "File not found: 12zJa-0-Uxd6RBP2x3a3RuPo8EKOcnK
+Aug 8, 2025, 4:04:23 PM	Debug	Response boundary: batch_zIkyqvQOcxjGc6ZdmctIJeyLFaQPcKn3
+Aug 8, 2025, 4:04:23 PM	Debug	Found 101 parts in response
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 1 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 2 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 3 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 4 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 5 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 6 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 7 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 8 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 9 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 10 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 11 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 12 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 13 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 14 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 15 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 16 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 17 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 18 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 19 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 20 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 21 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 22 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 23 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 24 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 25 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 26 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 27 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 28 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 29 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 30 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 31 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 32 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 33 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 34 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 35 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 36 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 37 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 38 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 39 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 40 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 41 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 42 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 43 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 44 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 45 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 46 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 47 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 48 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 49 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 50 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 51 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 52 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 53 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 54 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 55 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 56 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 57 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 58 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 59 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 60 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 61 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 62 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 63 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 64 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 65 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 66 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 67 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 68 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 69 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 70 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 71 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 72 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 73 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 74 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 75 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 76 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 77 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 78 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 79 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 80 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 81 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 82 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 83 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 84 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 85 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 86 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 87 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 88 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 89 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 90 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 91 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 92 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 93 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 94 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 95 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 96 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 97 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 98 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 99 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Parsed folder 100 : undefined id: undefined
+Aug 8, 2025, 4:04:23 PM	Debug	Successfully parsed 100 responses
+Aug 8, 2025, 4:04:23 PM	Debug	Logging output too large. Truncating output. Parsed batch response: [ { error: 
+     { code: 404,
+       message: 'File not found: 12zJa-0-Uxd6RBP2x3a3RuPo8EKOcnKwY.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1LyP9TnJSfEz9FzlJ7S5kfYqYaFsujpf1.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 176YBP1xpqt3CLqYusmEjRbmRf2V68Znm.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 13MBfbSKh6U4QBSCMK1SqGbvvmpWX7xvC.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1QpSVqE8Dxl6u9Ha1TwgmTG5NuvK_-p8K.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1Q5qyLowL4NYgL3zSXsUIvYkZBU0m12tD.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1rRFVP43TaY8h0N2dkleVXKAMzVZUSHf0.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1NZMBKDDPmHHRQNQwW3RqebM1Q5libtOi.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1jks8WUX00cVEINyee-cEFh32kZV5giIJ.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1PoWIUyKbpM4gko34nE9NxkbVulHsRYox.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1si_Ufe874tHzc-IzP4KzyxYyL_VFWhgN.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1uUbe6mXVSWqbQd-G17pC_XBaF4HoGYQW.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1-X_DRgDyBUN67ikbHUYvUHUX94G2lQXB.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 19W3LI6EAwCj0XtsdqF-NU9hx--DpRK2s.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1B1e-RDwXrBeLJ_fsYI7gtvk85X-NyeRk.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1eDK0-CsbVliToBO94ajTrjEJCxF0wF5T.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1QwyVDX3upLxjp84Svv9fDPi8SIiCAaa5.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1CrVT75MEqOc0zrTnjT1JnqXe6Iltr-lI.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1r6n8vhYLZ4YuX2P0DiKN1I4KE1iD6m5h.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1pdRdQr_7WRpbRT7a0YEHVwNweyp6SFV6.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1t-weHCOPq0AishFyelEYpQDm9xeqJ_Qi.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 15PtQjiNBhShhCyGHwevXT35zFTqLOSy-.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 17WgVs5T5VBfhE9aQOmzyArHR_CGhtYiY.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1UP1pUQ_4XUu7hPgnLncGS7ZOpntiNc_j.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1qTYKrJjzoXV28LC49mGPgK_rH3hsIdxo.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1SBz_9xy9accp4PwSG2sZhqzBQfk8Z6FB.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1TXhPc1ST6dEr-Yq0-T-gXmXqy7_uwzm9.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1iUrSCi9t3pxR-xhxtqA8wB3dD7i3NvEt.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1DR6mKfgUhYmxIHXPlO5b97xYUIrBHN-m.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1vK2YYynDJMGW80QLZal_BKxJSWmBECQN.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1wUPMM4oDzZCWb-Jqu8y_CMMG3Gx_Koix.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 14T24RHU2s5NOAj9PyDqssPmPzhvBpK4s.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1IMnRmbTIxF7Fq-etc8Pm_yYcA_zblOez.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1UDAl3iBwITWgnZ2pHtw5jNxad29JBfUk.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1F8R2xhCzEmRygRH_WhbJW7Nd_VPAKSj8.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1ShVkXiMqt2QimVaBWb30bFzYkvEI8QIU.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1jDfMkidEQPozw1G_eL87lOqz3Ed10mP1.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1f3NruhQ7rChENUWy16iSTBz3vKZattmo.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1ev0M9duSWXtx4Ynmx_4aWzjwP9pG4MII.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 14ww8TOfHzDJnflzmv_fPPxJevUlNOGVz.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1g6jTWHq3QPX5D01Vxy3FJtSZ1qZor_-P.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1mKYoj0UZf_TgXkYDU1Z3MreQfvibvsGH.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 18V_pAhqC0CUPCbdr-OlewS7Ph8wcka-l.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1trrKwJhQ7Hr2QJMkChbBXVw0iPj90a_G.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1y9vO7TKz19DBken4TkhgVLOLFPYningv.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1BOWyW5wcm-26v4Kcrx4c2aejewlmXhM2.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1RGTdsSB8Uf4jYZsxAngOn8w8ttf9Y-N5.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 16nqh8o5zMxTiTEt5rmzoxf9sFvCIXhHw.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1eg8Bj4gTOsKBmdb-mfSo5j6eD3m1Bqwu.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1_5jWI03_qhBmlaz18Rlvdo7W_tSKuaN6.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1myxed4hrPB9_Qb8LrrCd4Cd6g6KHRxKn.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1dVy8z3QrXn5QVFZejzqCzr9WeX_m2-ZT.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1Eg4aTpkQF68yiogbS_2DfnUwNNGuuB_Y.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1BBO7zG0koSMWWJreJhl-XCnNG72oIOnH.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 142bMF4JWMoaEaj48bftYdkmdbmTS1cQS.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1okM41p_rGjvJJ4vRq5laF_X3gVGAzP3z.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1SKVK9_MdYVmCTwq6dC_YUGqA3FtlfH4D.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1X8Mxuaq4984xGdC9vTkVzUauNLe65qWi.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1VacRdwKUq-oqXQkD4zoiTMEwewjtp46m.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1yVhqnK1eyopTG8zRvgD8LjuQYb_-PEmj.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1iH5vfIKEygXALQfUd64cyF2gGqNnkrXD.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 19nMWH5g9Jl3WgwqqRTHS2JcvfMQERfPP.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1WkOwUtmCwlWdyL_v2aBOHZ1gZK1OBo9r.',
+       errors: [Object] } 
+
+       # LOG11
+Aug 8, 2025, 4:04:23 PM	Debug	Sending batch request to: https://www.googleapis.com/batch/drive/v3
+Aug 8, 2025, 4:04:23 PM	Debug	Batch body preview: 
+---------314159265358979323846
+Content-Type: application/http
+Content-ID: 1
+
+POST /drive/v3/files/1vpDymhBhiAiHVHXNe1lLbNu99MoCo8zS/copy HTTP/1.1
+Content-Type: application/json
+
+{"name":"mask.jpg","parents":["1JlhSsvXTr_ww_FsGi1IgJYUpe1tPdV1o"]}
+---------314159265358979323846
+Content-Type: application/http
+Content-ID: 2
+
+
+# LOG12
+POST /drive/v3/files/1l5lhe_Lc4RB4BAwJLDBtSee4lBT64a_l/copy HTTP/1.1
+Content-Type: application/json
+
+{"name":"img_mask.jpg","parents":["1JlhSsvXTr_ww_FsGi1IgJYU
+Aug 8, 2025, 4:04:24 PM	Debug	Batch API response code: 200
+Aug 8, 2025, 4:04:24 PM	Debug	Batch API response preview: 
+--batch_93uhBfajvBVQW4N2lPzsm74qVlvV6QKl
+Content-Type: application/http
+Content-ID: response-1
+
+HTTP/1.1 404 Not Found
+Date: Fri, 08 Aug 2025 23:04:24 GMT
+Expires: Fri, 08 Aug 2025 23:04:24 GMT
+Cache-Control: private, max-age=0
+Content-Type: application/json; charset=UTF-8
+Content-Length: 342
+
+{
+  "error": {
+    "code": 404,
+    "message": "File not found: 1vpDymhBhiAiHVHXNe1lLbNu99MoCo8zS.",
+    "errors": [
+      {
+        "message": "File not found: 1vpDymhBhiAiHVHXNe1lLbNu99MoCo8
+Aug 8, 2025, 4:04:24 PM	Debug	Response boundary: batch_93uhBfajvBVQW4N2lPzsm74qVlvV6QKl
+Aug 8, 2025, 4:04:24 PM	Debug	Found 101 parts in response
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 1 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 2 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 3 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 4 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 5 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 6 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 7 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 8 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 9 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 10 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 11 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 12 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 13 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 14 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 15 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 16 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 17 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 18 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 19 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 20 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 21 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 22 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 23 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 24 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 25 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 26 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 27 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 28 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 29 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 30 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 31 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 32 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 33 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 34 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 35 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 36 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 37 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 38 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 39 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 40 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 41 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 42 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 43 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 44 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 45 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 46 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 47 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 48 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 49 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 50 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 51 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 52 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 53 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 54 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 55 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 56 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 57 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 58 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 59 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 60 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 61 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 62 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 63 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 64 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 65 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 66 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 67 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 68 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 69 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 70 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 71 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 72 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 73 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 74 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 75 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 76 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 77 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 78 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 79 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 80 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 81 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 82 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 83 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 84 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 85 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 86 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 87 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 88 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 89 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 90 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 91 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 92 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 93 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 94 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 95 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 96 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 97 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 98 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 99 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Parsed folder 100 : undefined id: undefined
+Aug 8, 2025, 4:04:24 PM	Debug	Successfully parsed 100 responses
+Aug 8, 2025, 4:04:24 PM	Debug	Logging output too large. Truncating output. 
+
+# LOG13
+Parsed batch response: [ { error: 
+     { code: 404,
+       message: 'File not found: 1vpDymhBhiAiHVHXNe1lLbNu99MoCo8zS.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1l5lhe_Lc4RB4BAwJLDBtSee4lBT64a_l.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 12rpk_iBFh-cY_WA9xXFtvMGOsY-bwRJh.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1YDhY_FU9OPf4ene9L_UORGMKp1MCnyEQ.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1YvMzqvH2Z7aXJ_W5mrlr_q4rgo1UfcHK.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1SoCZ5eEfyTtj0UL1WS54ECXyoAJZiRId.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1Vy8jzXdAIk-RXFzPQFjEkdSIbDn8MsC2.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1AC2VWl8zE2ShooD0-qT3qIb7sv-qnHik.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1JoHtO1qeK54fcy_rm-J-y-TWDfTSD7gT.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1XMOzaXBiYrccjDwu-QIVWfm7bPmZNCPv.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 17namp49Kxutfe6Es9Jv3bFxpvXdJkGBk.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1qzrmT6jZfyFJzYFOpNdT0HfRsabwgTjp.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1RGFgh9S0XJZYIthib5R4GgdLF5ecrNes.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 11VGwwEDpMscIpyXhvnWZs1RFsr3TYq9G.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 134wIqWQrb0JX_RiHfBy7akTloNN5n06J.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 16lYT_FSNGgRq6pKI0JibIwzqASwl0dgW.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1f-xZbVlGZvEmoOP0S5fuhcqihE52xfL5.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1slXujZQWggCaIXgbMfQbbrpFPmJp9m_L.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1Lg9RoNVUY8KI30dlfvndzqeFJYsDtF7D.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1HVDK8dHShMXRwwpbUPfCXZjmUalIG2WX.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 15Xg6wuaKdgmSsr0mWfhXOs4ro6l8G0OC.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1a1ANGKmlSZhkpw2kbOiJwJUQ_SNQj-QK.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1rghRW2Gx6Ra0tP_nhd8hzneaKhWvwcG_.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1CotuMpOBwLb2rgwW2HB3a5NOrlSMQZMD.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1d85C3s9mvYtK-8CTtjiFq848AAqeCByV.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1a8BE1pOBtErufsyexyu8TkFce3_WzXr_.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1MAT6yvjFg6RMtBljpcvNgkz0aqCYe5Df.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1mgbUZ5oYNLB9_5MvPsMThET5p702qViG.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1dhOSch-79KhZ3Qed9JKIU8YXTlzeZwsr.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 15Pv-OLOeUhLYKZQDbz63ostCjwG2IV4i.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 19YzXxPduyZtX2nZWdnS1cBxvElO0Ljam.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1ASMJkTvbhPUFHyEa9dVxq4lNf3Sgsn_n.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1bbUsUlRm4Ml3a6MS14qVJ65Ga0jPKgg9.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1hWlROJp-yzQxgJRomKwpxd0vMrw9GJWv.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1ldqJyHenJ_P2KW8YeE719IgtsqNTPwio.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1Z1BeL8h3T0oUsDS2_Z9JqZDSFpdeEZTP.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1WP8SE1w2RkK2aVwORCH4pfd5MbBFaigh.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 159URIGdIM3--uuKI6QtHwLsCQY4tlQ-R.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1f4nnOy-q-P8Szcph0p3FiZY567VfadX8.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1q1kpZKd5rYDH1tmLvLtFIcR3kE-cMQOC.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1xBRdd3TYScYgncNfoY4jMP-A3gv88h4z.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1OVDeU3NupLFiht7VBUrvf-F-80dkBXpZ.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1JakkAXI8tXDO_MIru2LFr7tQIfXjJ_o4.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1WYdSVOi7_0ZcWzMALOdqr0FQMKEuwnQC.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1_pxWalkuA-OW6WPwe77KzcBXmuH1qaeE.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 18hPiRDc69-L8fqJmSGKa5rPAScv0Un8Z.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1cnslyGdjbvTcE2yzYE0weXs9gfIitzGo.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1vCEJXH6caqbu0IZcI-bLdlYWggE2gHuO.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1zmXQYvAbXnxZqSc8JVat5sTXCsH4fg2D.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1VsOVFUnqNLtDKY5iLi4pie2ii8KbzyN7.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1WZF-ZP-VJlgugqFxVlMXWRmfHSjVGF8X.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1SmTlaEqSbLEvLEI9ZoeRYN2HmWo10emH.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1BuUZk_1EX5W4cWo_UdTujEi7A3K6EOxc.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1CpQCxmy9P_XHHP4WAUHPnzQ2g86WykI9.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 15u846eee5z2yl3U2AErj6p8WnkJpqofD.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1Y_HSSXiS3-_2_IDSKE3a3xAdJUbjzSDV.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1qQrcnNooJWVLvFLtNoNAcY56liiMW_53.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1xsofjbcTnn4p3K-jseKXMfZuzTG8DnV7.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1wK-5mYKETdH6yuI8cNpBksoV116KyIRt.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1Zi2a4DibiirAzLmDqC1zzWdWsFfgo-TS.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1_Scm1ur4Tg8MQB2HgEspkiyMBp-ExR-W.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1jshfI8aBK_37ADUOWo08Nd2uf4e289EX.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1594hpNwVU4Iyb0u4Rv6_wQ75Yk5UDiuD.',
+       errors: [Object] } 
+
+
+# LOG14
+Aug 8, 2025, 4:04:24 PM	Debug	Sending batch request to: https://www.googleapis.com/batch/drive/v3
+Aug 8, 2025, 4:04:24 PM	Debug	Batch body preview: 
+---------314159265358979323846
+Content-Type: application/http
+Content-ID: 1
+
+POST /drive/v3/files/1fp0OLLxnDu3-6h1trlsiwfd8EP21s9MB/copy HTTP/1.1
+Content-Type: application/json
+
+{"name":"img_mask.jpg","parents":["1eMhLA9MPoxltMMdsiDAfM0JoMy8dPYA_"]}
+---------314159265358979323846
+Content-Type: application/http
+Content-ID: 2
+
+
+# LOG15
+POST /drive/v3/files/1OvR-p2W0I2GT_AnNL2gSDtznbDAlh01s/copy HTTP/1.1
+Content-Type: application/json
+
+{"name":"image.jpg","parents":["1IJd5KvdzN1RDUZqR1anQ7j
+Aug 8, 2025, 4:04:25 PM	Debug	Batch API response code: 200
+Aug 8, 2025, 4:04:25 PM	Debug	Batch API response preview: 
+--batch_kUjObuevOrGt1qpwt6wgclsuR-ZTGeWJ
+Content-Type: application/http
+Content-ID: response-1
+
+HTTP/1.1 404 Not Found
+Cache-Control: private, max-age=0
+Date: Fri, 08 Aug 2025 23:04:25 GMT
+Expires: Fri, 08 Aug 2025 23:04:25 GMT
+Content-Type: application/json; charset=UTF-8
+Content-Length: 342
+
+# LOG16
+{
+  "error": {
+    "code": 404,
+    "message": "File not found: 1fp0OLLxnDu3-6h1trlsiwfd8EP21s9MB.",
+    "errors": [
+      {
+        "message": "File not found: 1fp0OLLxnDu3-6h1trlsiwfd8EP21s9
+Aug 8, 2025, 4:04:25 PM	Debug	Response boundary: batch_kUjObuevOrGt1qpwt6wgclsuR-ZTGeWJ
+Aug 8, 2025, 4:04:25 PM	Debug	Found 101 parts in response
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 1 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 2 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 3 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 4 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 5 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 6 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 7 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 8 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 9 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 10 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 11 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 12 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 13 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 14 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 15 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 16 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 17 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 18 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 19 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 20 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 21 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 22 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 23 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 24 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 25 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 26 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 27 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 28 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 29 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 30 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 31 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 32 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 33 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 34 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 35 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 36 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 37 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 38 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 39 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 40 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 41 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 42 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 43 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 44 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 45 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 46 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 47 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 48 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 49 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 50 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 51 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 52 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 53 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 54 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 55 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 56 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 57 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 58 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 59 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 60 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 61 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 62 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 63 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 64 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 65 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 66 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 67 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 68 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 69 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 70 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 71 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 72 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 73 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 74 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 75 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 76 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 77 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 78 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 79 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 80 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 81 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 82 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 83 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 84 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 85 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 86 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 87 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 88 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 89 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 90 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 91 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 92 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 93 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 94 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 95 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 96 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 97 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 98 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 99 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Parsed folder 100 : undefined id: undefined
+Aug 8, 2025, 4:04:25 PM	Debug	Successfully parsed 100 responses
+Aug 8, 2025, 4:04:25 PM	Debug	Logging output too large. Truncating output. 
+
+
+# LOG17
+Parsed batch response: [ { error: 
+     { code: 404,
+       message: 'File not found: 1fp0OLLxnDu3-6h1trlsiwfd8EP21s9MB.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1OvR-p2W0I2GT_AnNL2gSDtznbDAlh01s.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1bhaTUk251lqImTWRf1Qcr5e1D50pnvMb.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 12aeNPj_v7ZFnny4FmqpBXHmOV0nXCayD.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1m_9SmEvNgRDU-M59E_NBlrIlVCCOBJm1.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1KLKYzlMv6HvVW4DBKeG_K_KyUi3aW6us.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1-KWxhq44rFJUKG7n00W0ZlrVHUsx1MhK.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1uvjWnQKKnn69MWMNFXCOYxQuL1iXiWVB.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1QNIR5zAHa7K3nvrqDufXTvOFQI8k8L66.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1BvdtleXXvgzRYGDR0RlMPtoEs6Je-_46.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1sSMwiuP6wIsmYqr6sAs1t6JpbPdmHIww.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1lcZyb7EVCjoH_DCdOzoATudOek9yLh11.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1nEZ1OLW3iPdh-PN_4aVU6dEC6izPt3i9.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1wrvWu17qhxxQqk8QPh1DxQem1C1MlSSQ.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1fc2bDQD0ZkHAq8dto5mQzU4QPuqTI45T.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1ebqZnJINKYw_YofmojCMF1DDLHKt5x39.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1vOgiuvAR4KcU5WBp7ZbvDR3pgfJsPSvg.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1Vb2-DWDEziCyA0nBpPmrRO-JJX_WXbd4.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1OltDlLzMAA8WcN8SV3Vf_1R2m3ewmfKr.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1BaRxjon1EsFrGUpzKtaYs2AaF-WIQts-.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1dOiPa9ErkSmaudLayQcUmre2c5f1wWHG.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1IqCEl-qEyoDXuI0dfkXuHRTAvQlYfe2X.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1Ces6e7IcwmXBIfs8UodN41n0CDxiTD85.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1EBwgdVHuOXCNOIgm8qweEvztVw_ysE5D.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 11h3mma8K9K16rRMj4IxLEliBEkENP5rk.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1mZjDv6PjxXeIIckOV18uHWMzj0f-cL09.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1p4ZunZ86v9w7FRfizzS0I7jKQhNPZHnH.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1tMLQwK5x5UJplIW9sq6KAc9tJzax1Ct-.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1OBRGjNR1TTqBwFm2aRiVQ2z0-LaUoRZo.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1U6TSzITALlY_B7VGj83CFFHWgUBO3Zmx.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1NrOONVvpiBis9w4Kr5PiPYfXLeaa5ejZ.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1k0sO9D6KhA2I6xPOY3Eqb7RAHWBqNrQP.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1tUzIsTrNCBnh1WvqGb7Gg2av637l_7o0.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1Q1QsCwZdJHzW0i63xEbJDmaQYe3opN4W.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1echxEU-RFPVRcvaNNL9pmwx5CjKyDgDf.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1xaOmaosymAIt86j_EQkjgK7lGZV4fyXx.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1IG6XLEmt2dnyfZHMCP_F9CbCKAmpItQ7.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 184EYhKFTs9QIdT1lk5LpGTzRwmHU7WAw.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 120Jtj00Ih_7xegeb2kbCxAM00Nk0sfAG.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1yYymmSrqlpUmXN7Ba1dl-cybB0N9fbf3.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 18bTn5bOxp7Eq3fecVYCw8KYuv2O0ie6V.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1V9HoY-0sIZ-HxkRhKNk0CYj2d7CiCRR_.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1FADnNF7ryKVwmLsiF4eXcReySmPN9jNJ.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1PcrZ6OcGFqhcdPIgx0I8BJqksG7FSxic.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1RGr4eSvw9_Pbotsvo8U5LQZX40fvJYKM.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1XYc7lJN0yD6iylcS1MJ5q9fDUhc2H5En.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1A413s6YdggyB_YCm9-_f0v8yUXhbzpDn.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1e956eK8NJ6zvzseqDEHlmiowqUeUrGS9.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1ujs2LF8CPosvaNWC27_qA916agbJHzVJ.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1N-EQLx5eI3S9dDAM7V4RWxzKz4kEVhEq.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1lpyACzZ_fz84kCSmxOB2hsXIEqhok3Z7.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1FnZSqgxG0CAte7eyzdcxNlj_wllebxZz.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 19FRVfrr-EU0-tTyW3cCDfdcnWlQxnPTn.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1fiyoCSBYEZC8hjss6eJ4e0vMisO8VxqI.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1Twx-BMLZF4x8J6pIlIyA0Bkr_NQmnnVG.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1upN8QYTDq3BDenY96Ih4tieGdRewuYRZ.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1XvYDOd1NiLaVcVc7e6-U8pa7SZXCnbzs.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1heQYMhSxmBEgQzrPkoq2VfcYcvv_dr4v.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1kyENPCJwLBgiFyST7hw_ozO3N0tQ2n8Q.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1QCC6g40G4Ri0DmD2oBc-oMGPOcfi4lKR.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1KVznhUuTnQN6Bvg7JJGr03u7syHbGZfe.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 1AwO4ID7pts5ar7Nc8SZY7UVzIyg1PzAR.',
+       errors: [Object] } },
+  { error: 
+     { code: 404,
+       message: 'File not found: 14g8Jegn22Ad0XD79kb2bt42Fb6Lq0Ciw.',
+       errors: [Object] } 
+
+
+       # LOG18
+Aug 8, 2025, 4:04:26 PM	Debug	First folder response: { kind: 'drive#file',
+  id: '1K-vzXb0SKReI3fi_hy_D-T8yshP7lm5r',
+  name: 'sa3_1605055162_tricycle_3',
+  mimeType: 'application/vnd.google-apps.folder' }
+Aug 8, 2025, 4:04:27 PM	Debug	Sheet rows to write: 200 from 200 valid tasks

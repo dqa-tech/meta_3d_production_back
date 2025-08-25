@@ -89,6 +89,7 @@ All responses return JSON with this structure:
 | **POST** | `/api/task/assign` | Assign task to agent |
 | **POST** | `/api/task/update` | Update task with artifacts |
 | **POST** | `/api/task/rework` | Mark task for rework |
+| **POST** | `/api/task/review` | Submit QC review for completed task |
 | **POST** | `/api/tasks/batch` | Batch update multiple tasks |
 
 ## Detailed Endpoint Documentation
@@ -214,7 +215,8 @@ POST {BASE_URL}
   "status": "complete",
   "objFileId": "drive-file-id-for-obj",
   "alignmentFileId": "drive-file-id-for-alignment",
-  "videoFileId": "drive-file-id-for-video"
+  "videoFileId": "drive-file-id-for-video",
+  "timeTaken": "1:30:45"
 }
 ```
 
@@ -225,8 +227,13 @@ POST {BASE_URL}
 - `objFileId` (optional): Google Drive file ID for .obj file
 - `alignmentFileId` (optional): Google Drive file ID for alignment image
 - `videoFileId` (optional): Array of Google Drive file IDs for task videos (always an array, even for single video)
+- `timeTaken` (optional): Task duration in HH:MM:SS or MM:SS format (e.g., "1:30:45" or "45:30")
 - `startTime` (optional): ISO timestamp
 - `endTime` (optional): ISO timestamp
+
+**Notes:**
+- When a task is completed (`status: "complete"`), the `reviewStatus` is automatically set to `"pending"`
+- If a reviewer completes their own rework, the `reviewStatus` is automatically set to `"passed"` (implicit approval)
 
 **Response:**
 ```javascript
@@ -238,7 +245,8 @@ POST {BASE_URL}
     "endTime": "2025-08-04T12:00:00Z",
     "objLink": "https://drive.google.com/file/d/xxx/view",
     "alignmentLink": "https://drive.google.com/file/d/yyy/view",
-    "videoLink": "https://drive.google.com/file/d/zzz/view"
+    "videoLink": "https://drive.google.com/file/d/zzz/view",
+    "timeTaken": "01:30:45"
     // ... other fields
   },
   "timestamp": "2025-08-04T12:00:00Z"
@@ -316,7 +324,75 @@ GET {BASE_URL}?apiKey=your-api-key&path=/api/agent/groups&email=agent@example.co
 }
 ```
 
-### 7. Mark Task for Rework
+### 7. Submit QC Review
+
+Submit a quality control review for a completed task.
+
+**Request:**
+```javascript
+POST {BASE_URL}
+{
+  "path": "/api/task/review",
+  "apiKey": "your-api-key",
+  "taskId": "uuid-here",
+  "score": 85,
+  "reviewerEmail": "reviewer@example.com"
+}
+```
+
+**Parameters:**
+- `taskId` (required): Task UUID to review
+- `score` (required): Review score from 0-100
+- `reviewerEmail` (required): Email of the reviewer
+
+**Response (Pass):**
+```javascript
+{
+  "success": true,
+  "task": {
+    "taskId": "uuid-here",
+    "status": "complete",
+    "reviewStatus": "passed",
+    "reviewScore": 85,
+    "reviewerEmail": "reviewer@example.com",
+    "reviewTime": "2025-08-04T12:00:00Z"
+    // ... other fields
+  },
+  "message": "Task passed review with score 85",
+  "timestamp": "2025-08-04T12:00:00Z"
+}
+```
+
+**Response (Fail - Triggers Rework):**
+```javascript
+{
+  "success": true,
+  "task": {
+    "taskId": "uuid-here",
+    "status": "rework",
+    "reviewStatus": "failed",
+    "reviewScore": 65,
+    "reviewerEmail": "reviewer@example.com",
+    "reviewTime": "2025-08-04T12:00:00Z",
+    "revisionCount": 1,
+    "agentEmail": "original@example.com",  // First failure: back to original worker
+    // OR "agentEmail": "reviewer@example.com"  // Subsequent failures: reviewer takes it
+    // Output fields cleared (objLink, alignmentLink, videoLink)
+  },
+  "message": "Task failed review (score 65), assigned for rework to original@example.com",
+  "timestamp": "2025-08-04T12:00:00Z"
+}
+```
+
+**Notes:**
+- Only tasks with `complete` status and `reviewStatus: "pending"` can be reviewed
+- Pass/fail threshold is configurable (default: 80)
+- **First failure**: Task assigned back to original worker (`agentEmail`)
+- **Subsequent failures**: Task assigned to reviewer (`reviewerEmail`)
+- Failed reviews automatically trigger rework with revision history
+- Tasks can only be reviewed once per completion
+
+### 8. Mark Task for Rework
 
 Transition a completed task to rework status for revision.
 
@@ -424,6 +500,7 @@ GET {BASE_URL}?path=/api/status
     "POST /api/task/update",
     "POST /api/task/assign",
     "POST /api/task/rework",
+    "POST /api/task/review",
     "POST /api/tasks/batch",
     "GET /api/task",
     "GET /api/tasks",
@@ -445,6 +522,56 @@ GET {BASE_URL}?path=/api/status
 | `SHEET_ERROR` | Sheet operation failed |
 | `UNKNOWN_ERROR` | Unexpected error |
 
+## Time Taken Field Details
+
+The `timeTaken` field captures self-reported task duration from agents.
+
+### Accepted Formats:
+- `"1:30:45"` → 1 hour 30 minutes 45 seconds
+- `"01:30:45"` → Same as above (leading zeros OK)
+- `"45:30"` → 45 minutes 30 seconds (auto-converts to "00:45:30")
+- `"5:15"` → 5 minutes 15 seconds (auto-converts to "00:05:15")
+
+### Validation Rules:
+- **Format**: Must be HH:MM:SS or MM:SS
+- **Maximum**: 99:59:59 (hours cannot exceed 99)
+- **Minutes/Seconds**: Must be 00-59
+- **Optional**: Field can be omitted or null
+- **Normalization**: All inputs normalized to HH:MM:SS format with zero-padding
+
+### Error Examples:
+```javascript
+// Invalid format
+{
+  "success": false,
+  "error": {
+    "message": "timeTaken must be in HH:MM:SS or MM:SS format (e.g., \"1:30:45\" or \"45:30\")",
+    "code": "VALIDATION_ERROR",
+    "field": "timeTaken"
+  }
+}
+
+// Hours too large
+{
+  "success": false,
+  "error": {
+    "message": "Duration hours cannot exceed 99",
+    "code": "VALIDATION_ERROR",
+    "field": "timeTaken"
+  }
+}
+
+// Invalid minutes/seconds
+{
+  "success": false,
+  "error": {
+    "message": "Duration minutes cannot exceed 59",
+    "code": "VALIDATION_ERROR",
+    "field": "timeTaken"
+  }
+}
+```
+
 ## Status Values
 
 Tasks can have one of these status values:
@@ -453,6 +580,20 @@ Tasks can have one of these status values:
 - `complete` - Finished with all artifacts uploaded
 - `flagged` - Marked for review/issues
 - `rework` - Completed task marked for revision (available for reassignment)
+
+## Review Status Values
+
+Tasks also have a separate review status that tracks QC review progress:
+- `null/empty` - Not yet completed or no review required
+- `pending` - Completed and awaiting QC review
+- `passed` - Approved by QC reviewer
+- `failed` - Rejected by QC reviewer (triggers automatic rework)
+
+**Review Flow:**
+1. Task completed → `reviewStatus: "pending"`
+2. QC review submitted → `reviewStatus: "passed"` or `"failed"`
+3. If failed → automatically becomes `status: "rework"` with smart assignment
+4. If reviewer completes own rework → auto-passed (`reviewStatus: "passed"`)
 
 ## Rate Limits
 
@@ -498,7 +639,7 @@ async function assignTask(taskId, agentEmail) {
 }
 
 // Complete task with artifacts
-async function completeTask(taskId, fileIds) {
+async function completeTask(taskId, fileIds, duration) {
   const response = await fetch(API_URL, {
     method: 'POST',
     headers: {
@@ -512,6 +653,7 @@ async function completeTask(taskId, fileIds) {
       objFileId: fileIds.obj,
       alignmentFileId: fileIds.alignment,
       videoFileId: fileIds.videos,  // Array of video IDs
+      timeTaken: duration,  // e.g., "1:30:45" or "45:30"
       endTime: new Date().toISOString()
     })
   });
@@ -638,7 +780,7 @@ All task objects now include the `group` field:
 {
   "taskId": "550e8400-e29b-41d4-a716-446655440000",
   "batchId": "IMP_20250804_120000_ABC1",
-  "group": "A",                                    // NEW: Group assignment (A, B, C, or D)
+  "group": "A",                                    // Group assignment (A, B, C, or D)
   "folderName": "mc_0_1300_e795115_saucer_0",
   "status": "open",
   "importTime": "2025-08-04T10:00:00Z",
@@ -651,7 +793,11 @@ All task objects now include the `group` field:
   "endTime": null,
   "objLink": null,
   "alignmentLink": null,
-  "videoLink": null
+  "videoLink": null,
+  "reviewStatus": null,                           // NEW: Review status (pending, passed, failed)
+  "reviewScore": null,                            // NEW: Review score (0-100)
+  "reviewerEmail": null,                          // NEW: Email of reviewer
+  "reviewTime": null                              // NEW: When review was completed
 }
 ```
 

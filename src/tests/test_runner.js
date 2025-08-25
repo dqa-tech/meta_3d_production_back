@@ -24,6 +24,12 @@ function runAllTests() {
     { name: 'Drive Operations', tests: testDriveOperations },
     { name: 'Import Functions', tests: testImportFunctions },
     { name: 'Export Functions', tests: testExportFunctions },
+    { name: 'Export Status Management', tests: testExportStatusManagement },
+    { name: 'Staging Operations', tests: testStagingOperations },
+    { name: 'Delivery Operations', tests: testDeliveryOperations },
+    { name: 'Export Recovery', tests: testExportRecovery },
+    { name: 'Export Validation', tests: testExportValidation },
+    { name: 'Export Reporting', tests: testExportReporting },
     { name: 'API Endpoints', tests: testApiEndpoints },
     { name: 'Validation', tests: testValidation }
   ];
@@ -285,17 +291,16 @@ function testImportFunctions() {
 function testExportFunctions() {
   const tests = [
     {
-      name: 'Build export filters',
+      name: 'Simple staging filters',
       func: () => {
-        const input = {
+        const filters = {
           batchIds: ['BATCH_001', 'BATCH_002'],
-          includeImages: true,
-          includeObj: false
+          includeUnreviewed: false,
+          includeFailed: false
         };
-        const filters = buildExportFilters(input);
         assert(Array.isArray(filters.batchIds), 'Batch IDs should be array');
-        assertEquals(filters.includeFiles.images, true, 'Include images');
-        assertEquals(filters.includeFiles.obj, false, 'Exclude obj');
+        assertEquals(filters.includeUnreviewed, false, 'Exclude unreviewed by default');
+        assertEquals(filters.includeFailed, false, 'Exclude failed by default');
       }
     },
     {
@@ -511,6 +516,42 @@ function testValidation() {
         validStatuses.forEach(status => {
           assert(validStatuses.includes(status), `Valid status: ${status}`);
         });
+      }
+    },
+    {
+      name: 'Duration validation',
+      func: () => {
+        // Test valid HH:MM:SS formats
+        assert(validateAndFormatDuration('1:30:45') === '01:30:45', 'HH:MM:SS format');
+        assert(validateAndFormatDuration('01:30:45') === '01:30:45', 'HH:MM:SS with leading zeros');
+        assert(validateAndFormatDuration('12:59:59') === '12:59:59', 'Max valid time');
+        
+        // Test valid MM:SS formats
+        assert(validateAndFormatDuration('45:30') === '00:45:30', 'MM:SS format');
+        assert(validateAndFormatDuration('5:15') === '00:05:15', 'M:SS format');
+        assert(validateAndFormatDuration('59:59') === '00:59:59', 'Max minutes/seconds');
+        
+        // Test invalid formats - should throw errors
+        try {
+          validateAndFormatDuration('100:00:00');
+          throw new Error('Should have failed for hours > 99');
+        } catch (e) {
+          assert(e.message.includes('hours cannot exceed 99'), 'Hours validation');
+        }
+        
+        try {
+          validateAndFormatDuration('1:60:30');
+          throw new Error('Should have failed for minutes > 59');
+        } catch (e) {
+          assert(e.message.includes('minutes cannot exceed 59'), 'Minutes validation');
+        }
+        
+        try {
+          validateAndFormatDuration('invalid');
+          throw new Error('Should have failed for invalid format');
+        } catch (e) {
+          assert(e.message.includes('HH:MM:SS or MM:SS format'), 'Format validation');
+        }
       }
     }
   ];

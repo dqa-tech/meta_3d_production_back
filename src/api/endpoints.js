@@ -82,6 +82,7 @@ function routeRequest(request) {
       '/api/task/update': updateTask,
       '/api/task/assign': assignTask,
       '/api/task/rework': reworkTask,
+      '/api/task/review': reviewTask,
       '/api/tasks/batch': batchUpdateTasks
     },
     'GET': {
@@ -118,7 +119,8 @@ function updateTask(request) {
   const updates = {};
   const allowedFields = [
     'agentEmail', 'status', 'startTime', 'endTime',
-    'objFileId', 'alignmentFileId', 'videoFileId'
+    'objFileId', 'alignmentFileId', 'videoFileId', 'timeTaken',
+    'reviewStatus', 'reviewScore', 'reviewerEmail', 'reviewTime'
   ];
   
   // Extract allowed fields
@@ -127,6 +129,27 @@ function updateTask(request) {
       updates[field] = data[field];
     }
   });
+  
+  // Handle review status when task is completed
+  if (updates.status === STATUS_VALUES.COMPLETE) {
+    const currentTask = getTaskById(data.taskId);
+    
+    if (currentTask && 
+        currentTask.reviewerEmail && 
+        currentTask.reviewStatus === REVIEW_STATUS_VALUES.FAILED &&
+        (updates.agentEmail === currentTask.reviewerEmail || 
+         data.agentEmail === currentTask.reviewerEmail)) {
+      
+      // Auto-pass if reviewer completes their own rework
+      updates.reviewStatus = REVIEW_STATUS_VALUES.PASSED;
+      // Do NOT update reviewTime - task wasn't actually reviewed
+      // Keep existing reviewScore and reviewerEmail
+    } else if (!currentTask || !currentTask.reviewStatus || currentTask.status === STATUS_VALUES.REWORK) {
+      
+      // Set to pending review for first completion OR rework completion
+      updates.reviewStatus = REVIEW_STATUS_VALUES.PENDING;
+    }
+  }
   
   // Convert file IDs to URLs
   if (updates.objFileId) {
@@ -328,6 +351,7 @@ function reworkTask(request) {
     objLink: currentTask.objLink,
     alignmentLink: currentTask.alignmentLink,
     videoLink: currentTask.videoLink,
+    timeTaken: currentTask.timeTaken,
     reason: data.reason || 'No reason provided'
   };
   
@@ -467,6 +491,132 @@ function getAgentGroupsEndpoint(request) {
     groups: groups,
     timestamp: new Date().toISOString()
   };
+}
+
+/**
+ * Review task endpoint
+ * @param {Object} request - Request object
+ * @returns {Object} Response
+ */
+function reviewTask(request) {
+  const data = request.body;
+  
+  validateRequired(data, ['taskId', 'score', 'reviewerEmail']);
+  validateReviewRequest(data);
+  
+  // Fetch current task
+  const currentTask = getTaskById(data.taskId);
+  
+  if (!currentTask) {
+    throw new ApiError(`Task not found: ${data.taskId}`, 404);
+  }
+  
+  // Only completed tasks can be reviewed
+  if (currentTask.status !== STATUS_VALUES.COMPLETE) {
+    throw new ApiError(
+      `Only completed tasks can be reviewed. Current status: ${currentTask.status}`,
+      400
+    );
+  }
+  
+  // Only allow review if status is pending
+  if (!currentTask.reviewStatus || currentTask.reviewStatus !== REVIEW_STATUS_VALUES.PENDING) {
+    throw new ApiError('Task must have pending review status to be reviewed', 400);
+  }
+  
+  // Get threshold and determine pass/fail
+  const threshold = getReviewThreshold();
+  const score = parseFloat(data.score);
+  const passed = score >= threshold;
+  
+  const reviewTime = new Date().toISOString();
+  
+  if (passed) {
+    // Pass: Just update review fields
+    const updates = {
+      reviewStatus: REVIEW_STATUS_VALUES.PASSED,
+      reviewScore: score,
+      reviewerEmail: data.reviewerEmail,
+      reviewTime: reviewTime
+    };
+    
+    const result = updateTaskRecord(data.taskId, updates);
+    
+    return {
+      success: true,
+      task: result,
+      message: `Task passed review with score ${score}`,
+      timestamp: new Date().toISOString()
+    };
+  } else {
+    // Fail: Trigger rework assignment
+    const revisionCount = currentTask.revisionCount;
+    const isFirstRework = !revisionCount || revisionCount === '';
+    
+    // Determine who gets the rework
+    const reworkAssignee = isFirstRework ? currentTask.agentEmail : data.reviewerEmail;
+    
+    // Build revision history entry
+    const revisionEntry = {
+      revision: isFirstRework ? 1 : (parseInt(revisionCount) + 1),
+      agentEmail: currentTask.agentEmail,
+      completedAt: currentTask.endTime,
+      startedAt: currentTask.startTime,
+      objLink: currentTask.objLink,
+      alignmentLink: currentTask.alignmentLink,
+      videoLink: currentTask.videoLink,
+      timeTaken: currentTask.timeTaken,
+      reviewScore: score,
+      reviewedBy: data.reviewerEmail,
+      reviewedAt: reviewTime,
+      reason: `Failed review with score ${score} (threshold: ${threshold})`
+    };
+    
+    // Parse existing history or create new array
+    let revisionHistory = [];
+    if (currentTask.revisionHistory) {
+      try {
+        revisionHistory = JSON.parse(currentTask.revisionHistory);
+      } catch (e) {
+        revisionHistory = [];
+      }
+    }
+    revisionHistory.push(revisionEntry);
+    
+    // Update task for rework
+    const updates = {
+      status: STATUS_VALUES.REWORK,
+      revisionCount: isFirstRework ? 1 : (parseInt(revisionCount) + 1),
+      revisionHistory: JSON.stringify(revisionHistory),
+      previousAgentEmail: currentTask.agentEmail,
+      agentEmail: reworkAssignee,
+      startTime: reviewTime,
+      // Clear completion data
+      endTime: '',
+      objLink: '',
+      alignmentLink: '',
+      videoLink: '',
+      // Set review data
+      reviewStatus: REVIEW_STATUS_VALUES.FAILED,
+      reviewScore: score,
+      reviewerEmail: data.reviewerEmail,
+      reviewTime: reviewTime
+    };
+    
+    // Store original completion time if this is first rework
+    if (isFirstRework && currentTask.endTime) {
+      updates.originalCompletionTime = currentTask.endTime;
+    }
+    
+    const result = updateTaskRecord(data.taskId, updates);
+    
+    return {
+      success: true,
+      task: result,
+      message: `Task failed review (score ${score}), assigned for rework to ${reworkAssignee}`,
+      timestamp: new Date().toISOString()
+    };
+  }
 }
 
 /**

@@ -42,6 +42,11 @@ function validateTaskUpdate(data) {
     }
   }
   
+  // Duration validation and normalization
+  if (data.timeTaken !== undefined) {
+    data.timeTaken = validateAndFormatDuration(data.timeTaken);
+  }
+  
   // File ID validation
   if (data.objFileId && !isValidDriveFileId(data.objFileId)) {
     throw new ValidationError('Invalid Drive file ID', 'objFileId', data.objFileId);
@@ -239,4 +244,88 @@ function isValidRevisionHistory(historyJson) {
   } catch (error) {
     return false;
   }
+}
+
+/**
+ * Validate review request
+ * @param {Object} data - Review request data
+ * @throws {ValidationError} If validation fails
+ */
+function validateReviewRequest(data) {
+  // Score validation
+  if (data.score === undefined || data.score === null) {
+    throw new ValidationError('score is required', 'score', data.score);
+  }
+  
+  const score = parseFloat(data.score);
+  if (isNaN(score) || score < 0 || score > 100) {
+    throw new ValidationError('score must be a number between 0 and 100', 'score', data.score);
+  }
+  
+  // Reviewer email validation
+  if (!data.reviewerEmail || !isValidEmail(data.reviewerEmail)) {
+    throw new ValidationError('Valid reviewerEmail is required', 'reviewerEmail', data.reviewerEmail);
+  }
+  
+  // Task ID validation
+  if (!data.taskId || typeof data.taskId !== 'string' || data.taskId.trim() === '') {
+    throw new ValidationError('taskId is required', 'taskId', data.taskId);
+  }
+}
+
+/**
+ * Validate and format duration string
+ * @param {string} duration - Duration string to validate and format
+ * @returns {string} Normalized duration in HH:MM:SS format
+ * @throws {ValidationError} If validation fails
+ */
+function validateAndFormatDuration(duration) {
+  if (!duration || typeof duration !== 'string') {
+    throw new ValidationError('timeTaken must be a string', 'timeTaken', duration);
+  }
+  
+  // Remove any whitespace
+  const trimmed = duration.trim();
+  
+  // Match HH:MM:SS or MM:SS formats
+  const hhmmssPattern = /^(\d{1,2}):([0-5]\d):([0-5]\d)$/;
+  const mmssPattern = /^([0-5]?\d):([0-5]\d)$/;
+  
+  let hours, minutes, seconds;
+  
+  if (hhmmssPattern.test(trimmed)) {
+    // HH:MM:SS format
+    const match = trimmed.match(hhmmssPattern);
+    hours = parseInt(match[1]);
+    minutes = parseInt(match[2]);
+    seconds = parseInt(match[3]);
+  } else if (mmssPattern.test(trimmed)) {
+    // MM:SS format - treat as 0:MM:SS
+    const match = trimmed.match(mmssPattern);
+    hours = 0;
+    minutes = parseInt(match[1]);
+    seconds = parseInt(match[2]);
+  } else {
+    throw new ValidationError(
+      'timeTaken must be in HH:MM:SS or MM:SS format (e.g., "1:30:45" or "45:30")',
+      'timeTaken',
+      duration
+    );
+  }
+  
+  // Validate ranges
+  if (hours > 99) {
+    throw new ValidationError('Duration hours cannot exceed 99', 'timeTaken', duration);
+  }
+  
+  if (minutes > 59) {
+    throw new ValidationError('Duration minutes cannot exceed 59', 'timeTaken', duration);
+  }
+  
+  if (seconds > 59) {
+    throw new ValidationError('Duration seconds cannot exceed 59', 'timeTaken', duration);
+  }
+  
+  // Format to HH:MM:SS with zero padding
+  return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 }

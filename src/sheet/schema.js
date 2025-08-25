@@ -22,12 +22,19 @@ const COLUMNS = {
   OBJ_LINK: '3D Object',
   ALIGNMENT_LINK: 'Alignment',
   VIDEO_LINK: 'Task Video',
+  TIME_TAKEN: 'Time Taken',
   EXPORT_TIME: 'Export Time',
   EXPORT_BATCH_ID: 'Export Batch',
+  EXPORT_STATUS: 'Export Status',
+  STAGED_COUNT: 'Staged Count',
   REVISION_COUNT: 'Revision Count',
   REVISION_HISTORY: 'Revision History',
   ORIGINAL_COMPLETION_TIME: 'Original Completion',
-  PREVIOUS_AGENT_EMAIL: 'Previous Agent'
+  PREVIOUS_AGENT_EMAIL: 'Previous Agent',
+  REVIEW_STATUS: 'Review Status',
+  REVIEW_SCORE: 'Review Score',
+  REVIEWER_EMAIL: 'Reviewer Email',
+  REVIEW_TIME: 'Review Time'
 };
 
 const COLUMN_ORDER = [
@@ -41,6 +48,15 @@ const COLUMN_ORDER = [
   'AGENT_EMAIL',
   'START_TIME',
   'END_TIME',
+  'TIME_TAKEN',
+  'REVIEW_STATUS',
+  'REVIEW_SCORE',
+  'REVIEWER_EMAIL',
+  'REVIEW_TIME',
+  'REVISION_COUNT',
+  'REVISION_HISTORY',
+  'ORIGINAL_COMPLETION_TIME',
+  'PREVIOUS_AGENT_EMAIL',
   'IMAGE_LINK',
   'IMG_MASK_LINK',
   'MASK_LINK',
@@ -49,10 +65,8 @@ const COLUMN_ORDER = [
   'VIDEO_LINK',
   'EXPORT_TIME',
   'EXPORT_BATCH_ID',
-  'REVISION_COUNT',
-  'REVISION_HISTORY',
-  'ORIGINAL_COMPLETION_TIME',
-  'PREVIOUS_AGENT_EMAIL'
+  'EXPORT_STATUS',
+  'STAGED_COUNT'
 ];
 
 const STATUS_VALUES = {
@@ -68,6 +82,23 @@ const GROUP_VALUES = {
   B: 'B',
   C: 'C',
   D: 'D'
+};
+
+const REVIEW_STATUS_VALUES = {
+  PENDING: 'pending',
+  PASSED: 'passed',
+  FAILED: 'failed'
+};
+
+const EXPORT_STATUS_VALUES = {
+  NULL: null,
+  // Staging system (still supported)
+  STAGING: 'staging',
+  STAGED: 'staged',
+  DELIVERING: 'delivering',
+  DELIVERED: 'delivered',
+  STAGING_FAILED: 'staging_failed',
+  DELIVERY_FAILED: 'delivery_failed'
 };
 
 const HEADER_STYLE = {
@@ -139,7 +170,9 @@ function applySheetFormatting(sheet) {
     15: 100, // Alignment
     16: 100, // Task Video
     17: 150, // Export Time
-    18: 120  // Export Batch
+    18: 120, // Export Batch
+    19: 120, // Export Status
+    20: 100  // Staged Count
   };
   
   Object.entries(widths).forEach(([col, width]) => {
@@ -163,6 +196,24 @@ function applySheetFormatting(sheet) {
     .setAllowInvalid(false)
     .build();
   groupRange.setDataValidation(groupRule);
+  
+  // Add data validation for export status column
+  const exportStatusColumn = COLUMN_ORDER.indexOf('EXPORT_STATUS') + 1;
+  const exportStatusRange = sheet.getRange(2, exportStatusColumn, sheet.getMaxRows() - 1, 1);
+  const exportStatusRule = SpreadsheetApp.newDataValidation()
+    .requireValueInList(Object.values(EXPORT_STATUS_VALUES), true)
+    .setAllowInvalid(true) // Allow null values for not-yet-exported tasks
+    .build();
+  exportStatusRange.setDataValidation(exportStatusRule);
+  
+  // Add data validation for review status column
+  const reviewStatusColumn = COLUMN_ORDER.indexOf('REVIEW_STATUS') + 1;
+  const reviewStatusRange = sheet.getRange(2, reviewStatusColumn, sheet.getMaxRows() - 1, 1);
+  const reviewStatusRule = SpreadsheetApp.newDataValidation()
+    .requireValueInList(Object.values(REVIEW_STATUS_VALUES), true)
+    .setAllowInvalid(true) // Allow null values for not-yet-reviewed tasks
+    .build();
+  reviewStatusRange.setDataValidation(reviewStatusRule);
 }
 
 /**

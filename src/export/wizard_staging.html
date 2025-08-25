@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stage Tasks for Export</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            font-size: 13px;
+        }
+        
+        .wizard-container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .wizard-header {
+            background: linear-gradient(135deg, #4285F4 0%, #34A853 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .wizard-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .wizard-subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .step {
+            display: flex;
+            align-items: center;
+            margin: 0 10px;
+        }
+        
+        .step-number {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #e0e0e0;
+            color: #666;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        
+        .step.active .step-number {
+            background: #4285F4;
+            color: white;
+        }
+        
+        .step.completed .step-number {
+            background: #34A853;
+            color: white;
+        }
+        
+        .step-label {
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .step-connector {
+            width: 40px;
+            height: 2px;
+            background: #e0e0e0;
+            margin: 0 10px;
+        }
+        
+        .wizard-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 30px;
+        }
+        
+        .step-content {
+            display: none;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .step-content.active {
+            display: block;
+        }
+        
+        .form-section {
+            background: white;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #1a73e8;
+        }
+        
+        .form-group {
+            margin-bottom: 16px;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        
+        .form-col {
+            flex: 1;
+        }
+        
+        label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 4px;
+            color: #333;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #4285F4;
+            box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.2);
+        }
+        
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+        }
+        
+        .checkbox-item input[type="checkbox"] {
+            width: auto;
+            margin-right: 8px;
+        }
+        
+        .warning-box {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 12px;
+            border-radius: 4px;
+            margin-top: 8px;
+        }
+        
+        .error-box {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            padding: 12px;
+            border-radius: 4px;
+            margin-top: 8px;
+        }
+        
+        .success-box {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 12px;
+            border-radius: 4px;
+            margin-top: 8px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+        
+        .stat-card {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            padding: 16px;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1a73e8;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+            margin-top: 4px;
+        }
+        
+        .progress-container {
+            background: white;
+            border-radius: 8px;
+            padding: 24px;
+            text-align: center;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            margin: 16px 0;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4285F4, #34A853);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .progress-text {
+            font-size: 14px;
+            color: #666;
+            margin-top: 8px;
+        }
+        
+        .task-list {
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+        }
+        
+        .task-item {
+            padding: 12px;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .task-item:last-child {
+            border-bottom: none;
+        }
+        
+        .task-name {
+            font-weight: 500;
+        }
+        
+        .task-meta {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .task-status {
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+        
+        .task-status.valid {
+            background: #e8f5e8;
+            color: #2d5a2d;
+        }
+        
+        .task-status.invalid {
+            background: #ffeaea;
+            color: #d63031;
+        }
+        
+        .wizard-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px;
+            background: white;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .btn-primary {
+            background: #1a73e8;
+            color: white;
+        }
+        
+        .btn-primary:hover:not(:disabled) {
+            background: #1557b0;
+        }
+        
+        .btn-secondary {
+            background: #f8f9fa;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+        
+        .btn-secondary:hover:not(:disabled) {
+            background: #e9ecef;
+        }
+        
+        .btn-success {
+            background: #34A853;
+            color: white;
+        }
+        
+        .btn-success:hover:not(:disabled) {
+            background: #2d8f47;
+        }
+        
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .loading {
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .loading-spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid #ffffff;
+            border-top: 2px solid transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 8px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="wizard-container">
+        <div class="wizard-header">
+            <div class="wizard-title">Stage Tasks for Export</div>
+            <div class="wizard-subtitle">Prepare tasks for client delivery with quality validation</div>
+        </div>
+        
+        <div class="step-indicator">
+            <div class="step active" id="step-indicator-1">
+                <div class="step-number">1</div>
+                <div class="step-label">Configure Filters</div>
+            </div>
+            <div class="step-connector"></div>
+            <div class="step" id="step-indicator-2">
+                <div class="step-number">2</div>
+                <div class="step-label">Preview Staging</div>
+            </div>
+            <div class="step-connector"></div>
+            <div class="step" id="step-indicator-3">
+                <div class="step-number">3</div>
+                <div class="step-label">Execute Staging</div>
+            </div>
+            <div class="step-connector"></div>
+            <div class="step" id="step-indicator-4">
+                <div class="step-number">4</div>
+                <div class="step-label">Complete</div>
+            </div>
+        </div>
+        
+        <div class="wizard-content">
+            <!-- Step 1: Configure Filters -->
+            <div class="step-content active" id="step-1">
+                <div class="form-section">
+                    <div class="section-title">Task Selection Filters</div>
+                    
+                    <div class="form-group">
+                        <label for="batch-filter">Import Batches (optional)</label>
+                        <select id="batch-filter" multiple style="height: 120px;">
+                            <!-- Options populated by JavaScript -->
+                        </select>
+                        <div style="font-size: 12px; color: #666; margin-top: 4px;">
+                            Hold Ctrl/Cmd to select multiple batches. Leave empty to include all batches.
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label for="completed-after">Completed After (optional)</label>
+                            <input type="date" id="completed-after">
+                        </div>
+                        <div class="form-col">
+                            <label for="completed-before">Completed Before (optional)</label>
+                            <input type="date" id="completed-before">
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div class="form-section">
+                    <div class="section-title">Quality Override Options</div>
+                    <p style="color: #666; font-size: 13px; margin-bottom: 16px;">
+                        By default, only complete tasks with passed reviews and no previous exports are included.
+                    </p>
+                    
+                    <div class="form-group">
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="include-unreviewed">
+                                <label for="include-unreviewed">Include Unreviewed Tasks</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="include-failed">
+                                <label for="include-failed">Include Failed Reviews</label>
+                            </div>
+                        </div>
+                        <div style="font-size: 12px; color: #666; margin-top: 8px;">
+                            Note: Previously exported tasks are never included.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Step 2: Preview Staging -->
+            <div class="step-content" id="step-2">
+                <div class="form-section">
+                    <div class="section-title">Staging Preview</div>
+                    
+                    <div class="stats-grid" id="staging-stats">
+                        <!-- Stats populated by JavaScript -->
+                    </div>
+                    
+                    <div id="staging-messages"></div>
+                </div>
+                
+                <div class="form-section">
+                    <div class="section-title">Selected Tasks</div>
+                    <div class="task-list" id="selected-tasks-list">
+                        <!-- Task list populated by JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <div class="section-title">Staging Destination</div>
+                    <div id="staging-destination">
+                        <!-- Destination info populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Step 3: Execute Staging -->
+            <div class="step-content" id="step-3">
+                <div class="progress-container">
+                    <h3>Staging Tasks...</h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="staging-progress"></div>
+                    </div>
+                    <div class="progress-text" id="progress-text">Preparing staging operation...</div>
+                    
+                    <div id="staging-log" style="text-align: left; margin-top: 20px; max-height: 300px; overflow-y: auto;">
+                        <!-- Progress messages -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Step 4: Complete -->
+            <div class="step-content" id="step-4">
+                <div class="form-section">
+                    <div class="section-title">Staging Complete</div>
+                    
+                    <div id="completion-status">
+                        <!-- Completion status populated by JavaScript -->
+                    </div>
+                    
+                    <div class="stats-grid" id="completion-stats">
+                        <!-- Final stats populated by JavaScript -->
+                    </div>
+                    
+                    <div id="completion-links" style="margin-top: 20px;">
+                        <!-- Links to staging folder and export sheet -->
+                    </div>
+                    
+                    <div id="next-steps" style="margin-top: 20px;">
+                        <!-- Next steps guidance -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="wizard-actions">
+            <button class="btn btn-secondary" id="btn-back" onclick="previousStep()" style="display: none;">
+                Back
+            </button>
+            <div id="step-info"></div>
+            <button class="btn btn-primary" id="btn-next" onclick="nextStep()">
+                Next
+            </button>
+        </div>
+    </div>
+    
+    <script>
+        let currentStep = 1;
+        let filterOptions = {};
+        let selectedTasks = [];
+        let stagingPreview = {};
+        let exportBatchId = '';
+        
+        // Initialize wizard
+        window.onload = function() {
+            initializeWizard();
+        };
+        
+        function initializeWizard() {
+            loadFilterOptions();
+            updateStepIndicator();
+            updateButtons();
+        }
+        
+        function loadFilterOptions() {
+            google.script.run
+                .withSuccessHandler(onFilterOptionsLoaded)
+                .withFailureHandler(onError)
+                .getStagingFilterOptions();
+        }
+        
+        function onFilterOptionsLoaded(options) {
+            if (!options.success) {
+                showError('Failed to load filter options: ' + (options.error || 'Unknown error'));
+                return;
+            }
+            
+            filterOptions = options;
+            populateFilterUI(options);
+        }
+        
+        function populateFilterUI(options) {
+            // Populate batch filter
+            const batchSelect = document.getElementById('batch-filter');
+            options.batches.forEach(batch => {
+                const option = document.createElement('option');
+                option.value = batch;
+                option.textContent = batch;
+                batchSelect.appendChild(option);
+            });
+        }
+        
+        function nextStep() {
+            if (currentStep === 1) {
+                previewStaging();
+            } else if (currentStep === 2) {
+                executeStaging();
+            } else if (currentStep === 3) {
+                // Skip to completion (staging in progress)
+                return;
+            } else if (currentStep === 4) {
+                // Close or proceed to delivery
+                google.script.host.close();
+            }
+        }
+        
+        function previousStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                updateStepIndicator();
+                updateButtons();
+                showStep(currentStep);
+            }
+        }
+        
+        function previewStaging() {
+            showLoading('Loading preview...');
+            
+            const filters = collectFilters();
+            console.log('DEBUG: Filters being sent to backend:', JSON.stringify(filters, null, 2));
+            
+            google.script.run
+                .withSuccessHandler(onPreviewLoaded)
+                .withFailureHandler(onError)
+                .previewStagingOperation(filters);
+        }
+        
+        function onPreviewLoaded(preview) {
+            hideLoading();
+            
+            console.log('DEBUG: onPreviewLoaded received:', preview);
+            
+            if (!preview) {
+                showError('Preview failed: No response from server');
+                return;
+            }
+            
+            if (!preview.success) {
+                showError('Preview failed: ' + (preview.error || 'Unknown error'));
+                return;
+            }
+            
+            stagingPreview = preview;
+            displayPreview(preview);
+            
+            currentStep = 2;
+            updateStepIndicator();
+            updateButtons();
+            showStep(currentStep);
+        }
+        
+        function displayPreview(preview) {
+            // Store task IDs for staging execution
+            selectedTasks = preview.taskIds || [];
+            
+            // Update stats
+            const statsContainer = document.getElementById('staging-stats');
+            statsContainer.innerHTML = `
+                <div class="stat-card">
+                    <div class="stat-number">${preview.taskCount}</div>
+                    <div class="stat-label">Tasks Found</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${preview.validTasks || 0}</div>
+                    <div class="stat-label">Valid for Staging</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${preview.sizeEstimate?.formattedSize || 'Unknown'}</div>
+                    <div class="stat-label">Estimated Size</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${preview.estimatedDuration || 0} min</div>
+                    <div class="stat-label">Est. Duration</div>
+                </div>
+            `;
+            
+            // Show messages
+            const messagesContainer = document.getElementById('staging-messages');
+            if (preview.canStage) {
+                messagesContainer.innerHTML = `<div class="success-box">${preview.message}</div>`;
+            } else {
+                messagesContainer.innerHTML = `<div class="error-box">${preview.message}</div>`;
+            }
+            
+            // Display simplified task list
+            const taskListContainer = document.getElementById('selected-tasks-list');
+            if (selectedTasks.length > 0) {
+                const displayCount = Math.min(selectedTasks.length, 10);
+                let listHTML = '';
+                
+                for (let i = 0; i < displayCount; i++) {
+                    listHTML += `
+                        <div class="task-item">
+                            <div>
+                                <div class="task-name">Task ${i + 1}</div>
+                                <div class="task-meta">Task ID: ${selectedTasks[i]}</div>
+                            </div>
+                            <div class="task-status valid">Ready</div>
+                        </div>
+                    `;
+                }
+                
+                if (selectedTasks.length > 10) {
+                    listHTML += `<div style="padding: 12px; text-align: center; color: #666; font-size: 12px;">... and ${selectedTasks.length - 10} more tasks</div>`;
+                }
+                
+                taskListContainer.innerHTML = listHTML;
+            } else {
+                taskListContainer.innerHTML = '<div style="padding: 20px; text-align: center; color: #666;">No tasks selected</div>';
+            }
+            
+            // Display staging destination
+            const destContainer = document.getElementById('staging-destination');
+            destContainer.innerHTML = `
+                <p><strong>Staging Folder:</strong> ${preview.stagingFolder}</p>
+                <p><strong>Batch ID:</strong> ${exportBatchId}</p>
+                <p><small>Files will be organized by task folder within the staging area.</small></p>
+            `;
+        }
+        
+        function executeStaging() {
+            if (!stagingPreview.canStage) {
+                showError('Cannot proceed with staging. Please fix the issues shown in the preview.');
+                return;
+            }
+            
+            currentStep = 3;
+            updateStepIndicator();
+            updateButtons();
+            showStep(currentStep);
+            
+            // Generate batch ID if not set
+            if (!exportBatchId) {
+                exportBatchId = 'EXP_' + new Date().toISOString().replace(/[-T:\.]/g, '').substring(0, 14) + '_' + 
+                               Math.random().toString(36).substring(2, 6).toUpperCase();
+            }
+            
+            const filters = collectFilters();
+            const selection = { taskIds: selectedTasks };
+            
+            // Start staging operation
+            google.script.run
+                .withSuccessHandler(onStagingComplete)
+                .withFailureHandler(onStagingError)
+                .executeStagingWizard(selection, exportBatchId);
+            
+            // Start progress simulation
+            simulateProgress();
+        }
+        
+        function simulateProgress() {
+            const progressBar = document.getElementById('staging-progress');
+            const progressText = document.getElementById('progress-text');
+            const stagingLog = document.getElementById('staging-log');
+            
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.random() * 10;
+                if (progress > 95) progress = 95;
+                
+                progressBar.style.width = progress + '%';
+                
+                if (progress < 20) {
+                    progressText.textContent = 'Validating tasks and production files...';
+                } else if (progress < 40) {
+                    progressText.textContent = 'Creating staging folder structure...';
+                } else if (progress < 70) {
+                    progressText.textContent = 'Copying task files to staging...';
+                } else if (progress < 90) {
+                    progressText.textContent = 'Generating export sheet...';
+                } else {
+                    progressText.textContent = 'Finalizing staging operation...';
+                }
+                
+                // Add random log messages
+                if (Math.random() < 0.3) {
+                    const messages = [
+                        'Validating production files...',
+                        'Creating task folder...',
+                        'Copying files...',
+                        'Updating task status...'
+                    ];
+                    const message = messages[Math.floor(Math.random() * messages.length)];
+                    addLogMessage(stagingLog, message);
+                }
+            }, 500);
+            
+            // Store interval ID to clear it when complete
+            window.stagingProgressInterval = interval;
+        }
+        
+        function addLogMessage(container, message) {
+            const logEntry = document.createElement('div');
+            logEntry.style.margin = '4px 0';
+            logEntry.style.fontSize = '12px';
+            logEntry.style.color = '#666';
+            logEntry.textContent = new Date().toLocaleTimeString() + ': ' + message;
+            container.appendChild(logEntry);
+            container.scrollTop = container.scrollHeight;
+        }
+        
+        function onStagingComplete(result) {
+            // Clear progress interval
+            if (window.stagingProgressInterval) {
+                clearInterval(window.stagingProgressInterval);
+            }
+            
+            // Complete progress bar
+            const progressBar = document.getElementById('staging-progress');
+            const progressText = document.getElementById('progress-text');
+            progressBar.style.width = '100%';
+            progressText.textContent = 'Staging complete!';
+            
+            // Show completion
+            setTimeout(() => {
+                currentStep = 4;
+                updateStepIndicator();
+                updateButtons();
+                showStep(currentStep);
+                displayCompletion(result);
+            }, 1000);
+        }
+        
+        function onStagingError(error) {
+            // Clear progress interval
+            if (window.stagingProgressInterval) {
+                clearInterval(window.stagingProgressInterval);
+            }
+            
+            const progressText = document.getElementById('progress-text');
+            progressText.textContent = 'Staging failed: ' + error;
+            progressText.style.color = '#d63031';
+            
+            showError('Staging operation failed: ' + error);
+        }
+        
+        function displayCompletion(result) {
+            const statusContainer = document.getElementById('completion-status');
+            const statsContainer = document.getElementById('completion-stats');
+            const linksContainer = document.getElementById('completion-links');
+            const nextStepsContainer = document.getElementById('next-steps');
+            
+            if (result.success) {
+                statusContainer.innerHTML = '<div class="success-box"><strong>Staging completed successfully!</strong></div>';
+                
+                statsContainer.innerHTML = `
+                    <div class="stat-card">
+                        <div class="stat-number">${result.stats.successfulStaging}</div>
+                        <div class="stat-label">Tasks Staged</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">${result.stats.failedStaging || 0}</div>
+                        <div class="stat-label">Failed</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">${Math.round(result.duration / 1000)}s</div>
+                        <div class="stat-label">Duration</div>
+                    </div>
+                `;
+                
+                linksContainer.innerHTML = `
+                    <p><strong>Staging Folder:</strong> <a href="${result.batchFolder?.url}" target="_blank">${result.batchFolder?.name}</a></p>
+                    <p><strong>Export Sheet:</strong> <a href="${result.exportSheet?.url}" target="_blank">${result.exportSheet?.name}</a></p>
+                `;
+                
+                nextStepsContainer.innerHTML = `
+                    <div class="success-box">
+                        <p><strong>Next Steps:</strong></p>
+                        <ol style="margin-left: 20px; margin-top: 8px;">
+                            <li>Review the staged tasks in the staging folder</li>
+                            <li>Use the export sheet to verify task data</li>
+                            <li>Proceed to delivery wizard when ready</li>
+                        </ol>
+                        <button class="btn btn-primary" onclick="proceedToDelivery()" style="margin-top: 12px;">
+                            Proceed to Delivery
+                        </button>
+                    </div>
+                `;
+            } else {
+                statusContainer.innerHTML = '<div class="error-box"><strong>Staging failed:</strong> ' + (result.error || 'Unknown error') + '</div>';
+                
+                if (result.errors && result.errors.length > 0) {
+                    const errorsList = result.errors.map(e => `<li>${e}</li>`).join('');
+                    statusContainer.innerHTML += `<div class="error-box" style="margin-top: 8px;"><ul>${errorsList}</ul></div>`;
+                }
+            }
+        }
+        
+        function proceedToDelivery() {
+            google.script.host.close();
+            google.script.run.showDeliveryWizard();
+        }
+        
+        function collectFilters() {
+            const filters = {
+                batchIds: Array.from(document.getElementById('batch-filter').selectedOptions).map(o => o.value),
+                completedAfter: document.getElementById('completed-after').value || null,
+                completedBefore: document.getElementById('completed-before').value || null,
+                includeUnreviewed: document.getElementById('include-unreviewed').checked,
+                includeFailed: document.getElementById('include-failed').checked
+            };
+            
+            return filters;
+        }
+        
+        function updateStepIndicator() {
+            for (let i = 1; i <= 4; i++) {
+                const stepElement = document.getElementById('step-indicator-' + i);
+                stepElement.classList.remove('active', 'completed');
+                
+                if (i < currentStep) {
+                    stepElement.classList.add('completed');
+                } else if (i === currentStep) {
+                    stepElement.classList.add('active');
+                }
+            }
+        }
+        
+        function updateButtons() {
+            const backBtn = document.getElementById('btn-back');
+            const nextBtn = document.getElementById('btn-next');
+            const stepInfo = document.getElementById('step-info');
+            
+            backBtn.style.display = currentStep > 1 ? 'inline-block' : 'none';
+            
+            if (currentStep === 1) {
+                nextBtn.textContent = 'Preview';
+                nextBtn.className = 'btn btn-primary';
+                stepInfo.textContent = 'Configure your filters';
+            } else if (currentStep === 2) {
+                nextBtn.textContent = 'Start Staging';
+                nextBtn.className = 'btn btn-success';
+                nextBtn.disabled = !stagingPreview.canStage;
+                stepInfo.textContent = 'Review and confirm';
+            } else if (currentStep === 3) {
+                nextBtn.style.display = 'none';
+                stepInfo.textContent = 'Staging in progress...';
+            } else if (currentStep === 4) {
+                nextBtn.textContent = 'Close';
+                nextBtn.className = 'btn btn-primary';
+                nextBtn.style.display = 'inline-block';
+                stepInfo.textContent = 'Staging complete';
+            }
+        }
+        
+        function showStep(step) {
+            document.querySelectorAll('.step-content').forEach(el => {
+                el.classList.remove('active');
+            });
+            document.getElementById('step-' + step).classList.add('active');
+        }
+        
+        function showError(message) {
+            console.error('Staging wizard error:', message);
+            alert('Error: ' + message);
+        }
+        
+        function showLoading(message) {
+            // Could add a loading overlay here
+            console.log('Loading:', message);
+        }
+        
+        function hideLoading() {
+            // Hide loading overlay
+        }
+        
+        function onError(error) {
+            console.error('Google Apps Script error:', error);
+            showError(error.message || error.toString());
+        }
+    </script>
+</body>
+</html>
