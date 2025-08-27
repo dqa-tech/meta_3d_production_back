@@ -551,7 +551,10 @@ function reviewTask(request) {
   } else {
     // Fail: Trigger rework assignment
     const revisionCount = currentTask.revisionCount;
-    const isFirstRework = !revisionCount || revisionCount === '';
+    const existingRevisionHistory = currentTask.revisionHistory;
+    
+    // Check if this is first rework: revisionCount is 0/null/empty AND revisionHistory is null/empty
+    const isFirstRework = (!revisionCount || revisionCount === 0) && (!existingRevisionHistory || existingRevisionHistory.trim() === '');
     
     // Determine who gets the rework
     const reworkAssignee = isFirstRework ? currentTask.agentEmail : data.reviewerEmail;
