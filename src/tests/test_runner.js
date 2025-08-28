@@ -31,7 +31,9 @@ function runAllTests() {
     { name: 'Export Validation', tests: testExportValidation },
     { name: 'Export Reporting', tests: testExportReporting },
     { name: 'API Endpoints', tests: testApiEndpoints },
-    { name: 'Validation', tests: testValidation }
+    { name: 'Validation', tests: testValidation },
+    { name: 'Video Utilities', tests: testVideoUtilities },
+    { name: 'Auto Time Taken', tests: testAutoTimeTaken }
   ];
   
   // Run each test group
@@ -557,6 +559,117 @@ function testValidation() {
   ];
   
   return runTestGroup('Validation', tests);
+}
+
+/**
+ * Test Video Utilities (unit tests)
+ */
+function testVideoUtilities() {
+  const tests = [
+    {
+      name: 'Format ms to HH:MM:SS',
+      func: () => {
+        assertEquals(formatMsToHHMMSS(3661000), '01:01:01', '1h1m1s formatting');
+        assertEquals(formatMsToHHMMSS(0), '00:00:00', 'Zero formatting');
+      }
+    },
+    {
+      name: 'Extract Drive file IDs from links',
+      func: () => {
+        const links = [
+          'https://drive.google.com/file/d/aaaaaaaaaaaaaaaaaaaa/view',
+          ' https://drive.google.com/open?id=bbbbbbbbbbbbbbbbbbbb ',
+          'https://drive.google.com/file/d/cccccccccccccccccccc/edit?usp=sharing'
+        ].join(',');
+        const ids = extractDriveFileIdsFromLinks(links);
+        assertEquals(ids.length, 3, 'Should extract 3 IDs');
+        assertEquals(ids[0], 'aaaaaaaaaaaaaaaaaaaa', 'First ID');
+        assertEquals(ids[1], 'bbbbbbbbbbbbbbbbbbbb', 'Second ID');
+        assertEquals(ids[2], 'cccccccccccccccccccc', 'Third ID');
+      }
+    },
+    {
+      name: 'Compute duration from IDs (stubbed responses)',
+      func: () => {
+        const original = parallelFetch;
+        try {
+          // Stub: return two videos 65s and 95s
+          parallelFetch = (requests) => {
+            return requests.map((_, i) => ({
+              mimeType: 'video/mp4',
+              videoMediaMetadata: { durationMillis: i === 0 ? 65000 : 95000 }
+            }));
+          };
+          const result = computeTimeTakenFromVideoIds(['aaaaaaaaaaaaaaaaaaaa', 'bbbbbbbbbbbbbbbbbbbb']);
+          assertEquals(result, '00:02:40', 'Total duration 160s');
+        } finally {
+          parallelFetch = original;
+        }
+      }
+    },
+    {
+      name: 'Compute duration error path (stubbed throw)',
+      func: () => {
+        const original = parallelFetch;
+        try {
+          parallelFetch = () => { throw new Error('network'); };
+          const result = computeTimeTakenFromVideoIds(['aaaaaaaaaaaaaaaaaaaa']);
+          assert(result === null || result === '00:00:00', 'Graceful handling on error');
+        } finally {
+          parallelFetch = original;
+        }
+      }
+    }
+  ];
+  return runTestGroup('Video Utilities', tests);
+}
+
+/**
+ * Test auto-calculation of timeTaken in updateTask (integration-ish with stubs)
+ */
+function testAutoTimeTaken() {
+  const tests = [
+    {
+      name: 'updateTask sets timeTaken from videoFileId (stubbed durations)',
+      func: () => {
+        const taskId = generateUUID();
+        createTaskRecord({
+          taskId,
+          folderName: 'auto_time_test_folder',
+          batchId: 'TEST_AUTO_TIME_001',
+          status: STATUS_VALUES.OPEN,
+          importTime: new Date().toISOString()
+        });
+
+        const original = parallelFetch;
+        try {
+          // 60s + 90s = 150s = 00:02:30
+          parallelFetch = (requests) => {
+            return requests.map((_, i) => ({
+              mimeType: 'video/mp4',
+              videoMediaMetadata: { durationMillis: i === 0 ? 60000 : 90000 }
+            }));
+          };
+
+          const req = { body: { taskId, videoFileId: ['aaaaaaaaaaaaaaaaaaaa', 'bbbbbbbbbbbbbbbbbbbb'] } };
+          const res = updateTask(req);
+          assert(res.success === true, 'Update should succeed');
+          assert(res.task.videoLink && res.task.videoLink.indexOf('/file/d/aaaaaaaaaaaaaaaaaaaa/') !== -1, 'videoLink contains first video');
+          assertEquals(res.task.timeTaken, '00:02:30', 'Auto timeTaken set');
+
+          // Explicit timeTaken must take precedence
+          const req2 = { body: { taskId, videoFileId: ['cccccccccccccccccccc'], timeTaken: '00:00:05' } };
+          const res2 = updateTask(req2);
+          assert(res2.success === true, 'Second update should succeed');
+          assertEquals(res2.task.timeTaken, '00:00:05', 'Client-provided timeTaken wins');
+        } finally {
+          parallelFetch = original;
+          deleteTaskRecord(taskId);
+        }
+      }
+    }
+  ];
+  return runTestGroup('Auto Time Taken', tests);
 }
 
 /**
