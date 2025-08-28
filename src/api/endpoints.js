@@ -164,6 +164,18 @@ function updateTask(request) {
       `https://drive.google.com/file/d/${id}/view`
     );
     updates.videoLink = videoUrls.join(',');
+
+    // Auto-calculate timeTaken from linked Drive video durations
+    // Only set if computable; prefer explicit client-provided timeTaken if present
+    try {
+      const autoDuration = computeTimeTakenFromVideoIds(updates.videoFileId);
+      if (autoDuration && !updates.timeTaken) {
+        updates.timeTaken = autoDuration;
+      }
+    } catch (e) {
+      // Non-fatal: log and continue without blocking task update
+      error('Auto timeTaken calculation failed', { message: e.message, taskId: data.taskId });
+    }
   }
   
   const result = updateTaskRecord(data.taskId, updates);
