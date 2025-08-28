@@ -560,6 +560,248 @@ function testValidation() {
 }
 
 /**
+ * Test Review System Rework Assignment Logic
+ * Tests the recent fix for rework assignment when task has already been reworked
+ */
+function testReviewReworkAssignment() {
+  const testTaskId = generateUUID();
+  const originalAgent = 'original@example.com';
+  const reviewerEmail = 'reviewer@example.com';
+  const threshold = getReviewThreshold();
+  
+  try {
+    info('Testing review rework assignment logic...');
+    
+    // Test Case 1: First Review Failure (should assign to original agent)
+    info('Test Case 1: First review failure');
+    
+    // Create a completed task (no prior revisions)
+    const taskData = {
+      taskId: testTaskId,
+      batchId: 'TEST_REWORK_001',
+      status: STATUS_VALUES.COMPLETE,
+      folderName: 'test_rework_folder',
+      group: 'A',
+      importTime: new Date().toISOString(),
+      agentEmail: originalAgent,
+      startTime: new Date(Date.now() - 3600000).toISOString(),
+      endTime: new Date().toISOString(),
+      objLink: 'https://drive.google.com/file/d/test1/view',
+      alignmentLink: 'https://drive.google.com/file/d/test2/view',
+      videoLink: 'https://drive.google.com/file/d/test3/view',
+      reviewStatus: REVIEW_STATUS_VALUES.PENDING,
+      revisionCount: null, // No prior revisions
+      revisionHistory: null // No prior history
+    };
+    
+    createTaskRecord(taskData);
+    
+    // Submit failing review
+    const reviewRequest1 = {
+      body: {
+        taskId: testTaskId,
+        score: threshold - 10, // Below threshold
+        reviewerEmail: reviewerEmail
+      }
+    };
+    
+    const result1 = reviewTask(reviewRequest1);
+    const task1 = getTaskById(testTaskId);
+    
+    info(`First failure - Assigned to: ${task1.agentEmail}`);
+    assert(task1.agentEmail === originalAgent, `First rework should assign to original agent. Expected: ${originalAgent}, Got: ${task1.agentEmail}`);
+    assert(task1.status === STATUS_VALUES.REWORK, 'Status should be REWORK');
+    assert(task1.revisionCount === 1, 'Revision count should be 1');
+    assert(task1.revisionHistory !== null, 'Revision history should exist');
+    
+    // Test Case 2: Complete the rework and submit for review again
+    info('Test Case 2: Complete rework and resubmit');
+    
+    // Simulate completion of rework
+    const reworkUpdate = {
+      status: STATUS_VALUES.COMPLETE,
+      endTime: new Date().toISOString(),
+      objLink: 'https://drive.google.com/file/d/rework1/view',
+      alignmentLink: 'https://drive.google.com/file/d/rework2/view',
+      videoLink: 'https://drive.google.com/file/d/rework3/view',
+      reviewStatus: REVIEW_STATUS_VALUES.PENDING
+    };
+    
+    updateTaskRecord(testTaskId, reworkUpdate);
+    
+    // Submit second failing review (should now assign to reviewer)
+    const reviewRequest2 = {
+      body: {
+        taskId: testTaskId,
+        score: threshold - 5, // Still below threshold
+        reviewerEmail: reviewerEmail
+      }
+    };
+    
+    const result2 = reviewTask(reviewRequest2);
+    const task2 = getTaskById(testTaskId);
+    
+    info(`Second failure - Assigned to: ${task2.agentEmail}`);
+    assert(task2.agentEmail === reviewerEmail, `Second rework should assign to reviewer. Expected: ${reviewerEmail}, Got: ${task2.agentEmail}`);
+    assert(task2.status === STATUS_VALUES.REWORK, 'Status should be REWORK');
+    assert(task2.revisionCount === 2, 'Revision count should be 2');
+    
+    // Verify revision history contains both entries
+    const history = JSON.parse(task2.revisionHistory);
+    assert(history.length === 2, 'Should have 2 revision entries');
+    assert(history[0].agentEmail === originalAgent, 'First revision should be from original agent');
+    assert(history[1].agentEmail === originalAgent, 'Second revision should also show original agent work');
+    
+    info('✓ All test cases passed!');
+    return {
+      success: true,
+      message: 'Review rework assignment logic working correctly'
+    };
+    
+  } catch (error) {
+    info(`✗ Test failed: ${error.message}`);
+    return {
+      success: false,
+      error: error.message
+    };
+  } finally {
+    // Clean up test task
+    try {
+      deleteTaskRecord(testTaskId);
+      info('Test data cleaned up');
+    } catch (e) {
+      info(`Cleanup error: ${e.message}`);
+    }
+  }
+}
+
+/**
+ * Configurable test for review rework assignment
+ * @param {Object} config - Test configuration
+ * @returns {Object} Test results
+ */
+function testReviewReworkAssignmentConfigurable(config = {}) {
+  const testConfig = {
+    originalAgent: config.originalAgent || 'test.original@example.com',
+    reviewerEmail: config.reviewerEmail || 'test.reviewer@example.com',
+    failingScore: config.failingScore || (getReviewThreshold() - 10),
+    taskPrefix: config.taskPrefix || 'test_configurable_rework',
+    testMultipleReworks: config.testMultipleReworks !== false, // Default true
+    ...config
+  };
+  
+  const testTaskId = generateUUID();
+  const results = [];
+  
+  try {
+    info(`Starting configurable rework test with config: ${JSON.stringify(testConfig)}`);
+    
+    // Create initial completed task
+    const initialTask = {
+      taskId: testTaskId,
+      batchId: 'TEST_CONFIG_REWORK',
+      status: STATUS_VALUES.COMPLETE,
+      folderName: `${testConfig.taskPrefix}_${Date.now()}`,
+      group: 'A',
+      importTime: new Date().toISOString(),
+      agentEmail: testConfig.originalAgent,
+      startTime: new Date(Date.now() - 3600000).toISOString(),
+      endTime: new Date().toISOString(),
+      objLink: 'https://drive.google.com/file/d/initial/view',
+      reviewStatus: REVIEW_STATUS_VALUES.PENDING,
+      revisionCount: testConfig.initialRevisionCount || null,
+      revisionHistory: testConfig.initialRevisionHistory || null
+    };
+    
+    createTaskRecord(initialTask);
+    
+    // Test first review failure
+    const firstReviewResult = reviewTask({
+      body: {
+        taskId: testTaskId,
+        score: testConfig.failingScore,
+        reviewerEmail: testConfig.reviewerEmail
+      }
+    });
+    
+    const taskAfterFirst = getTaskById(testTaskId);
+    const expectedFirstAssignee = (!testConfig.initialRevisionCount && !testConfig.initialRevisionHistory) 
+      ? testConfig.originalAgent 
+      : testConfig.reviewerEmail;
+    
+    results.push({
+      test: 'First rework assignment',
+      expected: expectedFirstAssignee,
+      actual: taskAfterFirst.agentEmail,
+      passed: taskAfterFirst.agentEmail === expectedFirstAssignee
+    });
+    
+    if (testConfig.testMultipleReworks) {
+      // Complete the rework and test second failure
+      updateTaskRecord(testTaskId, {
+        status: STATUS_VALUES.COMPLETE,
+        endTime: new Date().toISOString(),
+        reviewStatus: REVIEW_STATUS_VALUES.PENDING
+      });
+      
+      const secondReviewResult = reviewTask({
+        body: {
+          taskId: testTaskId,
+          score: testConfig.failingScore,
+          reviewerEmail: testConfig.reviewerEmail
+        }
+      });
+      
+      const taskAfterSecond = getTaskById(testTaskId);
+      
+      results.push({
+        test: 'Second rework assignment',
+        expected: testConfig.reviewerEmail,
+        actual: taskAfterSecond.agentEmail,
+        passed: taskAfterSecond.agentEmail === testConfig.reviewerEmail
+      });
+    }
+    
+    const allPassed = results.every(r => r.passed);
+    
+    return {
+      success: allPassed,
+      results: results,
+      config: testConfig,
+      taskId: testTaskId
+    };
+    
+  } catch (error) {
+    return {
+      success: false,
+      error: error.message,
+      results: results,
+      config: testConfig,
+      taskId: testTaskId
+    };
+  } finally {
+    // Clean up
+    try {
+      deleteTaskRecord(testTaskId);
+    } catch (e) {
+      info(`Cleanup error: ${e.message}`);
+    }
+  }
+}
+
+/**
+ * Quick test with custom parameters
+ */
+function quickTestReworkAssignment(originalAgent, reviewerEmail, score) {
+  return testReviewReworkAssignmentConfigurable({
+    originalAgent: originalAgent || 'quick.test@example.com',
+    reviewerEmail: reviewerEmail || 'quick.reviewer@example.com',
+    failingScore: score || (getReviewThreshold() - 10),
+    testMultipleReworks: true
+  });
+}
+
+/**
  * Clean up test data
  */
 function cleanupTestData() {

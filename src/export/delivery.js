@@ -447,6 +447,11 @@ function deliverTaskFiles(task, clientFolderId) {
         continue;
       }
       
+      // Skip version 0 files (e.g., folder_name_quad_mesh_v0.obj)
+      if (/_v0\./i.test(fileName)) {
+        continue;
+      }
+      
       try {
         const copiedFile = file.makeCopy(fileName, targetFolder);
         copiedFiles.push(fileName);
