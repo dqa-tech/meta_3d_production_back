@@ -169,9 +169,7 @@ function updateTask(request) {
     // Only set if computable; prefer explicit client-provided timeTaken if present
     try {
       const autoDuration = computeTimeTakenFromVideoIds(updates.videoFileId);
-      if (autoDuration && !updates.timeTaken) {
-        updates.timeTaken = autoDuration;
-      }
+      updates.timeTaken = autoDuration || updates.timeTaken;
     } catch (e) {
       // Non-fatal: log and continue without blocking task update
       error('Auto timeTaken calculation failed', { message: e.message, taskId: data.taskId });
